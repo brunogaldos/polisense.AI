@@ -574,14 +574,14 @@ a:visited {
 }
 
 /* Special styling for View Now button */
-.cta-button[href*="google.com/maps"] {
+.cta-button[href*="drive.google.com"] {
     background: #44546a;
     color: #4effd0;
     border: 2px solid #44546a;
 }
 
-.cta-button[href*="google.com/maps"]:hover,
-.cta-button[href*="google.com/maps"]:focus {
+.cta-button[href*="drive.google.com"]:hover,
+.cta-button[href*="drive.google.com"]:focus {
     background: #5a6b7a;
     color: #4effd0;
     transform: translateY(-2px);
