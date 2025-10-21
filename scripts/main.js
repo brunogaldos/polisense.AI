@@ -972,7 +972,6 @@ class DemoFormHandler {
         
         const formData = new FormData(this.form);
         const email = formData.get('email');
-        const message = formData.get('message') || 'No message provided';
         const captcha = formData.get('captcha');
         
         // Validate required fields
@@ -987,7 +986,7 @@ class DemoFormHandler {
         submitBtn.textContent = 'Sending...';
         
         try {
-            // Send email using Formspree (free email service)
+            // Send confirmation email using Formspree (no URL to avoid spam)
             const response = await fetch('https://formspree.io/f/mldpgkdj', {
                 method: 'POST',
                 headers: {
@@ -996,31 +995,39 @@ class DemoFormHandler {
                 },
                 body: JSON.stringify({
                     email: email,
-                    message: message,
+                    message: `Thank you for your interest in Polisense.AI! 
+
+We have received your request for our PDF document. You will be redirected to access the document shortly.
+
+This document contains detailed information about our energy access solutions and how we're helping cities transform lives.
+
+Best regards,
+The Polisense.AI Team`,
                     _replyto: email,
-                    _subject: 'New Demo Request from Polisense.AI Landing Page',
+                    _subject: 'Thank you for your interest in Polisense.AI',
                     _to: 'bruno.galdos@rwth-aachen.de'
                 })
             });
             
             if (response.ok) {
-                this.showMessage('Thank you! Demo request sent successfully. We\'ll be in touch soon!', 'success');
+                this.showMessage('Thank you! Redirecting you to the PDF document...', 'success');
                 
-                // Close modal after success
+                // Redirect to Google Drive PDF after successful email
                 setTimeout(() => {
+                    window.open('https://drive.google.com/file/d/1vwmuLqFAROH7sFZpivGxETLkRhM5Nb44/view', '_blank');
                     this.closeModal();
-                }, 2000);
+                }, 1500);
             } else {
                 throw new Error('Failed to send email');
             }
             
         } catch (error) {
             console.error('Email send error:', error);
-            this.showMessage('Sorry, there was an error sending your request. Please try again or contact us directly.', 'error');
+            this.showMessage('Sorry, there was an error sending your PDF. Please try again or contact us directly.', 'error');
         } finally {
             // Re-enable submit button
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Book Demo';
+            submitBtn.textContent = 'Receive PDF';
         }
     }
     
