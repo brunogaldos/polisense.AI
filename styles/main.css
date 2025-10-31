@@ -1151,7 +1151,7 @@ a:visited {
         min-height: 65vh; /* shorter panels to reveal more background */
         padding: 1rem;
         justify-content: center;
-        margin-bottom: 8rem; /* doubled again for more background space */
+        margin-bottom: 16rem; /* doubled again for more background space */
     }
     
     .panel-left,
