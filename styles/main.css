@@ -511,16 +511,15 @@ a:visited {
 
 .data-number {
     display: block;
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
     font-weight: bold;
     color: #4effd0;
     margin-bottom: 0.5rem;
 }
 
 /* Smaller font size for the solar data specifically */
-.data-item:has(.data-label:contains("Solar")) .data-number,
 .data-number.solar-data {
-    font-size: 1.8rem;
+    font-size: clamp(1.25rem, 4.5vw, 1.8rem);
 }
 
 .data-label {
@@ -571,6 +570,20 @@ a:visited {
     background: #FFB81C;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile CTA layout */
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+        padding: 0.9rem 1.25rem;
+    }
 }
 
 /* Special styling for View Now button */
@@ -668,6 +681,25 @@ a:visited {
     transform: translateX(650px);
     display: flex;
     align-items: center;
+}
+
+/* Header responsive fixes: remove magic offsets on smaller screens */
+@media (max-width: 1024px) {
+    .logo {
+        margin-left: 0;
+    }
+    .nav {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 1rem;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
 }
 
 .nav ul {
@@ -1129,9 +1161,9 @@ a:visited {
     }
     
     .panel-content {
-        max-width: 90%;
+        max-width: 92%;
         margin: 0;
-        padding: 1.5rem;
+        padding: 1.25rem;
     }
     
     .header-panel .panel-content {
@@ -1153,7 +1185,7 @@ a:visited {
 /* Tablet styles */
 @media (min-width: 769px) and (max-width: 1024px) {
     .panel-content {
-        max-width: 350px;
+        max-width: 360px;
     }
     
     .header-panel .panel-content {
@@ -1228,7 +1260,7 @@ a:visited {
     }
     
     .content-wrapper {
-        padding: 0 1rem;
+        padding: 0 0.75rem;
     }
     
     .light {
@@ -1267,6 +1299,29 @@ a:visited {
         width: 16px;
         height: 10px;
     }
+}
+
+/* Improve data grid spacing on small screens */
+@media (max-width: 480px) {
+    .data-container {
+        gap: 1rem;
+    }
+    .data-item {
+        padding: 1rem;
+    }
+}
+
+/* Legend spacing and sizing tweaks for narrow viewports */
+@media (max-width: 768px) {
+    .legend.left-legend { left: 16px; bottom: 16px; }
+    .legend.right-legend { right: 16px; bottom: 16px; }
+}
+
+/* Ultra-small device safeguards */
+@media (max-width: 360px) {
+    h1 { font-size: clamp(1.5rem, 8vw, 2rem); }
+    p { font-size: clamp(0.95rem, 3.8vw, 1.05rem); }
+    .panel-content { padding: 1rem; }
 }
 
 /* Medium devices (tablets, 768px and up) */
