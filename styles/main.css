@@ -1148,9 +1148,10 @@ a:visited {
     }
     
     .content-panel {
-        min-height: 80vh;
+        min-height: 65vh; /* shorter panels to reveal more background */
         padding: 1rem;
         justify-content: center;
+        margin-bottom: 2rem; /* increase vertical spacing between panels */
     }
     
     .panel-left,
@@ -1179,6 +1180,34 @@ a:visited {
     
     .panel-content .hedp {
         max-width: 95%;
+    }
+
+    /* Reduce font size ~20% for all text inside content panels */
+    .panel-content h1,
+    .panel-content h2,
+    .panel-content h3,
+    .panel-content h4,
+    .panel-content p,
+    .panel-content li,
+    .panel-content .hedp,
+    .panel-content .data-number,
+    .panel-content .data-label,
+    .panel-content .visual-credit {
+        font-size: 0.8em;
+    }
+
+    /* Reduce images inside panels by ~20% */
+    .panel-content .visual-image {
+        width: 80%;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Reduce header panel logo by ~20% on mobile */
+    .panel-content .logo {
+        width: 36px;
+        height: 36px;
     }
 }
 
