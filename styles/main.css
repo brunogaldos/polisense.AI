@@ -1148,27 +1148,32 @@ a:visited {
     }
     
     .content-panel {
-        min-height: 80vh;
+        min-height: auto;
         padding: 1rem;
-        justify-content: center;
+        justify-content: space-between;
     }
     
-    .panel-left,
+    .panel-left {
+        justify-content: flex-start;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
     .panel-right {
-        justify-content: center;
+        justify-content: flex-end;
         padding-left: 1rem;
         padding-right: 1rem;
     }
     
     .panel-content {
-        max-width: 92%;
-        margin: 0;
+        max-width: 85%;
+        margin: 1rem 0;
         padding: 1.25rem;
+        max-height: 70vh;
     }
     
     .header-panel .panel-content {
         max-width: 85%;
-        min-height: 90px;
+        min-height: auto;
         padding: 0.75rem 1.125rem;
         margin-top: -120px;
         background: rgba(0, 0, 0, 0.85);
@@ -1299,6 +1304,9 @@ a:visited {
         width: 16px;
         height: 10px;
     }
+    /* Tighten panel sizing further on very small devices */
+    .content-panel { padding: 0.75rem; }
+    .panel-content { max-width: 90%; max-height: 65vh; padding: 1rem; }
 }
 
 /* Improve data grid spacing on small screens */
