@@ -436,8 +436,6 @@ a:visited {
 
 /* Responsive logo sizing */
 @media (max-width: 768px) {
-    /* Reduce base type scale ~15% on small tablets/large phones */
-    html { font-size: 14px; }
     .panel-content .logo {
         width: 45px;
         height: 45px;
@@ -1150,34 +1148,28 @@ a:visited {
     }
     
     .content-panel {
-        min-height: auto;
-        padding: 0.85rem;
-        justify-content: space-between;
+        min-height: 80vh;
+        padding: 1rem;
+        justify-content: center;
     }
     
-    .panel-left {
-        justify-content: flex-start;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
+    .panel-left,
     .panel-right {
-        justify-content: flex-end;
+        justify-content: center;
         padding-left: 1rem;
         padding-right: 1rem;
     }
     
     .panel-content {
-        max-width: 64%;
-        margin: 0.75rem 0;
-        padding: 0.95rem;
-        max-height: 60vh;
-        font-size: 0.85em;
+        max-width: 92%;
+        margin: 0;
+        padding: 1.25rem;
     }
     
     .header-panel .panel-content {
-        max-width: 64%;
-        min-height: auto;
-        padding: 0.6rem 0.9rem;
+        max-width: 85%;
+        min-height: 90px;
+        padding: 0.75rem 1.125rem;
         margin-top: -120px;
         background: rgba(0, 0, 0, 0.85);
         backdrop-filter: blur(8px);
@@ -1236,8 +1228,6 @@ a:visited {
 
 /* Small devices (phones, 320px and up) */
 @media (max-width: 480px) {
-    /* Reduce base type scale ~25% on phones */
-    html { font-size: 12px; }
     .header {
         padding: 1rem;
     }
@@ -1309,9 +1299,6 @@ a:visited {
         width: 16px;
         height: 10px;
     }
-    /* Tighten panel sizing further on very small devices (~25% smaller) */
-    .content-panel { padding: 0.6rem; }
-    .panel-content { max-width: 68%; max-height: 55vh; padding: 0.75rem; font-size: 0.75em; }
 }
 
 /* Improve data grid spacing on small screens */
