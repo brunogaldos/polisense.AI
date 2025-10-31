@@ -1151,7 +1151,7 @@ a:visited {
         min-height: 65vh; /* shorter panels to reveal more background */
         padding: 1rem;
         justify-content: center;
-        margin-bottom: 4rem; /* doubled vertical spacing between panels */
+        margin-bottom: 8rem; /* doubled again for more background space */
     }
     
     .panel-left,
@@ -1213,13 +1213,13 @@ a:visited {
     /* Mobile-only adjustments for "Arequipa, Peru: Our first Pilot City" panel */
     .content-panel[data-map-state="data"] .data-container {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4-column grid */
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2x2 grid on mobile */
         gap: 0.75rem;
     }
 
     .content-panel[data-map-state="data"] .data-item {
         padding: 0.5rem; /* shorter subpanels */
-        min-height: 72px;
+        min-height: 64px;
     }
 
     .content-panel[data-map-state="data"] .data-number,
