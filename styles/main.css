@@ -1165,7 +1165,9 @@ a:visited {
 
 .partner-logo:last-child {
     /* GCoM logo - adjust height to match */
-    height: 20px
+    filter: brightness(0) invert(1);
+    height: 35px
+    
 }
 
 /* ==========================================================================
