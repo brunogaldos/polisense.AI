@@ -1131,6 +1131,43 @@ a:visited {
     margin-bottom: 0.5rem;
 }
 
+.partners-message {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.partners-logos {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+.partner-logo {
+    height: 28px;
+    width: auto;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+    vertical-align: middle;
+}
+
+.partner-logo:hover {
+    opacity: 1;
+}
+
+.partner-logo:first-child {
+    /* Hack for Earth Foundation - invert black to white for visibility on dark background */
+    filter: brightness(0) invert(1);
+}
+
+.partner-logo:last-child {
+    /* GCoM logo - adjust height to match */
+    height: 55px
+}
+
 /* ==========================================================================
    Responsive Scrollytelling
    ========================================================================== */
@@ -1334,6 +1371,18 @@ a:visited {
     
     .credits {
         text-align: left;
+    }
+    
+    .partners-logos {
+        gap: 0.75rem;
+    }
+    
+    .partner-logo {
+        height: 24px;
+    }
+    
+    .partner-logo:last-child {
+        height: 22px;
     }
     
     .legend {
