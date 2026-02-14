@@ -136,13 +136,3 @@ Update CSS custom properties in `styles/main.css`:
 - Background: `#000` (black)
 - Text: `#e4e4e4` (light gray)
 
-## Development Notes
-
-- The original South Sudan content has been adapted for Arequipa, Peru
-- All scroll-driven map functionality is implemented from scratch
-- Code follows modern ES6+ standards and web development best practices
-- Includes comprehensive error handling and fallback mechanisms
-
-## License
-
-This project is created for educational and demonstration purposes. Please ensure you have proper rights to any content used.
