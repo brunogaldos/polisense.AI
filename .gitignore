@@ -38,4 +38,11 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# large data files (exceed GitHub 100MB limit)
+public/data/sf-bay/buildings.json
+public/data/bilbao/buildings.json
+scripts/raw_data/
+*.tif
+*.zip
 next-env.d.ts

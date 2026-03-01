@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texas - Real Energy & Infrastructure Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: transparent; font-family: 'Space Mono', monospace; overflow-x: hidden; }
+    #container { position: relative; width: 100%; height: 400vh; }
+    #stage { position: sticky; top: 0; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; padding-left: 8vw; }
+    #title { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); color: #141517; font-size: 24px; font-weight: 700; letter-spacing: 0.1em; text-align: center; z-index: 1000; display: none; }
+    #subtitle { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); color: rgba(20, 21, 23, 0.6); font-size: 12px; letter-spacing: 0.05em; text-align: center; z-index: 1000; display: none; }
+    #persp { perspective: 1600px; perspective-origin: 50% 50%; }
+    #scene { position: relative; width: 900px; height: 600px; transform-style: preserve-3d; transform: rotateX(60deg) rotateZ(-45deg) scale(0.7); }
+    .layer { position: absolute; width: 900px; height: 600px; top: 0; left: 0; transform-style: preserve-3d; will-change: transform; }
+    .lf { width: 100%; height: 100%; border: 2px solid rgba(20, 21, 23, 0.15); overflow: hidden; background: rgba(245, 242, 236, 0.3); position: relative; box-shadow: 0 12px 40px rgba(20, 21, 23, 0.2); }
+    canvas { width: 100%; height: 100%; }
+    .llabel { position: absolute; right: calc(100% + 20px); display: flex; align-items: center; gap: 12px; white-space: nowrap; pointer-events: none; opacity: 1; flex-direction: row-reverse; }
+    #layer0 .llabel { top: 10%; }
+    #layer1 .llabel { top: 30%; }
+    #layer2 .llabel { top: 50%; }
+    #layer3 .llabel { top: 70%; }
+    #layer4 .llabel { top: 90%; }
+    .ll-line { width: 35px; height: 2px; background: rgba(20, 21, 23, 0.5); flex-shrink: 0; }
+    .ll-n { font-size: 15px; font-weight: 700; font-style: italic; letter-spacing: 0.08em; color: rgba(20, 21, 23, 0.9); text-transform: uppercase; }
+    .ll-s { font-size: 10px; font-weight: 400; font-style: italic; letter-spacing: 0.05em; color: rgba(20, 21, 23, 0.5); margin-top: 3px; }
+    .loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(20, 21, 23, 0.5); font-size: 12px; z-index: 10; }
+
+    /* Vertical lines extending up from map in 3D space */
+    .vline { position: absolute; width: 2px; height: 216px; background: rgba(20, 21, 23, 0.9); transform-style: preserve-3d; pointer-events: none; transform-origin: bottom center; }
+    .vline-text { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%) rotate(180deg); color: rgba(20, 21, 23, 0.95); font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; writing-mode: vertical-rl; text-orientation: mixed; }
+
+    .vl-1 { left: 580px; top: 0px; transform: rotateX(-90deg) translateZ(0px); }
+    .vl-2 { left: 70px; top: -10px; transform: rotateX(-90deg) translateZ(0px); }
+    .vl-3 { left: 660px; top: 160px; transform: rotateX(-90deg) translateZ(0px); }
+    .vl-4 { left: 220px; top: 90px; transform: rotateX(-90deg) translateZ(0px); }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="stage">
+      <div id="persp">
+        <div id="scene">
+          <div class="layer" id="layer0">
+            <div class="lf"><canvas id="canvas0" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Elevation</span></div></div>
+          </div>
+          <div class="layer" id="layer1">
+            <div class="lf"><canvas id="canvas1" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Solar Irradiance</span></div></div>
+          </div>
+          <div class="layer" id="layer2">
+            <div class="lf"><canvas id="canvas2" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Wind Potential</span></div></div>
+          </div>
+          <div class="layer" id="layer3">
+            <div class="lf"><canvas id="canvas3" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Population</span></div></div>
+          </div>
+          <div class="layer" id="layer4">
+            <div class="lf"><canvas id="canvas4" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Power Grid</span></div></div>
+          </div>
+
+          <!-- Vertical lines extending up from map -->
+          <div class="vline vl-1">
+            <div class="vline-text">Expand Grid 1MW</div>
+          </div>
+          <div class="vline vl-2">
+            <div class="vline-text">Infra - PV 3MW</div>
+          </div>
+          <div class="vline vl-3">
+            <div class="vline-text">Replace Substations</div>
+          </div>
+          <div class="vline vl-4">
+            <div class="vline-text">Onshore Wind - 1MW</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LAT0 = 28.5, LAT1 = 33.8, LNG0 = -103.0, LNG1 = -97.0, W = 900, H = 600;
+    const latLngToXY = (lat, lng) => [(lng - LNG0) / (LNG1 - LNG0) * W, (1 - (lat - LAT0) / (LAT1 - LAT0)) * H];
+
+    // Texas state border polygon
+    const TEXAS_BORDER = [
+      [-106.62, 31.90], [-106.50, 31.76], [-106.20, 31.47], [-105.80, 30.91],
+      [-105.50, 30.65], [-104.92, 29.79], [-104.77, 29.40], [-104.52, 29.12],
+      [-103.91, 28.97], [-103.31, 28.98], [-102.72, 29.78], [-102.14, 29.75],
+      [-101.42, 29.78], [-100.65, 28.20], [-100.00, 28.19], [-99.24, 27.25],
+      [-99.10, 26.46], [-98.65, 26.24], [-97.35, 26.05], [-97.15, 25.96],
+      [-97.05, 25.84],
+      [-96.79, 25.99], [-96.35, 26.38], [-95.95, 27.00], [-95.60, 28.00],
+      [-94.52, 29.55], [-93.88, 29.69], [-93.85, 29.97],
+      [-93.60, 30.10], [-93.56, 31.00], [-93.73, 31.50], [-94.04, 33.00],
+      [-94.04, 33.55], [-100.00, 36.50], [-103.04, 36.50],
+      [-103.05, 32.00], [-106.62, 31.90],
+    ];
+
+    // Draw Texas border on canvas
+    function drawTexasBorder(ctx, color = 'rgba(80, 80, 80, 0.6)', lineWidth = 2.0) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+      ctx.beginPath();
+      TEXAS_BORDER.forEach(([lng, lat], i) => {
+        const [x, y] = latLngToXY(lat, lng);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.stroke();
+    }
+
+    // Store loaded county boundaries
+    let COUNTY_BOUNDARIES = null;
+
+    // Load Texas county boundaries
+    async function loadCountyBoundaries() {
+      if (COUNTY_BOUNDARIES) return COUNTY_BOUNDARIES;
+      const resp = await fetch('/data/texas/counties.geojson');
+      COUNTY_BOUNDARIES = await resp.json();
+      console.log(`Loaded ${COUNTY_BOUNDARIES.features.length} Texas county boundaries`);
+      return COUNTY_BOUNDARIES;
+    }
+
+    // Draw actual Texas county boundaries
+    function drawCountyLines(ctx, color = 'rgba(255, 255, 255, 0.4)', lineWidth = 0.8) {
+      if (!COUNTY_BOUNDARIES) return;
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineWidth;
+
+      COUNTY_BOUNDARIES.features.forEach(feature => {
+        const geom = feature.geometry;
+        if (geom.type === 'Polygon') {
+          geom.coordinates.forEach(ring => {
+            ctx.beginPath();
+            ring.forEach(([lng, lat], i) => {
+              const [x, y] = latLngToXY(lat, lng);
+              if (i === 0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+          });
+        } else if (geom.type === 'MultiPolygon') {
+          geom.coordinates.forEach(polygon => {
+            polygon.forEach(ring => {
+              ctx.beginPath();
+              ring.forEach(([lng, lat], i) => {
+                const [x, y] = latLngToXY(lat, lng);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+              });
+              ctx.stroke();
+            });
+          });
+        }
+      });
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // INTERPOLATION & SMOOTHING UTILITIES
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    // Bilinear interpolation on regular grid
+    function bilinearInterpolate(grid, x, y, gridW, gridH) {
+      const x0 = Math.floor(x), x1 = Math.min(x0 + 1, gridW - 1);
+      const y0 = Math.floor(y), y1 = Math.min(y0 + 1, gridH - 1);
+      const wx = x - x0, wy = y - y0;
+
+      const v00 = grid[y0 * gridW + x0] || 0;
+      const v10 = grid[y0 * gridW + x1] || 0;
+      const v01 = grid[y1 * gridW + x0] || 0;
+      const v11 = grid[y1 * gridW + x1] || 0;
+
+      return v00 * (1 - wx) * (1 - wy) + v10 * wx * (1 - wy) + v01 * (1 - wx) * wy + v11 * wx * wy;
+    }
+
+    // Gaussian blur using separable convolution
+    function gaussianBlur(imageData, sigma) {
+      const w = imageData.width, h = imageData.height;
+      const data = imageData.data;
+
+      // Create kernel
+      const radius = Math.ceil(sigma * 3);
+      const kernel = [];
+      let sum = 0;
+      for (let i = -radius; i <= radius; i++) {
+        const val = Math.exp(-(i * i) / (2 * sigma * sigma));
+        kernel.push(val);
+        sum += val;
+      }
+      kernel.forEach((_, i, arr) => arr[i] /= sum);
+
+      // Horizontal pass
+      const temp = new Uint8ClampedArray(data.length);
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          let r = 0, g = 0, b = 0, a = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sx = Math.max(0, Math.min(w - 1, x + i));
+            const idx = (y * w + sx) * 4;
+            const k = kernel[i + radius];
+            r += data[idx] * k;
+            g += data[idx + 1] * k;
+            b += data[idx + 2] * k;
+            a += data[idx + 3] * k;
+          }
+          const idx = (y * w + x) * 4;
+          temp[idx] = r;
+          temp[idx + 1] = g;
+          temp[idx + 2] = b;
+          temp[idx + 3] = a;
+        }
+      }
+
+      // Vertical pass
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          let r = 0, g = 0, b = 0, a = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sy = Math.max(0, Math.min(h - 1, y + i));
+            const idx = (sy * w + x) * 4;
+            const k = kernel[i + radius];
+            r += temp[idx] * k;
+            g += temp[idx + 1] * k;
+            b += temp[idx + 2] * k;
+            a += temp[idx + 3] * k;
+          }
+          const idx = (y * w + x) * 4;
+          data[idx] = r;
+          data[idx + 1] = g;
+          data[idx + 2] = b;
+          data[idx + 3] = a;
+        }
+      }
+    }
+
+    // Marching squares algorithm for contour extraction
+    function marchingSquares(grid, W, H, level) {
+      const contours = [];
+      const visited = new Set();
+
+      for (let y = 0; y < H - 1; y++) {
+        for (let x = 0; x < W - 1; x++) {
+          const key = `${x},${y}`;
+          if (visited.has(key)) continue;
+
+          const v00 = grid[y * W + x];
+          const v10 = grid[y * W + (x + 1)];
+          const v01 = grid[(y + 1) * W + x];
+          const v11 = grid[(y + 1) * W + (x + 1)];
+
+          const case_ =
+            (v00 >= level ? 1 : 0) |
+            (v10 >= level ? 2 : 0) |
+            (v01 >= level ? 4 : 0) |
+            (v11 >= level ? 8 : 0);
+
+          if (case_ === 0 || case_ === 15) continue;
+
+          const contour = [];
+          let cx = x, cy = y;
+          let dir = 0;
+
+          // Trace contour
+          for (let steps = 0; steps < 10000; steps++) {
+            const vkey = `${cx},${cy}`;
+            visited.add(vkey);
+
+            const v0 = grid[cy * W + cx];
+            const v1 = grid[cy * W + Math.min(cx + 1, W - 1)];
+            const v2 = grid[Math.min(cy + 1, H - 1) * W + cx];
+            const v3 = grid[Math.min(cy + 1, H - 1) * W + Math.min(cx + 1, W - 1)];
+
+            const c =
+              (v0 >= level ? 1 : 0) |
+              (v1 >= level ? 2 : 0) |
+              (v2 >= level ? 4 : 0) |
+              (v3 >= level ? 8 : 0);
+
+            // Linear interpolation for sub-pixel accuracy
+            let px = cx, py = cy;
+            if (c === 1 || c === 3 || c === 7 || c === 14) {
+              const t = (level - v0) / (v2 - v0);
+              px = cx; py = cy + t;
+            } else if (c === 2 || c === 6 || c === 11 || c === 13) {
+              const t = (level - v1) / (v3 - v1);
+              px = cx + 1; py = cy + t;
+            } else if (c === 4 || c === 12) {
+              const t = (level - v0) / (v1 - v0);
+              px = cx + t; py = cy + 1;
+            } else if (c === 8 || c === 9) {
+              const t = (level - v0) / (v1 - v0);
+              px = cx + t; py = cy;
+            }
+
+            contour.push({x: px, y: py});
+
+            if (contour.length > 1 &&
+                Math.abs(px - contour[0].x) < 0.5 &&
+                Math.abs(py - contour[0].y) < 0.5) break;
+
+            // Move to next cell
+            if (c === 1 || c === 13) { cy--; }
+            else if (c === 2 || c === 14) { cx++; }
+            else if (c === 3 || c === 7) { cx--; }
+            else if (c === 4 || c === 11) { cy++; }
+            else if (c === 6) { cy++; }
+            else if (c === 8 || c === 9) { cx++; }
+            else if (c === 12) { cx--; }
+            else break;
+
+            if (cx < 0 || cx >= W - 1 || cy < 0 || cy >= H - 1) break;
+          }
+
+          if (contour.length > 3) contours.push(contour);
+        }
+      }
+
+      return contours;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // COLOR GRADIENTS (matching Python matplotlib colormaps)
+    // ══════════════════════════════════════════════════════════════════════════════
+
+    // YlOrRd colormap for solar (yellow → orange → red)
+    function solarColormap(t) {
+      const colors = [
+        [255, 255, 204], [255, 237, 160], [254, 217, 118], [254, 178, 76],
+        [253, 141, 60], [252, 78, 42], [227, 26, 28], [189, 0, 38], [128, 0, 38]
+      ];
+      const idx = t * (colors.length - 1);
+      const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, colors.length - 1);
+      const frac = idx - i0;
+      return [
+        colors[i0][0] + (colors[i1][0] - colors[i0][0]) * frac,
+        colors[i0][1] + (colors[i1][1] - colors[i0][1]) * frac,
+        colors[i0][2] + (colors[i1][2] - colors[i0][2]) * frac
+      ];
+    }
+
+    // Wind colormap - BLUE PALETTE ONLY (light cyan → deep navy blue)
+    function windColormap(t) {
+      const colors = [
+        [230, 245, 255], // very light blue/cyan (low wind)
+        [180, 220, 240], // light blue
+        [120, 180, 220], // medium blue
+        [70, 130, 200],  // blue
+        [40, 90, 170],   // dark blue
+        [20, 50, 130],   // navy blue
+        [10, 30, 90]     // deep navy (high wind, panhandle)
+      ];
+      const idx = t * (colors.length - 1);
+      const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, colors.length - 1);
+      const frac = idx - i0;
+      return [
+        colors[i0][0] + (colors[i1][0] - colors[i0][0]) * frac,
+        colors[i0][1] + (colors[i1][1] - colors[i0][1]) * frac,
+        colors[i0][2] + (colors[i1][2] - colors[i0][2]) * frac
+      ];
+    }
+
+    // Terrain colormap for elevation
+    function terrainColormap(t) {
+      const colors = [
+        [51, 102, 153], [68, 136, 170], [136, 170, 170],
+        [170, 204, 136], [204, 221, 136], [238, 221, 136],
+        [238, 204, 136], [221, 170, 85], [187, 136, 68], [136, 85, 51]
+      ];
+      const idx = t * (colors.length - 1);
+      const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, colors.length - 1);
+      const frac = idx - i0;
+      return [
+        colors[i0][0] + (colors[i1][0] - colors[i0][0]) * frac,
+        colors[i0][1] + (colors[i1][1] - colors[i0][1]) * frac,
+        colors[i0][2] + (colors[i1][2] - colors[i0][2]) * frac
+      ];
+    }
+
+    // Population colormap (dark blue → purple → magenta → orange → white)
+    function populationColormap(t) {
+      const colors = [
+        [0, 0, 16], [13, 0, 61], [26, 0, 102], [61, 0, 128],
+        [128, 0, 128], [204, 0, 102], [255, 51, 153], [255, 153, 102], [255, 255, 255]
+      ];
+      const idx = t * (colors.length - 1);
+      const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, colors.length - 1);
+      const frac = idx - i0;
+      return [
+        colors[i0][0] + (colors[i1][0] - colors[i0][0]) * frac,
+        colors[i0][1] + (colors[i1][1] - colors[i0][1]) * frac,
+        colors[i0][2] + (colors[i1][2] - colors[i0][2]) * frac
+      ];
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // LAYER 0: ELEVATION with hillshade
+    // ══════════════════════════════════════════════════════════════════════════════
+    async function drawElevation(ctx) {
+      const resp = await fetch('/data/texas/elevation.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      // Build point cloud
+      const points = [];
+      lines.forEach(line => {
+        const [lng, lat, elev] = line.split(',').map(Number);
+        if (lat && lng) {
+          const [x, y] = latLngToXY(lat, lng);
+          points.push({ x, y, elev });
+        }
+      });
+
+      console.log(`Elevation: ${points.length} points loaded`);
+
+      // Create elevation grid using fast nearest neighbor
+      const elevGrid = new Float32Array(W * H);
+
+      // Fill grid with point values
+      points.forEach(pt => {
+        const ix = Math.round(pt.x);
+        const iy = Math.round(pt.y);
+        if (ix >= 0 && ix < W && iy >= 0 && iy < H) {
+          elevGrid[iy * W + ix] = pt.elev;
+        }
+      });
+
+      // Fast gap filling with averaging
+      console.log('Filling gaps...');
+      for (let iter = 0; iter < 3; iter++) {
+        const temp = new Float32Array(elevGrid);
+        for (let y = 1; y < H - 1; y++) {
+          for (let x = 1; x < W - 1; x++) {
+            const idx = y * W + x;
+            if (temp[idx] === 0) {
+              let sum = 0, count = 0;
+              for (let dy = -2; dy <= 2; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                  const v = temp[(y + dy) * W + (x + dx)];
+                  if (v > 0) { sum += v; count++; }
+                }
+              }
+              if (count > 0) elevGrid[idx] = sum / count;
+            }
+          }
+        }
+      }
+
+      // Apply Gaussian smoothing
+      console.log('Applying Gaussian smoothing...');
+      const smoothed = new Float32Array(W * H);
+      const sigma = 5.0;
+      const radius = Math.ceil(sigma * 3);
+      const kernel = [];
+      let ksum = 0;
+      for (let i = -radius; i <= radius; i++) {
+        const val = Math.exp(-(i * i) / (2 * sigma * sigma));
+        kernel.push(val);
+        ksum += val;
+      }
+      kernel.forEach((_, i, arr) => arr[i] /= ksum);
+
+      // Horizontal pass
+      const temp = new Float32Array(W * H);
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sx = Math.max(0, Math.min(W - 1, x + i));
+            sum += elevGrid[y * W + sx] * kernel[i + radius];
+          }
+          temp[y * W + x] = sum;
+        }
+      }
+
+      // Vertical pass
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sy = Math.max(0, Math.min(H - 1, y + i));
+            sum += temp[sy * W + x] * kernel[i + radius];
+          }
+          smoothed[y * W + x] = sum;
+        }
+      }
+
+      console.log('Computing hillshade...');
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+
+      // Hillshade with strong vertical exaggeration
+      const vertExag = 25; // Strong 3D effect
+      const azimuth = 315 * Math.PI / 180;
+      const altitude = 35 * Math.PI / 180;
+
+      for (let y = 1; y < H - 1; y++) {
+        for (let x = 1; x < W - 1; x++) {
+          const idx = y * W + x;
+          const elev = smoothed[idx];
+
+          // Compute gradients with vertical exaggeration
+          const dzdx = (smoothed[idx + 1] - smoothed[idx - 1]) / 2 * vertExag;
+          const dzdy = (smoothed[(y + 1) * W + x] - smoothed[(y - 1) * W + x]) / 2 * vertExag;
+
+          // Calculate hillshade
+          const slope = Math.atan(Math.sqrt(dzdx * dzdx + dzdy * dzdy));
+          const aspect = Math.atan2(-dzdy, -dzdx);
+
+          let hillshade = Math.sin(altitude) * Math.sin(slope) +
+                         Math.cos(altitude) * Math.cos(slope) * Math.cos(azimuth - aspect);
+          hillshade = Math.max(0, Math.min(1, hillshade));
+
+          // Get base color from terrain colormap
+          const t = Math.min(1, Math.max(0, elev / 2700));
+          const [r, g, b] = terrainColormap(t);
+
+          // Blend base color with hillshade using overlay-like mode
+          const shadeIntensity = 0.3 + hillshade * 0.7;
+
+          const didx = idx * 4;
+          data[didx] = r * shadeIntensity;
+          data[didx + 1] = g * shadeIntensity;
+          data[didx + 2] = b * shadeIntensity;
+          data[didx + 3] = 200;
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+
+      // Draw smooth contour lines
+      console.log('Drawing contours...');
+      const contourLevels = [200, 500, 1000, 1500, 2000, 2500];
+
+      contourLevels.forEach(level => {
+        ctx.strokeStyle = `rgba(40, 30, 20, ${0.4 + (level / 2500) * 0.4})`;
+        ctx.lineWidth = level % 1000 === 0 ? 1.5 : 0.8;
+        ctx.beginPath();
+
+        // Marching squares for contour extraction
+        for (let y = 0; y < H - 1; y++) {
+          for (let x = 0; x < W - 1; x++) {
+            const v00 = smoothed[y * W + x];
+            const v10 = smoothed[y * W + x + 1];
+            const v01 = smoothed[(y + 1) * W + x];
+            const v11 = smoothed[(y + 1) * W + x + 1];
+
+            // Check if contour passes through this cell
+            const b00 = v00 >= level ? 1 : 0;
+            const b10 = v10 >= level ? 1 : 0;
+            const b01 = v01 >= level ? 1 : 0;
+            const b11 = v11 >= level ? 1 : 0;
+            const cellType = b00 | (b10 << 1) | (b01 << 2) | (b11 << 3);
+
+            if (cellType > 0 && cellType < 15) {
+              // Linear interpolation for smoother contours
+              const t_top = v00 !== v10 ? (level - v00) / (v10 - v00) : 0.5;
+              const t_bot = v01 !== v11 ? (level - v01) / (v11 - v01) : 0.5;
+              const t_left = v00 !== v01 ? (level - v00) / (v01 - v00) : 0.5;
+              const t_right = v10 !== v11 ? (level - v10) / (v11 - v10) : 0.5;
+
+              // Draw contour segment based on cell type
+              switch (cellType) {
+                case 1: case 14:
+                  ctx.moveTo(x, y + t_left);
+                  ctx.lineTo(x + t_top, y);
+                  break;
+                case 2: case 13:
+                  ctx.moveTo(x + t_top, y);
+                  ctx.lineTo(x + 1, y + t_right);
+                  break;
+                case 3: case 12:
+                  ctx.moveTo(x, y + t_left);
+                  ctx.lineTo(x + 1, y + t_right);
+                  break;
+                case 4: case 11:
+                  ctx.moveTo(x, y + t_left);
+                  ctx.lineTo(x + t_bot, y + 1);
+                  break;
+                case 6: case 9:
+                  ctx.moveTo(x + t_top, y);
+                  ctx.lineTo(x + t_bot, y + 1);
+                  break;
+                case 7: case 8:
+                  ctx.moveTo(x + t_bot, y + 1);
+                  ctx.lineTo(x + 1, y + t_right);
+                  break;
+              }
+            }
+          }
+        }
+        ctx.stroke();
+      });
+
+      // Draw geographic reference lines
+      drawCountyLines(ctx, 'rgba(255, 255, 255, 0.35)', 0.8);
+      drawTexasBorder(ctx, 'rgba(60, 40, 20, 0.7)', 2.5);
+
+      console.log('Elevation complete');
+      document.querySelector('#layer0 .loading').style.display = 'none';
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // LAYER 1: SOLAR with proper interpolation and smoothing
+    // ══════════════════════════════════════════════════════════════════════════════
+    async function drawSolar(ctx) {
+      const resp = await fetch('/data/texas/solar.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      // Build initial grid with Float32Array
+      const solarGrid = new Float32Array(W * H);
+      lines.forEach(line => {
+        const [lng, lat, ghi] = line.split(',').map(Number);
+        if (lat && lng && ghi) {
+          const [x, y] = latLngToXY(lat, lng);
+          const ix = Math.round(x), iy = Math.round(y);
+          if (ix >= 0 && ix < W && iy >= 0 && iy < H) {
+            solarGrid[iy * W + ix] = ghi;
+          }
+        }
+      });
+
+      // Multi-pass averaging for proper interpolation (approximates scipy griddata)
+      for (let pass = 0; pass < 4; pass++) {
+        const newGrid = new Float32Array(solarGrid);
+        for (let y = 0; y < H; y++) {
+          for (let x = 0; x < W; x++) {
+            const idx = y * W + x;
+            if (solarGrid[idx] === 0) {
+              let sum = 0, count = 0;
+              for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                  const nx = x + dx, ny = y + dy;
+                  if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
+                    const v = solarGrid[ny * W + nx];
+                    if (v > 0) { sum += v; count++; }
+                  }
+                }
+              }
+              if (count > 0) newGrid[idx] = sum / count;
+            }
+          }
+        }
+        solarGrid.set(newGrid);
+      }
+
+      // Apply Gaussian filter with sigma=1.2 (matching Python reference)
+      const sigma = 1.2;
+      const radius = Math.ceil(sigma * 3);
+      const kernel = [];
+      let kernelSum = 0;
+      for (let i = -radius; i <= radius; i++) {
+        const val = Math.exp(-(i * i) / (2 * sigma * sigma));
+        kernel.push(val);
+        kernelSum += val;
+      }
+      kernel.forEach((_, i, arr) => arr[i] /= kernelSum);
+
+      // Separable Gaussian: horizontal pass
+      const temp = new Float32Array(W * H);
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sx = Math.max(0, Math.min(W - 1, x + i));
+            sum += solarGrid[y * W + sx] * kernel[i + radius];
+          }
+          temp[y * W + x] = sum;
+        }
+      }
+
+      // Vertical pass
+      const smoothed = new Float32Array(W * H);
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sy = Math.max(0, Math.min(H - 1, y + i));
+            sum += temp[sy * W + x] * kernel[i + radius];
+          }
+          smoothed[y * W + x] = sum;
+        }
+      }
+
+      // Render with YlOrRd colormap (vmin=4.0, vmax=7.5)
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+      for (let i = 0; i < W * H; i++) {
+        const ghi = Math.max(0, smoothed[i]);
+        const t = Math.min(1, Math.max(0, (ghi - 4.0) / (7.5 - 4.0)));
+        const [r, g, b] = solarColormap(t);
+        data[i * 4] = r;
+        data[i * 4 + 1] = g;
+        data[i * 4 + 2] = b;
+        data[i * 4 + 3] = 120;
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      // Draw contour lines every 0.25 kWh (matching Python reference)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.lineWidth = 0.3;
+      for (let level = 4.5; level < 7.5; level += 0.25) {
+        const contours = marchingSquares(smoothed, W, H, level);
+        contours.forEach(contour => {
+          if (contour.length < 2) return;
+          ctx.beginPath();
+          ctx.moveTo(contour[0].x, contour[0].y);
+          for (let i = 1; i < contour.length; i++) {
+            ctx.lineTo(contour[i].x, contour[i].y);
+          }
+          ctx.stroke();
+        });
+      }
+
+      // Draw geographic reference lines
+      drawCountyLines(ctx, 'rgba(255, 255, 255, 0.35)', 0.8);
+      drawTexasBorder(ctx, 'rgba(120, 60, 20, 0.6)', 2.0);
+
+      console.log('Solar complete');
+      document.querySelector('#layer1 .loading').style.display = 'none';
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // LAYER 2: WIND with smooth gradient
+    // ══════════════════════════════════════════════════════════════════════════════
+    async function drawWind(ctx) {
+      const resp = await fetch('/data/texas/wind.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      // Build wind grid using Float32Array for better performance
+      const windGrid = new Float32Array(W * H);
+      lines.forEach(line => {
+        const [lng, lat, wpd] = line.split(',').map(Number);
+        if (lat && lng && wpd) {
+          const [x, y] = latLngToXY(lat, lng);
+          const ix = Math.round(x), iy = Math.round(y);
+          if (ix >= 0 && ix < W && iy >= 0 && iy < H) {
+            windGrid[iy * W + ix] = wpd;
+          }
+        }
+      });
+
+      // Multi-pass gap filling for smoother interpolation
+      console.log('Interpolating wind data...');
+      for (let pass = 0; pass < 4; pass++) {
+        const temp = new Float32Array(windGrid);
+        for (let y = 1; y < H - 1; y++) {
+          for (let x = 1; x < W - 1; x++) {
+            const idx = y * W + x;
+            if (temp[idx] === 0) {
+              let sum = 0, count = 0;
+              for (let dy = -3; dy <= 3; dy++) {
+                for (let dx = -3; dx <= 3; dx++) {
+                  const v = temp[(y + dy) * W + (x + dx)];
+                  if (v > 0) { sum += v; count++; }
+                }
+              }
+              if (count > 0) windGrid[idx] = sum / count;
+            }
+          }
+        }
+      }
+
+      // Apply very strong Gaussian smoothing
+      const smoothed = new Float32Array(W * H);
+      const sigma = 6.0;
+      const radius = Math.ceil(sigma * 3);
+      const kernel = [];
+      let ksum = 0;
+      for (let i = -radius; i <= radius; i++) {
+        const val = Math.exp(-(i * i) / (2 * sigma * sigma));
+        kernel.push(val);
+        ksum += val;
+      }
+      kernel.forEach((_, i, arr) => arr[i] /= ksum);
+
+      // Horizontal pass
+      const temp = new Float32Array(W * H);
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sx = Math.max(0, Math.min(W - 1, x + i));
+            sum += windGrid[y * W + sx] * kernel[i + radius];
+          }
+          temp[y * W + x] = sum;
+        }
+      }
+
+      // Vertical pass
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0;
+          for (let i = -radius; i <= radius; i++) {
+            const sy = Math.max(0, Math.min(H - 1, y + i));
+            sum += temp[sy * W + x] * kernel[i + radius];
+          }
+          smoothed[y * W + x] = sum;
+        }
+      }
+
+      // Render with proper colormap - BLUE PALETTE with piecewise normalization
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+      for (let i = 0; i < W * H; i++) {
+        const wpd = Math.max(0, smoothed[i]);
+
+        // Piecewise linear mapping to keep most of Texas BLUE:
+        // 50-300 W/m²: t = 0.0-0.15 (light blue/cyan)
+        // 300-500 W/m²: t = 0.15-0.4 (green/yellow transition)
+        // 500-600 W/m²: t = 0.4-0.6 (yellow/orange)
+        // 600-750 W/m²: t = 0.6-1.0 (orange to red, panhandle only)
+        let t;
+        if (wpd < 300) {
+          t = (wpd - 50) / 250 * 0.15; // 50-300 → 0.0-0.15
+        } else if (wpd < 500) {
+          t = 0.15 + (wpd - 300) / 200 * 0.25; // 300-500 → 0.15-0.4
+        } else if (wpd < 600) {
+          t = 0.4 + (wpd - 500) / 100 * 0.2; // 500-600 → 0.4-0.6
+        } else {
+          t = 0.6 + (wpd - 600) / 150 * 0.4; // 600-750 → 0.6-1.0
+        }
+        t = Math.max(0, Math.min(1, t));
+
+        const [r, g, b] = windColormap(t);
+        data[i * 4] = r;
+        data[i * 4 + 1] = g;
+        data[i * 4 + 2] = b;
+        data[i * 4 + 3] = 130;
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      // Draw geographic reference lines
+      drawCountyLines(ctx, 'rgba(255, 255, 255, 0.35)', 0.8);
+      drawTexasBorder(ctx, 'rgba(80, 80, 80, 0.6)', 2.0);
+
+      console.log('Wind complete');
+      document.querySelector('#layer2 .loading').style.display = 'none';
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // LAYER 4: POWER GRID
+    // ══════════════════════════════════════════════════════════════════════════════
+    async function drawGrid(ctx) {
+      const data = await fetch('/data/texas/grid.json').then(r => r.json());
+
+      if (data.lines) {
+        ctx.strokeStyle = 'rgba(255, 60, 60, 0.5)';
+        ctx.lineWidth = 1.5;
+        data.lines.forEach(line => {
+          const [x1, y1] = latLngToXY(line.lat1, line.lng1);
+          const [x2, y2] = latLngToXY(line.lat2, line.lng2);
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+        });
+      }
+
+      if (data.buses) {
+        data.buses.forEach(bus => {
+          const [x, y] = latLngToXY(bus.lat, bus.lng);
+          ctx.fillStyle = 'rgba(255, 80, 80, 0.9)';
+          ctx.beginPath();
+          ctx.arc(x, y, 3, 0, Math.PI * 2);
+          ctx.fill();
+
+          const g = ctx.createRadialGradient(x, y, 0, x, y, 8);
+          g.addColorStop(0, 'rgba(255, 40, 40, 0.5)');
+          g.addColorStop(1, 'rgba(255, 0, 0, 0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, y, 8, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      // Draw geographic reference lines
+      drawCountyLines(ctx, 'rgba(255, 255, 255, 0.4)', 0.8);
+      drawTexasBorder(ctx, 'rgba(100, 100, 100, 0.5)', 2.0);
+
+      document.querySelector('#layer4 .loading').style.display = 'none';
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // LAYER 3: POPULATION with Gaussian kernel density
+    // ══════════════════════════════════════════════════════════════════════════════
+    async function drawPopulation(ctx) {
+      const resp = await fetch('/data/texas/population.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      // Build Gaussian kernel density grid
+      const popGrid = new Float32Array(W * H);
+
+      lines.forEach(line => {
+        const parts = line.split(',');
+        const pop = Number(parts[3]);
+        const lat = Number(parts[4]);
+        const lng = Number(parts[5]);
+        if (!lat || !lng || !pop) return;
+
+        const [cx, cy] = latLngToXY(lat, lng);
+
+        // Variable sigma based on population (convert degrees to pixels)
+        let sigma;
+        if (pop > 500000) sigma = 15;
+        else if (pop > 200000) sigma = 22;
+        else if (pop > 50000) sigma = 33;
+        else if (pop > 10000) sigma = 46;
+        else sigma = 65;
+
+        // Apply Gaussian kernel
+        const radius = Math.ceil(sigma * 3);
+        for (let dy = -radius; dy <= radius; dy++) {
+          for (let dx = -radius; dx <= radius; dx++) {
+            const x = Math.round(cx + dx), y = Math.round(cy + dy);
+            if (x >= 0 && x < W && y >= 0 && y < H) {
+              const dist2 = dx * dx + dy * dy;
+              const val = pop * Math.exp(-dist2 / (2 * sigma * sigma));
+              popGrid[y * W + x] += val;
+            }
+          }
+        }
+      });
+
+      // Apply additional Gaussian smoothing
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+      for (let i = 0; i < W * H; i++) {
+        popGrid[i] = Math.log1p(popGrid[i]);
+      }
+
+      // Find min/max for normalization
+      let vmin = Infinity, vmax = -Infinity;
+      for (let i = 0; i < W * H; i++) {
+        if (popGrid[i] > 0) {
+          vmin = Math.min(vmin, popGrid[i]);
+          vmax = Math.max(vmax, popGrid[i]);
+        }
+      }
+
+      // Render with population colormap
+      for (let i = 0; i < W * H; i++) {
+        const val = popGrid[i];
+        if (val > 0) {
+          const t = Math.min(1, Math.max(0, (val - vmin) / (vmax - vmin)));
+          const [r, g, b] = populationColormap(t);
+          data[i * 4] = r;
+          data[i * 4 + 1] = g;
+          data[i * 4 + 2] = b;
+          data[i * 4 + 3] = 140;
+        } else {
+          data[i * 4] = 10;
+          data[i * 4 + 1] = 10;
+          data[i * 4 + 2] = 20;
+          data[i * 4 + 3] = 140;
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+
+      // Apply final Gaussian blur
+      const blurred = ctx.getImageData(0, 0, W, H);
+      gaussianBlur(blurred, 1.5);
+      ctx.putImageData(blurred, 0, 0);
+
+      // Draw geographic reference lines
+      drawCountyLines(ctx, 'rgba(255, 255, 255, 0.35)', 0.8);
+      drawTexasBorder(ctx, 'rgba(100, 120, 180, 0.6)', 2.5);
+
+      document.querySelector('#layer3 .loading').style.display = 'none';
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════════
+    // INITIALIZE
+    // ══════════════════════════════════════════════════════════════════════════════
+    const container = document.getElementById('container');
+    const layers = document.querySelectorAll('.layer');
+
+    const ease = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    function animate() {
+      const rect = container.getBoundingClientRect();
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / rect.height));
+      const ep = ease(Math.min(scrollProgress / 0.80, 1));
+      layers.forEach((layer, i) => {
+        layer.style.transform = `translateZ(${i * 120 * ep}px)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Load data
+    (async () => {
+      const ctx0 = document.getElementById('canvas0').getContext('2d');
+      const ctx1 = document.getElementById('canvas1').getContext('2d');
+      const ctx2 = document.getElementById('canvas2').getContext('2d');
+      const ctx3 = document.getElementById('canvas3').getContext('2d');
+      const ctx4 = document.getElementById('canvas4').getContext('2d');
+
+      // Load county boundaries first
+      console.log('Loading Texas county boundaries...');
+      await loadCountyBoundaries();
+
+      await drawElevation(ctx0);
+      await drawSolar(ctx1);
+      await drawWind(ctx2);
+      await drawPopulation(ctx3);
+      await drawGrid(ctx4);
+      console.log('Texas data loaded with proper techniques');
+    })();
+  </script>
+</body>
+</html>

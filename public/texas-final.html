@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texas - Real Energy & Infrastructure Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; font-family: 'Space Mono', monospace; overflow-x: hidden; }
+    #container { position: relative; width: 100%; height: 400vh; }
+    #stage { position: sticky; top: 0; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    #title { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); color: white; font-size: 24px; font-weight: 700; letter-spacing: 0.1em; text-align: center; z-index: 1000; }
+    #subtitle { position: absolute; top: 75px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 12px; letter-spacing: 0.05em; text-align: center; z-index: 1000; }
+    #persp { perspective: 1600px; perspective-origin: 50% 50%; }
+    #scene { position: relative; width: 900px; height: 600px; transform-style: preserve-3d; transform: rotateX(60deg) rotateZ(-45deg) scale(0.65); }
+    .layer { position: absolute; width: 900px; height: 600px; top: 0; left: 0; transform-style: preserve-3d; will-change: transform; }
+    .lf { width: 100%; height: 100%; border: 2px solid rgba(255, 255, 255, 0.15); overflow: hidden; background: rgba(0, 0, 0, 0.3); position: relative; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); }
+    canvas { width: 100%; height: 100%; }
+    .llabel { position: absolute; right: calc(100% + 20px); display: flex; align-items: center; gap: 12px; white-space: nowrap; pointer-events: none; opacity: 1; flex-direction: row-reverse; }
+    #layer0 .llabel { top: 10%; }
+    #layer1 .llabel { top: 30%; }
+    #layer2 .llabel { top: 50%; }
+    #layer3 .llabel { top: 70%; }
+    #layer4 .llabel { top: 90%; }
+    .ll-line { width: 35px; height: 2px; background: rgba(255, 255, 255, 0.5); flex-shrink: 0; }
+    .ll-n { font-size: 15px; font-weight: 700; font-style: italic; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.9); text-transform: uppercase; }
+    .ll-s { font-size: 10px; font-weight: 400; font-style: italic; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.5); margin-top: 3px; }
+    .loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: rgba(255, 255, 255, 0.5); font-size: 12px; z-index: 10; }
+  </style>
+</head>
+<body>
+  <div id="title">TEXAS</div>
+  <div id="subtitle">100% Real Scientific Data: USGS 3DEP • NREL NSRDB • NREL Wind Toolkit • Texas A&M • US Census Bureau</div>
+
+  <div id="container">
+    <div id="stage">
+      <div id="persp">
+        <div id="scene">
+          <div class="layer" id="layer0">
+            <div class="lf"><canvas id="canvas0" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Elevation</span><span class="ll-s">USGS 3DEP NED</span></div></div>
+          </div>
+          <div class="layer" id="layer1">
+            <div class="lf"><canvas id="canvas1" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Solar Irradiance</span><span class="ll-s">NREL NSRDB v3</span></div></div>
+          </div>
+          <div class="layer" id="layer2">
+            <div class="lf"><canvas id="canvas2" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Wind Potential</span><span class="ll-s">NREL Wind Toolkit</span></div></div>
+          </div>
+          <div class="layer" id="layer3">
+            <div class="lf"><canvas id="canvas3" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Power Grid</span><span class="ll-s">Texas A&M ACTIVSg2000</span></div></div>
+          </div>
+          <div class="layer" id="layer4">
+            <div class="lf"><canvas id="canvas4" width="900" height="600"></canvas><div class="loading">Loading...</div></div>
+            <div class="llabel"><div class="ll-line"></div><div><span class="ll-n">Population</span><span class="ll-s">US Census Bureau 2024</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LAT0 = 25.84, LAT1 = 36.50, LNG0 = -106.65, LNG1 = -93.51, W = 900, H = 600;
+    const latLngToXY = (lat, lng) => [(lng - LNG0) / (LNG1 - LNG0) * W, (1 - (lat - LAT0) / (LAT1 - LAT0)) * H];
+
+    // Color interpolation for elevation (blue → green → yellow → brown)
+    function elevationColor(elev) {
+      const colors = [
+        [0, [69, 117, 180]],      // 0m - blue (ocean/coast)
+        [100, [145, 191, 219]],   // 100m - light blue
+        [300, [116, 173, 89]],    // 300m - green
+        [600, [254, 224, 144]],   // 600m - yellow
+        [1000, [252, 141, 89]],   // 1000m - orange
+        [1500, [215, 48, 39]],    // 1500m - red/brown
+        [2500, [128, 64, 32]]     // 2500m - dark brown
+      ];
+
+      for (let i = 0; i < colors.length - 1; i++) {
+        if (elev <= colors[i + 1][0]) {
+          const t = (elev - colors[i][0]) / (colors[i + 1][0] - colors[i][0]);
+          const c1 = colors[i][1], c2 = colors[i + 1][1];
+          return [
+            Math.round(c1[0] + (c2[0] - c1[0]) * t),
+            Math.round(c1[1] + (c2[1] - c1[1]) * t),
+            Math.round(c1[2] + (c2[2] - c1[2]) * t)
+          ];
+        }
+      }
+      return colors[colors.length - 1][1];
+    }
+
+    // Color interpolation for solar (yellow → orange → red)
+    function solarColor(ghi) {
+      const t = Math.min(1, (ghi - 4.5) / 2.5);  // 4.5-7 kWh/m²/day range
+      return [
+        255,
+        Math.round(220 - t * 100),  // 220 → 120
+        Math.round(100 - t * 100)   // 100 → 0
+      ];
+    }
+
+    // Color interpolation for wind (green → yellow → orange → red)
+    function windColor(wpd) {
+      const t = Math.min(1, wpd / 800);
+      if (t < 0.5) {
+        return [
+          Math.round(100 + t * 310),  // 100 → 255
+          Math.round(200 - t * 40),   // 200 → 180
+          Math.round(100 - t * 200)   // 100 → 0
+        ];
+      } else {
+        const t2 = (t - 0.5) * 2;
+        return [
+          255,
+          Math.round(180 - t2 * 100),  // 180 → 80
+          0
+        ];
+      }
+    }
+
+    // Fast nearest neighbor lookup
+    function getValue(grid, x, y) {
+      // Check exact match first
+      const key = `${Math.round(x)},${Math.round(y)}`;
+      if (grid[key] !== undefined) return grid[key];
+
+      // Check nearby points (3x3 neighborhood)
+      for (let dy = -3; dy <= 3; dy++) {
+        for (let dx = -3; dx <= 3; dx++) {
+          const nearKey = `${Math.round(x + dx)},${Math.round(y + dy)}`;
+          if (grid[nearKey] !== undefined) return grid[nearKey];
+        }
+      }
+      return null;
+    }
+
+    // Layer 0: Elevation from CSV with contour lines
+    async function drawElevation(ctx) {
+      const resp = await fetch('/data/texas/elevation.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      const grid = {};
+      lines.forEach(line => {
+        const [lng, lat, elev] = line.split(',').map(Number);
+        if (lat && lng) {
+          const [x, y] = latLngToXY(lat, lng);
+          grid[`${Math.round(x)},${Math.round(y)}`] = elev;
+        }
+      });
+
+      // Draw base color fill first
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+
+      for (let y = 0; y < H; y += 2) {
+        for (let x = 0; x < W; x += 2) {
+          const elev = getValue(grid, x, y);
+          if (elev !== null) {
+            const [r, g, b] = elevationColor(elev);
+            for (let dy = 0; dy < 2 && y + dy < H; dy++) {
+              for (let dx = 0; dx < 2 && x + dx < W; dx++) {
+                const idx = ((y + dy) * W + (x + dx)) * 4;
+                data[idx] = r;
+                data[idx + 1] = g;
+                data[idx + 2] = b;
+                data[idx + 3] = 120;  // More transparent
+              }
+            }
+          }
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+
+      // Draw contour lines on top
+      const contourLevels = [200, 500, 1000, 1500, 2000];
+      contourLevels.forEach(level => {
+        ctx.strokeStyle = `rgba(80, 80, 80, 0.5)`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+
+        Object.keys(grid).forEach(key => {
+          const elev = grid[key];
+          if (Math.abs(elev - level) < 30) {  // Near this contour
+            const [x, y] = key.split(',').map(Number);
+            ctx.lineTo(x, y);
+          }
+        });
+        ctx.stroke();
+      });
+
+      document.querySelector('#layer0 .loading').style.display = 'none';
+    }
+
+    // Layer 1: Solar from CSV
+    async function drawSolar(ctx) {
+      const resp = await fetch('/data/texas/solar.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      const grid = {};
+      lines.forEach(line => {
+        const [lng, lat, ghi] = line.split(',').map(Number);
+        if (lat && lng && ghi) {
+          const [x, y] = latLngToXY(lat, lng);
+          grid[`${Math.round(x)},${Math.round(y)}`] = ghi;
+        }
+      });
+
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+
+      for (let y = 0; y < H; y += 2) {
+        for (let x = 0; x < W; x += 2) {
+          const ghi = getValue(grid, x, y);
+          if (ghi !== null && ghi > 0) {
+            const [r, g, b] = solarColor(ghi);
+            for (let dy = 0; dy < 2 && y + dy < H; dy++) {
+              for (let dx = 0; dx < 2 && x + dx < W; dx++) {
+                const idx = ((y + dy) * W + (x + dx)) * 4;
+                data[idx] = r;
+                data[idx + 1] = g;
+                data[idx + 2] = b;
+                data[idx + 3] = 150;
+              }
+            }
+          }
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      document.querySelector('#layer1 .loading').style.display = 'none';
+    }
+
+    // Layer 2: Wind from CSV
+    async function drawWind(ctx) {
+      const resp = await fetch('/data/texas/wind.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      const grid = {};
+      lines.forEach(line => {
+        const [lng, lat, wpd] = line.split(',').map(Number);
+        if (lat && lng && wpd) {
+          const [x, y] = latLngToXY(lat, lng);
+          grid[`${Math.round(x)},${Math.round(y)}`] = wpd;
+        }
+      });
+
+      const imageData = ctx.createImageData(W, H);
+      const data = imageData.data;
+
+      for (let y = 0; y < H; y += 2) {
+        for (let x = 0; x < W; x += 2) {
+          const wpd = getValue(grid, x, y);
+          if (wpd !== null && wpd > 0) {
+            const [r, g, b] = windColor(wpd);
+            for (let dy = 0; dy < 2 && y + dy < H; dy++) {
+              for (let dx = 0; dx < 2 && x + dx < W; dx++) {
+                const idx = ((y + dy) * W + (x + dx)) * 4;
+                data[idx] = r;
+                data[idx + 1] = g;
+                data[idx + 2] = b;
+                data[idx + 3] = 150;
+              }
+            }
+          }
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+      document.querySelector('#layer2 .loading').style.display = 'none';
+    }
+
+    // Layer 3: Power Grid from JSON with stronger lines
+    async function drawGrid(ctx) {
+      const data = await fetch('/data/texas/grid.json').then(r => r.json());
+
+      if (data.lines) {
+        // Draw thicker, more visible lines
+        ctx.strokeStyle = 'rgba(255, 60, 60, 0.6)';
+        ctx.lineWidth = 1.2;
+        data.lines.forEach(line => {
+          const [x1, y1] = latLngToXY(line.lat1, line.lng1);
+          const [x2, y2] = latLngToXY(line.lat2, line.lng2);
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+        });
+      }
+
+      if (data.buses) {
+        data.buses.forEach(bus => {
+          const [x, y] = latLngToXY(bus.lat, bus.lng);
+
+          // Sharper, more defined dots
+          ctx.fillStyle = 'rgba(255, 100, 100, 0.8)';
+          ctx.beginPath();
+          ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Small glow
+          const g = ctx.createRadialGradient(x, y, 0, x, y, 5);
+          g.addColorStop(0, 'rgba(255, 60, 60, 0.4)');
+          g.addColorStop(1, 'rgba(255, 0, 0, 0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, y, 5, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      document.querySelector('#layer3 .loading').style.display = 'none';
+    }
+
+    // Layer 4: Population from CSV with sharper dots
+    async function drawPopulation(ctx) {
+      const resp = await fetch('/data/texas/population.csv');
+      const text = await resp.text();
+      const lines = text.trim().split('\n').slice(1);
+
+      lines.forEach(line => {
+        const parts = line.split(',');
+        const pop = Number(parts[3]);
+        const lat = Number(parts[4]);
+        const lng = Number(parts[5]);
+        if (lat && lng && pop) {
+          const [x, y] = latLngToXY(lat, lng);
+          const intensity = Math.log(pop) / Math.log(5000000);
+          const radius = 15 + intensity * 30;  // Smaller, more defined
+
+          // Sharp bright center
+          ctx.fillStyle = `rgba(255, 240, 200, ${intensity * 0.9})`;
+          ctx.beginPath();
+          ctx.arc(x, y, radius * 0.3, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Medium glow
+          const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
+          g.addColorStop(0, `rgba(255, 220, 140, ${intensity * 0.7})`);
+          g.addColorStop(0.4, `rgba(255, 190, 100, ${intensity * 0.4})`);
+          g.addColorStop(1, `rgba(255, 160, 60, 0)`);
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      document.querySelector('#layer4 .loading').style.display = 'none';
+    }
+
+    // Initialize
+    const container = document.getElementById('container');
+    const layers = document.querySelectorAll('.layer');
+
+    const ease = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    function animate() {
+      const rect = container.getBoundingClientRect();
+      const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / rect.height));
+      const ep = ease(Math.min(scrollProgress / 0.80, 1));
+      layers.forEach((layer, i) => {
+        layer.style.transform = `translateZ(${i * 120 * ep}px)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Load data
+    (async () => {
+      const ctx0 = document.getElementById('canvas0').getContext('2d');
+      const ctx1 = document.getElementById('canvas1').getContext('2d');
+      const ctx2 = document.getElementById('canvas2').getContext('2d');
+      const ctx3 = document.getElementById('canvas3').getContext('2d');
+      const ctx4 = document.getElementById('canvas4').getContext('2d');
+
+      await drawElevation(ctx0);
+      await drawSolar(ctx1);
+      await drawWind(ctx2);
+      await drawGrid(ctx3);
+      await drawPopulation(ctx4);
+      console.log('Texas data loaded');
+    })();
+  </script>
+</body>
+</html>

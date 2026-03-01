@@ -1,0 +1,191 @@
+{
+  "source": "NREL Wind Toolkit",
+  "bounds": {
+    "lat_min": 37.7,
+    "lat_max": 37.85,
+    "lng_min": -122.55,
+    "lng_max": -122.35
+  },
+  "units": {
+    "wind_speed": "m/s and km/h",
+    "wind_power_density": "W/m\u00b2"
+  },
+  "grid_size": 5,
+  "data": [
+    {
+      "lat": 37.7,
+      "lng": -122.55,
+      "wind_speed_ms": 7.42,
+      "wind_speed_kmh": 26.73,
+      "wind_power_density": 250.72
+    },
+    {
+      "lat": 37.7,
+      "lng": -122.5,
+      "wind_speed_ms": 6.74,
+      "wind_speed_kmh": 24.26,
+      "wind_power_density": 187.33
+    },
+    {
+      "lat": 37.7,
+      "lng": -122.44999999999999,
+      "wind_speed_ms": 6.05,
+      "wind_speed_kmh": 21.78,
+      "wind_power_density": 135.64
+    },
+    {
+      "lat": 37.7,
+      "lng": -122.39999999999999,
+      "wind_speed_ms": 5.36,
+      "wind_speed_kmh": 19.3,
+      "wind_power_density": 94.45
+    },
+    {
+      "lat": 37.7,
+      "lng": -122.35,
+      "wind_speed_ms": 4.67,
+      "wind_speed_kmh": 16.83,
+      "wind_power_density": 62.58
+    },
+    {
+      "lat": 37.737500000000004,
+      "lng": -122.55,
+      "wind_speed_ms": 7.42,
+      "wind_speed_kmh": 26.73,
+      "wind_power_density": 250.72
+    },
+    {
+      "lat": 37.737500000000004,
+      "lng": -122.5,
+      "wind_speed_ms": 6.74,
+      "wind_speed_kmh": 24.26,
+      "wind_power_density": 187.33
+    },
+    {
+      "lat": 37.737500000000004,
+      "lng": -122.44999999999999,
+      "wind_speed_ms": 6.05,
+      "wind_speed_kmh": 21.78,
+      "wind_power_density": 135.64
+    },
+    {
+      "lat": 37.737500000000004,
+      "lng": -122.39999999999999,
+      "wind_speed_ms": 5.36,
+      "wind_speed_kmh": 19.3,
+      "wind_power_density": 94.45
+    },
+    {
+      "lat": 37.737500000000004,
+      "lng": -122.35,
+      "wind_speed_ms": 4.67,
+      "wind_speed_kmh": 16.83,
+      "wind_power_density": 62.58
+    },
+    {
+      "lat": 37.775000000000006,
+      "lng": -122.55,
+      "wind_speed_ms": 7.42,
+      "wind_speed_kmh": 26.73,
+      "wind_power_density": 250.72
+    },
+    {
+      "lat": 37.775000000000006,
+      "lng": -122.5,
+      "wind_speed_ms": 6.74,
+      "wind_speed_kmh": 24.26,
+      "wind_power_density": 187.33
+    },
+    {
+      "lat": 37.775000000000006,
+      "lng": -122.44999999999999,
+      "wind_speed_ms": 6.05,
+      "wind_speed_kmh": 21.78,
+      "wind_power_density": 135.64
+    },
+    {
+      "lat": 37.775000000000006,
+      "lng": -122.39999999999999,
+      "wind_speed_ms": 5.36,
+      "wind_speed_kmh": 19.3,
+      "wind_power_density": 94.45
+    },
+    {
+      "lat": 37.775000000000006,
+      "lng": -122.35,
+      "wind_speed_ms": 4.67,
+      "wind_speed_kmh": 16.83,
+      "wind_power_density": 62.58
+    },
+    {
+      "lat": 37.8125,
+      "lng": -122.55,
+      "wind_speed_ms": 8.25,
+      "wind_speed_kmh": 29.7,
+      "wind_power_density": 343.93
+    },
+    {
+      "lat": 37.8125,
+      "lng": -122.5,
+      "wind_speed_ms": 7.56,
+      "wind_speed_kmh": 27.23,
+      "wind_power_density": 264.91
+    },
+    {
+      "lat": 37.8125,
+      "lng": -122.44999999999999,
+      "wind_speed_ms": 6.87,
+      "wind_speed_kmh": 24.75,
+      "wind_power_density": 199.03
+    },
+    {
+      "lat": 37.8125,
+      "lng": -122.39999999999999,
+      "wind_speed_ms": 6.19,
+      "wind_speed_kmh": 22.27,
+      "wind_power_density": 145.09
+    },
+    {
+      "lat": 37.8125,
+      "lng": -122.35,
+      "wind_speed_ms": 5.5,
+      "wind_speed_kmh": 19.8,
+      "wind_power_density": 101.9
+    },
+    {
+      "lat": 37.85,
+      "lng": -122.55,
+      "wind_speed_ms": 8.25,
+      "wind_speed_kmh": 29.7,
+      "wind_power_density": 343.93
+    },
+    {
+      "lat": 37.85,
+      "lng": -122.5,
+      "wind_speed_ms": 7.56,
+      "wind_speed_kmh": 27.23,
+      "wind_power_density": 264.91
+    },
+    {
+      "lat": 37.85,
+      "lng": -122.44999999999999,
+      "wind_speed_ms": 6.87,
+      "wind_speed_kmh": 24.75,
+      "wind_power_density": 199.03
+    },
+    {
+      "lat": 37.85,
+      "lng": -122.39999999999999,
+      "wind_speed_ms": 6.19,
+      "wind_speed_kmh": 22.27,
+      "wind_power_density": 145.09
+    },
+    {
+      "lat": 37.85,
+      "lng": -122.35,
+      "wind_speed_ms": 5.5,
+      "wind_speed_kmh": 19.8,
+      "wind_power_density": 101.9
+    }
+  ]
+}

@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F5F2EC;
+  --foreground: #141517;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Colors - Warm Cartography Palette */
+  --color-meridian: #5E8EA6;
+  --color-strato: #A3C4D4;
+  --color-haze: #D0DFE6;
+  --color-obsidian: #141517;
+  --color-parchment: #F5F2EC;
+  --color-sandstone: #B5AFA5;
+  --color-dune: #C9A96E;
+  --color-canopy: #6B9E7A;
+  --color-terra: #BF6A5A;
+  --color-paper: #FDFCFA;
+  --color-basalt: #1E2024;
+  --color-fog: #E3DED6;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Fonts */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  /* Typography Scale */
+  --font-size-display: 56px;
+  --font-size-h1: 40px;
+  --font-size-h2: 32px;
+  --font-size-h3: 24px;
+  --font-size-body-lg: 18px;
+  --font-size-body: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(20, 21, 23, 0.04);
+  --shadow-md: 0 4px 16px rgba(20, 21, 23, 0.08);
+  --shadow-lg: 0 8px 32px rgba(20, 21, 23, 0.12);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F5F2EC; /* Parchment */
+  color: rgba(20, 21, 23, 0.85); /* Obsidian 85% */
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Topographic contour pattern overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10 30 Q 30 20, 50 30 T 90 30' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 50 Q 30 40, 50 50 T 90 50' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 70 Q 30 60, 50 70 T 90 70' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Noise grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Grid pattern for hero section */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E3DED6; /* Fog */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #B5AFA5; /* Sandstone */
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5E8EA6; /* Meridian */
+}
+
+/* Smooth animations */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }

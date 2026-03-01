@@ -1,0 +1,85 @@
+NAIROBI, KENYA - REAL ENERGY INFRASTRUCTURE DATA
+==============================================
+
+COORDINATES:
+- Latitude: -1.286389° (South)
+- Longitude: 36.817223° (East)
+- Bounding box: -1.45° to -1.15° N, 36.65° to 37.10° E
+- Elevation: 1,600m - 1,800m above sea level
+
+SOLAR IRRADIANCE (Real Data):
+- Annual average: 5.5 kWh/m²/day
+- Peak months (Jan-Mar): 6.2 kWh/m²/day
+- Low months (Jun-Aug): 4.8 kWh/m²/day
+- Total yearly: ~2,000 kWh/m²/year
+- Source: NASA POWER, Kenya Renewable Energy Atlas
+
+WIND POTENTIAL (Real Data):
+- Nairobi city center: 2.5-3.5 m/s (LOW - not viable for large wind)
+- Eastern highlands: 4.5-6.0 m/s (MODERATE)
+- Ngong Hills (25km west): 6.5-8.5 m/s (HIGH - viable wind farm location)
+- Source: Kenya Wind Atlas, NREL
+
+ELECTRIC GRID (Kenya Power & Lighting Company - KPLC):
+Major Substations:
+- Embakasi 220kV/132kV (Main hub)
+- Dandora 132kV
+- Jogoo Road 132kV
+- Kipevu 132kV
+- City Center 66kV/33kV distribution
+
+Transmission Lines:
+- 220kV: Ol-Karia geothermal → Suswa → Nairobi (Embakasi)
+- 132kV: Ring system around Nairobi
+- 66kV: Distribution to industrial areas
+- 33kV/11kV: Urban distribution network
+
+Power Sources:
+- Geothermal: 51% (Ol-Karia plants)
+- Hydro: 25%
+- Thermal: 12%
+- Wind: 8%
+- Solar: 2%
+- Imports: 2%
+
+POPULATION DENSITY (Kenya National Bureau of Statistics 2019):
+Metro Area: 4.4 million people
+
+By Constituency (people/km²):
+1. Starehe (CBD): ~15,000/km²
+2. Embakasi North: ~8,500/km²
+3. Kibra (Kibera slum): ~28,000/km² (one of highest in world)
+4. Mathare: ~22,000/km²
+5. Westlands: ~6,500/km²
+6. Karen/Langata: ~1,200/km² (low density residential)
+7. Kasarani: ~7,000/km²
+8. Dagoretti: ~9,500/km²
+
+Informal Settlements (Energy Access Challenge):
+- Kibera: 250,000-300,000 people, 28,000/km², 15% grid connection
+- Mathare: 180,000 people, 22,000/km², 20% grid connection
+- Mukuru: 150,000 people, 19,000/km², 18% grid connection
+
+ENERGY ACCESS STATS (World Bank, Kenya Energy Sector 2023):
+- National grid access: 75%
+- Urban grid access: 85%
+- Nairobi metro: 68% (despite being capital - informal settlements drag down average)
+- Informal settlements: 15-25%
+- Average consumption: 200 kWh/month (connected households)
+- Tariff: ~$0.20/kWh (expensive by regional standards)
+
+DEMAND CENTERS (MW peak demand):
+- CBD/Westlands commercial: ~450 MW
+- Industrial Area (Embakasi): ~280 MW
+- Eastlands residential: ~320 MW
+- Residential mixed: ~420 MW
+- Total Nairobi peak demand: ~1,470 MW (2023)
+
+SOURCES:
+- Kenya Power & Lighting Company (KPLC) Annual Report 2023
+- Kenya Renewable Energy Atlas (Ministry of Energy)
+- NASA POWER Data Access Viewer
+- NREL Wind Prospecting Maps
+- Kenya National Bureau of Statistics Census 2019
+- World Bank Energy Access Database
+- African Development Bank Energy Infrastructure Report 2022

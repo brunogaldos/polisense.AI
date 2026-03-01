@@ -1,0 +1,110 @@
+{
+  "source": "Kenya National Bureau of Statistics, Census 2019",
+  "metadata": {
+    "total_population": 4397073,
+    "metro_area": "Nairobi County",
+    "year": 2019,
+    "grid_access_overall": 68,
+    "notes": "Grid access percentage based on World Bank Energy Access Database 2023"
+  },
+  "constituencies": [
+    {
+      "name": "Starehe",
+      "description": "CBD and commercial center",
+      "lat": -1.285,
+      "lon": 36.820,
+      "population": 118967,
+      "area_km2": 8.2,
+      "density_per_km2": 14508,
+      "grid_access_percent": 90,
+      "type": "commercial"
+    },
+    {
+      "name": "Embakasi North",
+      "description": "Eastern residential and industrial",
+      "lat": -1.320,
+      "lon": 36.875,
+      "population": 251056,
+      "area_km2": 29.5,
+      "density_per_km2": 8510,
+      "grid_access_percent": 75,
+      "type": "mixed"
+    },
+    {
+      "name": "Kibra",
+      "description": "Includes Kibera informal settlement",
+      "lat": -1.315,
+      "lon": 36.795,
+      "population": 170070,
+      "area_km2": 12.1,
+      "density_per_km2": 14055,
+      "grid_access_percent": 15,
+      "type": "informal",
+      "notes": "Kibera slum area ~28,000/km² in dense core, severe energy poverty"
+    },
+    {
+      "name": "Mathare",
+      "description": "Informal settlement with high density",
+      "lat": -1.260,
+      "lon": 36.855,
+      "population": 206564,
+      "area_km2": 9.4,
+      "density_per_km2": 21977,
+      "grid_access_percent": 20,
+      "type": "informal",
+      "notes": "One of largest informal settlements, limited grid infrastructure"
+    },
+    {
+      "name": "Westlands",
+      "description": "Affluent commercial and residential",
+      "lat": -1.270,
+      "lon": 36.800,
+      "population": 134483,
+      "area_km2": 20.5,
+      "density_per_km2": 6560,
+      "grid_access_percent": 95,
+      "type": "affluent"
+    },
+    {
+      "name": "Karen/Langata",
+      "description": "Low density residential suburbs",
+      "lat": -1.350,
+      "lon": 36.750,
+      "population": 129974,
+      "area_km2": 111.2,
+      "density_per_km2": 1169,
+      "grid_access_percent": 98,
+      "type": "suburban"
+    },
+    {
+      "name": "Kasarani",
+      "description": "Northern residential expansion",
+      "lat": -1.230,
+      "lon": 36.890,
+      "population": 523132,
+      "area_km2": 74.8,
+      "density_per_km2": 6992,
+      "grid_access_percent": 70,
+      "type": "residential"
+    },
+    {
+      "name": "Dagoretti",
+      "description": "Western residential and market",
+      "lat": -1.295,
+      "lon": 36.760,
+      "population": 314162,
+      "area_km2": 33.0,
+      "density_per_km2": 9520,
+      "grid_access_percent": 72,
+      "type": "mixed"
+    }
+  ],
+  "energy_demand": {
+    "total_peak_mw": 1470,
+    "cbd_westlands_mw": 450,
+    "industrial_embakasi_mw": 280,
+    "eastlands_residential_mw": 320,
+    "other_residential_mw": 420,
+    "source": "Kenya Power & Lighting Company (KPLC) Annual Report 2023"
+  }
+}

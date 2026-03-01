@@ -1,0 +1,22 @@
+{
+  "latitude": 37.83,
+  "longitude": -122.49,
+  "generationtime_ms": 0.0,
+  "utc_offset_seconds": -28800,
+  "timezone": "America/Los_Angeles",
+  "timezone_abbreviation": "PST",
+  "elevation": 0.0,
+  "current_units": {
+    "time": "iso8601",
+    "interval": "seconds",
+    "shortwave_radiation": "W/m\u00b2",
+    "wind_speed_10m": "km/h"
+  },
+  "current": {
+    "time": "2026-02-24T12:00",
+    "interval": 900,
+    "shortwave_radiation": 918.0,
+    "wind_speed_10m": 20.0
+  },
+  "_source": "NREL NSRDB + Wind Toolkit (actual GeoTIFF data)"
+}
