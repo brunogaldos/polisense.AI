@@ -121,7 +121,7 @@
     // Load Texas county boundaries
     async function loadCountyBoundaries() {
       if (COUNTY_BOUNDARIES) return COUNTY_BOUNDARIES;
-      const resp = await fetch('/data/texas/counties.geojson');
+      const resp = await fetch('data/texas/counties.geojson');
       COUNTY_BOUNDARIES = await resp.json();
       console.log(`Loaded ${COUNTY_BOUNDARIES.features.length} Texas county boundaries`);
       return COUNTY_BOUNDARIES;
@@ -403,7 +403,7 @@
     // LAYER 0: ELEVATION with hillshade
     // ══════════════════════════════════════════════════════════════════════════════
     async function drawElevation(ctx) {
-      const resp = await fetch('/data/texas/elevation.csv');
+      const resp = await fetch('data/texas/elevation.csv');
       const text = await resp.text();
       const lines = text.trim().split('\n').slice(1);
 
@@ -610,7 +610,7 @@
     // LAYER 1: SOLAR with proper interpolation and smoothing
     // ══════════════════════════════════════════════════════════════════════════════
     async function drawSolar(ctx) {
-      const resp = await fetch('/data/texas/solar.csv');
+      const resp = await fetch('data/texas/solar.csv');
       const text = await resp.text();
       const lines = text.trim().split('\n').slice(1);
 
@@ -731,7 +731,7 @@
     // LAYER 2: WIND with smooth gradient
     // ══════════════════════════════════════════════════════════════════════════════
     async function drawWind(ctx) {
-      const resp = await fetch('/data/texas/wind.csv');
+      const resp = await fetch('data/texas/wind.csv');
       const text = await resp.text();
       const lines = text.trim().split('\n').slice(1);
 
@@ -850,7 +850,7 @@
     // LAYER 4: POWER GRID
     // ══════════════════════════════════════════════════════════════════════════════
     async function drawGrid(ctx) {
-      const data = await fetch('/data/texas/grid.json').then(r => r.json());
+      const data = await fetch('data/texas/grid.json').then(r => r.json());
 
       if (data.lines) {
         ctx.strokeStyle = 'rgba(255, 60, 60, 0.5)';
@@ -894,7 +894,7 @@
     // LAYER 3: POPULATION with Gaussian kernel density
     // ══════════════════════════════════════════════════════════════════════════════
     async function drawPopulation(ctx) {
-      const resp = await fetch('/data/texas/population.csv');
+      const resp = await fetch('data/texas/population.csv');
       const text = await resp.text();
       const lines = text.trim().split('\n').slice(1);
 
