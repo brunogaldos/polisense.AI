@@ -1,18 +1,26 @@
-import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
+import { getFirestore, type Firestore } from "firebase/firestore";
+import { getAnalytics, type Analytics } from "firebase/analytics";
 
-// Firebase configuration - Replace with your actual credentials
+function requiredEnv(name: string): string {
+  const v = process.env[name];
+  if (!v) throw new Error(`Missing environment variable: ${name}`);
+  return v;
+}
+
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: requiredEnv("NEXT_PUBLIC_FIREBASE_API_KEY"),
+  authDomain: requiredEnv("NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN"),
+  projectId: requiredEnv("NEXT_PUBLIC_FIREBASE_PROJECT_ID"),
+  storageBucket: requiredEnv("NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET"),
+  messagingSenderId: requiredEnv("NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID"),
+  appId: requiredEnv("NEXT_PUBLIC_FIREBASE_APP_ID"),
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID, // optional
 };
 
-// Initialize Firebase
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-const db = getFirestore(app);
+export const app: FirebaseApp = getApps().length ? getApps()[0]! : initializeApp(firebaseConfig);
+export const db: Firestore = getFirestore(app);
 
-export { db };
+// Analytics is browser-only; keep it optional to avoid SSR/static-build issues.
+export const analytics: Analytics | null =
+  typeof window !== "undefined" ? getAnalytics(app) : null;
