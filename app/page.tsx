@@ -18,7 +18,7 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/polisense_logo.svg" alt="Polisense AI" className="h-8 w-8" />
+            <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`} alt="Polisense AI" className="h-8 w-8" />
             <div className="text-2xl font-bold text-[#5E8EA6]">
               Polisense AI
             </div>
@@ -127,7 +127,7 @@ export default function Home() {
             className="relative h-[600px] lg:h-[700px] overflow-hidden"
           >
             <iframe
-              src="/master-visualization.html"
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/master-visualization.html`}
               className="border-0"
               style={{
                 transform: 'scale(0.7)',
@@ -424,7 +424,7 @@ export default function Home() {
       <footer className="py-12 px-6 bg-[#FDFCFA] text-[#141517]/70 border-t border-[#E3DED6]">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <img src="/polisense_logo.svg" alt="Polisense AI" className="h-6 w-6" />
+            <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`} alt="Polisense AI" className="h-6 w-6" />
             <div className="text-xl font-bold text-[#5E8EA6]">
               Polisense AI
             </div>

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: "PolisenseAI - AI-Powered Energy Access Intelligence",
   description: "Democratizing energy infrastructure planning with AI. Analyze geospatial data, predict demand, and accelerate electrification in underserved communities.",
   icons: {
-    icon: "/polisense_logo.svg",
+    icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`,
   },
 };
 
