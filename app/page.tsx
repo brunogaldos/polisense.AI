@@ -91,7 +91,7 @@ export default function Home() {
                 <ArrowRight size={20} />
               </motion.button>
 
-              <a href="/Polisense_AI_whitepaper.pdf" target="_blank" rel="noopener noreferrer">
+              <a href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/Polisense_AI_whitepaper.pdf`} target="_blank" rel="noopener noreferrer">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
