@@ -1,12 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/polisense.AI',
   images: {
-    unoptimized: true,
+    unoptimized: true
   },
   trailingSlash: true,
-};
+  // Add basePath only if paths break post-deploy: basePath: '/polisense.AI'
+}
 
-export default nextConfig;
+export default nextConfig

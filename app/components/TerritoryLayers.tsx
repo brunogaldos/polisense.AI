@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 export default function TerritoryLayers() {
   const containerRef = useRef<HTMLDivElement>(null)
   const sceneRef = useRef<HTMLDivElement>(null)
-  const animationFrameRef = useRef<number>()
+  const animationFrameRef = useRef<number>(0)
 
   useEffect(() => {
     if (!containerRef.current || !sceneRef.current) return
