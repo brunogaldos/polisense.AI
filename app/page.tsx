@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Zap, Globe, TrendingUp, Shield } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight, Zap, Globe, TrendingUp, Shield, Menu, X } from 'lucide-react'
 import BookDemoModal from '@/components/BookDemoModal'
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   return (
     <div className="min-h-screen bg-[#F5F2EC]">
       {/* Navigation */}
@@ -16,14 +17,16 @@ export default function Home() {
         transition={{ duration: 0.2 }}
         className="fixed top-0 w-full bg-[#FDFCFA]/95 backdrop-blur-md border-b border-[#E3DED6] z-50 shadow-sm"
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`} alt="Polisense AI" className="h-8 w-8" />
-            <div className="text-2xl font-bold text-[#5E8EA6]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`} alt="Polisense AI" className="h-7 w-7 sm:h-8 sm:w-8" />
+            <div className="text-xl sm:text-2xl font-bold text-[#5E8EA6]">
               Polisense AI
             </div>
           </div>
-          <div className="flex items-center gap-6">
+
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200">
               Features
             </a>
@@ -37,18 +40,63 @@ export default function Home() {
               Get Started
             </button>
           </div>
+
+          {/* Mobile hamburger button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-[#141517]/70 hover:text-[#141517] transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden overflow-hidden border-t border-[#E3DED6]"
+            >
+              <div className="px-4 py-4 flex flex-col gap-4 bg-[#FDFCFA]/95">
+                <a
+                  href="#features"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
+                >
+                  Features
+                </a>
+                <a
+                  href="#testimonials"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
+                >
+                  Testimonials
+                </a>
+                <button
+                  onClick={() => { setIsModalOpen(true); setIsMobileMenuOpen(false); }}
+                  className="px-5 py-2 bg-[#5E8EA6] text-white rounded-full hover:bg-[#4A7185] transition-all duration-200 shadow-sm w-fit"
+                >
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
 
       {/* Hero Section - Split Layout */}
       <section className="relative min-h-screen flex items-center">
-        <div className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-[2fr_3fr] gap-12 items-center w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 sm:py-20 grid lg:grid-cols-[2fr_3fr] gap-8 sm:gap-12 items-center w-full">
           {/* Left: Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8 z-10"
+            className="space-y-6 sm:space-y-8 z-10"
           >
             <motion.a
               href="https://www.globalcovenantofmayors.org/"
@@ -57,7 +105,7 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2, delay: 0.2 }}
-              className="block mx-auto w-fit px-4 py-2 bg-[#5E8EA6]/10 border border-[#5E8EA6]/30 rounded-full text-sm text-[#5E8EA6] font-medium hover:bg-[#5E8EA6]/20 transition-colors duration-200"
+              className="block mx-auto w-fit px-3 sm:px-4 py-1.5 sm:py-2 bg-[#5E8EA6]/10 border border-[#5E8EA6]/30 rounded-full text-xs sm:text-sm text-[#5E8EA6] font-medium hover:bg-[#5E8EA6]/20 transition-colors duration-200 text-center"
             >
               Backed by the Global Covenant of Mayors
             </motion.a>
@@ -124,17 +172,11 @@ export default function Home() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative h-[600px] lg:h-[700px] overflow-hidden"
+            className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] overflow-hidden"
           >
             <iframe
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/master-visualization.html`}
-              className="border-0"
-              style={{
-                transform: 'scale(0.7)',
-                transformOrigin: 'top left',
-                width: '143%',
-                height: '143%'
-              }}
+              className="border-0 absolute top-0 left-0 origin-top-left scale-[0.35] w-[286%] h-[286%] sm:scale-[0.5] sm:w-[200%] sm:h-[200%] md:scale-[0.6] md:w-[167%] md:h-[167%] lg:scale-[0.7] lg:w-[143%] lg:h-[143%]"
               title="Texas Energy Infrastructure Visualization"
             />
           </motion.div>
