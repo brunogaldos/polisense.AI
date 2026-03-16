@@ -482,7 +482,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex gap-8">
-            <a href="https://www.linkedin.com/in/bruno-galdos-a25353a9/" target="_blank" rel="noopener noreferrer" className="hover:text-[#141517] transition-colors duration-200">LinkedIn</a>
+            <a href="https://www.linkedin.com/company/polisense-ai/" target="_blank" rel="noopener noreferrer" className="hover:text-[#141517] transition-colors duration-200">LinkedIn</a>
             <a href="mailto:info@polisenseai.com" className="hover:text-[#141517] transition-colors duration-200">Contact</a>
           </div>
           <div className="text-sm text-[#141517]/50">
