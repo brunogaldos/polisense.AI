@@ -11,7 +11,7 @@ const teamMembers = [
   {
     name: 'Bruno Galdos',
     role: 'CEO & Co-founder',
-    description: "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch — where AI, energy, and sustainability meet to transform communities.",
+    description: "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, energy, and sustainability meet to transform communities.",
     photo: `${basePath}/bruno_linkedin.jpeg`,
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
     email: null as string | null,
@@ -27,7 +27,7 @@ const teamMembers = [
   {
     name: 'Jose Pastor',
     role: 'Advisory Board — Product',
-    description: "Senior PM of AI at Siemens Energy. Bridges enterprise energy know-how with Polisense's go-to-market across emerging markets.",
+    description: "Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships",
     photo: `${basePath}/jose.jpeg`,
     linkedin: 'https://www.linkedin.com/in/josepastorp/',
     email: null as string | null,
