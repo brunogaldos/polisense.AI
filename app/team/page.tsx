@@ -230,7 +230,7 @@ export default function Team() {
           </div>
           <div className="flex gap-8">
             <a
-              href="https://www.linkedin.com/in/bruno-galdos-a25353a9/"
+              href="https://www.linkedin.com/company/polisense-ai"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#141517] transition-colors duration-200"
