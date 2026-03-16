@@ -489,6 +489,25 @@ export default function Home() {
             © 2026 Polisense AI. All rights reserved.
           </div>
         </div>
+
+        {/* Partners */}
+        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-[#E3DED6] flex flex-col items-center gap-4">
+          <p className="text-xs text-[#141517]/40 uppercase tracking-widest font-medium">Partners</p>
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/Hack for Earth Foundation - black.svg`}
+              alt="Hack for Earth Foundation"
+              className="h-8 opacity-50 hover:opacity-80 transition-opacity duration-200"
+            />
+            <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer">
+              <img
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/elevenlabs-logo-black.svg`}
+                alt="ElevenLabs"
+                className="h-6 opacity-50 hover:opacity-80 transition-opacity duration-200"
+              />
+            </a>
+          </div>
+        </div>
       </footer>
 
       {/* Book Demo Modal */}
