@@ -13,7 +13,7 @@ const teamMembers = [
     role: 'CEO, Strategy Lead & Co-founder',
     description:
       'AI/ML engineer from RWTH Aachen. Built the entire MVP with AI agents, RAG, and multimodal models. Former Siemens & WZL AI Research.',
-    photo: `${basePath}/brunolinkedin.jpeg`,
+    photo: `${basePath}/bruno_linkedin.jpeg`,
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
     email: null as string | null,
   },
@@ -24,7 +24,7 @@ const teamMembers = [
       'Applied AI engineer specializing in ML systems and robotics. MSc Robotics Engineering at RWTH Aachen. Former ML Engineer at Tata Consultancy Services.',
     photo: `${basePath}/abhirup_profile.png`,
     linkedin: 'https://www.linkedin.com/in/abhirup-das-82a955a9/',
-    email: 'abhirupdas1000@gmail.com' as string | null,
+    email: null as string | null,
   },
   {
     name: 'Jose Pastor',
