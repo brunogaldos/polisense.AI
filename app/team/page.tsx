@@ -10,18 +10,16 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 const teamMembers = [
   {
     name: 'Bruno Galdos',
-    role: 'CEO, Strategy Lead & Co-founder',
-    description:
-      'AI/ML engineer from RWTH Aachen. Built the entire MVP with AI agents, RAG, and multimodal models. Former Siemens & WZL AI Research.',
+    role: 'CEO & Co-founder',
+    description: 'Serial builder. Shipped Polisense's full MVP solo — AI agents, RAG, multimodal models. RWTH Aachen researcher turned founder.',
     photo: `${basePath}/bruno_linkedin.jpeg`,
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
     email: null as string | null,
   },
   {
     name: 'Abhirup Das',
-    role: 'CTO & Tech Lead',
-    description:
-      'Applied AI engineer specializing in ML systems and robotics. MSc Robotics Engineering at RWTH Aachen. Former ML Engineer at Tata Consultancy Services.',
+    role: 'CTO & Co-founder',
+    description: 'Turns cutting-edge AI research into production systems. Robotics and vision researcher at RWTH Aachen, now engineering Polisense's core tech.',
     photo: `${basePath}/abhirup_profile.png`,
     linkedin: 'https://www.linkedin.com/in/abhirup-das-82a955a9/',
     email: null as string | null,
@@ -29,8 +27,7 @@ const teamMembers = [
   {
     name: 'Jose Pastor',
     role: 'Advisory Board — Product',
-    description:
-      'Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships.',
+    description: 'Senior PM of AI at Siemens Energy. Bridges enterprise energy know-how with Polisense's go-to-market across emerging markets.',
     photo: `${basePath}/jose.jpeg`,
     linkedin: 'https://www.linkedin.com/in/josepastorp/',
     email: null as string | null,
