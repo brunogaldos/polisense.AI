@@ -499,6 +499,11 @@ export default function Home() {
               alt="Hack for Earth Foundation"
               className="h-8 opacity-50 hover:opacity-80 transition-opacity duration-200"
             />
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/GCoM_logo.svg`}
+              alt="Global Covenant of Mayors"
+              className="h-8 opacity-50 hover:opacity-80 transition-opacity duration-200"
+            />
             <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer">
               <img
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/elevenlabs-logo-black.svg`}
