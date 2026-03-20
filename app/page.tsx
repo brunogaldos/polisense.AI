@@ -125,7 +125,7 @@ export default function Home() {
                 AI-Powered
               </span>
               <br />
-              <span className="text-[#141517]">Energy Access</span>
+              <span className="text-[#141517]">Resource & Energy Access</span>
               <br />
               <span className="text-[#5E8EA6]">
                 Intelligence
@@ -133,9 +133,9 @@ export default function Home() {
             </h1>
 
             <p className="text-lg text-[#141517]/70 max-w-xl leading-relaxed">
-              Democratizing energy infrastructure planning with AI.
+              Democratizing resource and energy infrastructure planning with AI.
               Analyze geospatial data layers, automate compliance reporting,
-              and accelerate electrification in underserved communities.
+              and accelerate access in underserved communities.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
@@ -204,7 +204,7 @@ export default function Home() {
             className="text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#141517]">
-              Energy Planning Shouldn't Take Months
+              Resource & Energy Planning Shouldn't Take Months
             </h2>
             <p className="text-xl text-[#141517]/85 mb-8 leading-relaxed">
               Government planners waste weeks gathering fragmented data from multiple sources,
@@ -248,7 +248,7 @@ export default function Home() {
               Built for Impact
             </h2>
             <p className="text-xl text-[#141517]/85 max-w-2xl mx-auto">
-              Powerful tools to accelerate energy access in emerging markets
+              Powerful tools to accelerate resource and energy access in emerging markets
             </p>
           </motion.div>
 
@@ -257,7 +257,7 @@ export default function Home() {
               {
                 icon: Zap,
                 title: 'AI Site Recommendations',
-                description: 'Get intelligent site recommendations for renewable energy and grid infrastructure based on comprehensive geospatial analysis.'
+                description: 'Get intelligent site recommendations for resource deployment, renewable energy, and grid infrastructure based on comprehensive geospatial analysis.'
               },
               {
                 icon: Globe,
@@ -313,8 +313,8 @@ export default function Home() {
               From Months to Minutes
             </h2>
             <p className="text-xl text-[#141517]/85 max-w-3xl mx-auto leading-relaxed">
-              Join government agencies transforming how they plan and deploy energy infrastructure.
-              Make data-driven decisions with confidence and accelerate electrification for millions.
+              Join government agencies transforming how they plan and deploy resource and energy infrastructure.
+              Make data-driven decisions with confidence and expand access for millions.
             </p>
           </motion.div>
 
@@ -361,7 +361,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-12 text-center">
             {[
               { value: '760M+', label: 'People without electricity access globally' },
-              { value: '50%', label: 'Energy projects fail within first 5 years' },
+              { value: '50%', label: 'Infrastructure projects fail within first 5 years' },
               { value: '10x', label: 'Faster infrastructure planning with AI' }
             ].map((stat, index) => (
               <motion.div
@@ -392,7 +392,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#141517]">
-              Trusted by Energy Leaders
+              Trusted by Resource & Energy Leaders
             </h2>
             <p className="text-xl text-[#141517]/85">
               Government agencies and international organizations rely on Polisense AI
@@ -454,11 +454,11 @@ export default function Home() {
           className="max-w-4xl mx-auto text-center"
         >
           <h2 className="text-5xl font-bold mb-6 text-[#141517]">
-            Ready to Transform Energy Access?
+            Ready to Transform Resource & Energy Access?
           </h2>
           <p className="text-xl text-[#141517]/85 mb-10 max-w-2xl mx-auto leading-relaxed">
             Join leading organizations using Polisense AI to accelerate
-            electrification, optimize infrastructure investments, and improve
+            resource and energy access, optimize infrastructure investments, and improve
             lives in underserved communities.
           </p>
           <motion.button

@@ -24,8 +24,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PolisenseAI - AI-Powered Energy Access Intelligence",
-  description: "Democratizing energy infrastructure planning with AI. Analyze geospatial data, predict demand, and accelerate electrification in underserved communities.",
+  title: "PolisenseAI - AI-Powered Resource & Energy Access Intelligence",
+  description: "Democratizing resource and energy infrastructure planning with AI. Analyze geospatial data, predict demand, and accelerate access in underserved communities.",
   icons: {
     icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/polisense_logo.svg`,
   },
