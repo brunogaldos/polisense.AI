@@ -502,7 +502,7 @@ export default function Home() {
             <img
               src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/GCoM_logo.svg`}
               alt="Global Covenant of Mayors"
-              className="h-8 opacity-50 hover:opacity-80 transition-opacity duration-200"
+              className="h-10 opacity-50 hover:opacity-80 transition-opacity duration-200 brightness-0"
             />
             <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer">
               <img
