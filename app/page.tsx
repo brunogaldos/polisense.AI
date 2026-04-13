@@ -33,9 +33,6 @@ export default function Home() {
             <a href="#testimonials" className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200">
               Testimonials
             </a>
-            <a href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/team`} className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200">
-              Team
-            </a>
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-5 py-2 bg-[#5E8EA6] text-white rounded-full hover:bg-[#4A7185] transition-all duration-200 hover:scale-105 shadow-sm"
@@ -78,13 +75,6 @@ export default function Home() {
                   className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
                 >
                   Testimonials
-                </a>
-                <a
-                  href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/team`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
-                >
-                  Team
                 </a>
                 <button
                   onClick={() => { setIsModalOpen(true); setIsMobileMenuOpen(false); }}

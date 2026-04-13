@@ -71,12 +71,6 @@ export default function Team() {
             >
               Testimonials
             </a>
-            <a
-              href={`${basePath}/team`}
-              className="text-[#5E8EA6] font-medium transition-colors duration-200"
-            >
-              Team
-            </a>
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-5 py-2 bg-[#5E8EA6] text-white rounded-full hover:bg-[#4A7185] transition-all duration-200 hover:scale-105 shadow-sm"
@@ -118,13 +112,6 @@ export default function Team() {
                   className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
                 >
                   Testimonials
-                </a>
-                <a
-                  href={`${basePath}/team`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-[#5E8EA6] font-medium py-1"
-                >
-                  Team
                 </a>
                 <button
                   onClick={() => {
