@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Mail, Building2, CheckCircle } from 'lucide-react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { useLanguage } from '@/lib/i18n/context'
 
 interface BookDemoModalProps {
   isOpen: boolean
@@ -12,6 +13,7 @@ interface BookDemoModalProps {
 }
 
 export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -43,7 +45,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
       }, 2000)
     } catch (err) {
       console.error('Error submitting form:', err)
-      setError('Failed to submit. Please try again.')
+      setError(t.demoModal.errorMessage)
     } finally {
       setIsSubmitting(false)
     }
@@ -101,10 +103,10 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                   <CheckCircle className="text-white" size={32} />
                 </motion.div>
                 <h3 className="text-2xl font-bold text-[#141517] mb-2">
-                  Request Submitted!
+                  {t.demoModal.successTitle}
                 </h3>
                 <p className="text-[#141517]/70">
-                  We'll be in touch shortly to schedule your demo.
+                  {t.demoModal.successDescription}
                 </p>
               </div>
             ) : (
@@ -112,10 +114,10 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 {/* Header */}
                 <div className="p-6 pb-4 border-b border-[#E3DED6]">
                   <h2 className="text-2xl font-bold text-[#141517] mb-2">
-                    Book a Demo
+                    {t.demoModal.title}
                   </h2>
                   <p className="text-[#141517]/70">
-                    See how Polisense AI can transform your energy planning
+                    {t.demoModal.description}
                   </p>
                 </div>
 
@@ -124,7 +126,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                   {/* Email Input */}
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-[#141517] mb-2">
-                      Email Address
+                      {t.demoModal.emailLabel}
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-[#141517]/40" size={18} />
@@ -134,7 +136,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        placeholder="you@organization.com"
+                        placeholder={t.demoModal.emailPlaceholder}
                         className="w-full pl-10 pr-4 py-3 bg-[#F5F2EC] border border-[#E3DED6] rounded-xl text-[#141517] placeholder:text-[#141517]/40 focus:outline-none focus:ring-2 focus:ring-[#5E8EA6] focus:border-transparent transition-all duration-200"
                       />
                     </div>
@@ -143,7 +145,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                   {/* Company Input */}
                   <div>
                     <label htmlFor="company" className="block text-sm font-medium text-[#141517] mb-2">
-                      Organization
+                      {t.demoModal.organizationLabel}
                     </label>
                     <div className="relative">
                       <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-[#141517]/40" size={18} />
@@ -153,7 +155,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                         required
-                        placeholder="Your organization name"
+                        placeholder={t.demoModal.organizationPlaceholder}
                         className="w-full pl-10 pr-4 py-3 bg-[#F5F2EC] border border-[#E3DED6] rounded-xl text-[#141517] placeholder:text-[#141517]/40 focus:outline-none focus:ring-2 focus:ring-[#5E8EA6] focus:border-transparent transition-all duration-200"
                       />
                     </div>
@@ -196,15 +198,15 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           />
                         </svg>
-                        Submitting...
+                        {t.demoModal.submitting}
                       </span>
                     ) : (
-                      'Submit Request'
+                      t.demoModal.submit
                     )}
                   </motion.button>
 
                   <p className="text-xs text-[#141517]/50 text-center">
-                    By submitting, you agree to our Terms of Service and Privacy Policy
+                    {t.demoModal.disclaimer}
                   </p>
                 </form>
               </>

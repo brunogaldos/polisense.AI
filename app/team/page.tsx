@@ -4,30 +4,23 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Linkedin, Mail } from 'lucide-react'
 import BookDemoModal from '@/components/BookDemoModal'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
+import { useLanguage } from '@/lib/i18n/context'
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
-const teamMembers = [
+const teamMemberMeta = [
   {
-    name: 'Bruno Galdos',
-    role: 'CEO & Co-founder',
-    description: "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, energy, and sustainability meet to transform communities.",
     photo: `${basePath}/bruno_linkedin.jpeg`,
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
     email: null as string | null,
   },
   {
-    name: 'Abhirup Das',
-    role: 'CTO & Co-founder',
-    description: "Turns cutting-edge research into production systems. Robotics and vision researcher at RWTH Aachen, now engineering Polisense's core tech.",
     photo: `${basePath}/abhirup_profile.png`,
     linkedin: 'https://www.linkedin.com/in/abhirup-das-82a955a9/',
     email: null as string | null,
   },
   {
-    name: 'Jose Pastor',
-    role: 'Advisory Board — Product',
-    description: "Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships",
     photo: `${basePath}/jose.jpeg`,
     linkedin: 'https://www.linkedin.com/in/josepastorp/',
     email: null as string | null,
@@ -37,6 +30,8 @@ const teamMembers = [
 export default function Team() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { t } = useLanguage()
+  const teamMembers = t.team.members.map((member, index) => ({ ...member, ...teamMemberMeta[index] }))
 
   return (
     <div className="min-h-screen bg-[#F5F2EC]">
@@ -63,19 +58,20 @@ export default function Team() {
               href={`${basePath}/#features`}
               className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200"
             >
-              Features
+              {t.nav.features}
             </a>
             <a
               href={`${basePath}/#testimonials`}
               className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200"
             >
-              Testimonials
+              {t.nav.testimonials}
             </a>
+            <LanguageSwitcher />
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-5 py-2 bg-[#5E8EA6] text-white rounded-full hover:bg-[#4A7185] transition-all duration-200 hover:scale-105 shadow-sm"
             >
-              Get Started
+              {t.nav.getStarted}
             </button>
           </div>
 
@@ -83,7 +79,7 @@ export default function Team() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-[#141517]/70 hover:text-[#141517] transition-colors"
-            aria-label="Toggle menu"
+            aria-label={t.nav.toggleMenu}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -104,15 +100,16 @@ export default function Team() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
                 >
-                  Features
+                  {t.nav.features}
                 </a>
                 <a
                   href={`${basePath}/#testimonials`}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-[#141517]/70 hover:text-[#141517] transition-colors duration-200 py-1"
                 >
-                  Testimonials
+                  {t.nav.testimonials}
                 </a>
+                <LanguageSwitcher className="w-fit" />
                 <button
                   onClick={() => {
                     setIsModalOpen(true)
@@ -120,7 +117,7 @@ export default function Team() {
                   }}
                   className="px-5 py-2 bg-[#5E8EA6] text-white rounded-full hover:bg-[#4A7185] transition-all duration-200 shadow-sm w-fit"
                 >
-                  Get Started
+                  {t.nav.getStarted}
                 </button>
               </div>
             </motion.div>
@@ -139,11 +136,10 @@ export default function Team() {
             className="text-center mb-20"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-[#141517] mb-4 tracking-tight">
-              Our Team
+              {t.team.heroTitle}
             </h1>
             <p className="text-xl text-[#141517]/70 max-w-2xl mx-auto leading-relaxed">
-              AI engineers, product strategists, and energy experts united by a mission to
-              democratize clean energy infrastructure planning worldwide.
+              {t.team.heroDescription}
             </p>
           </motion.div>
 
@@ -186,7 +182,7 @@ export default function Team() {
                     className="flex items-center gap-2 px-4 py-2 bg-[#5E8EA6] text-white rounded-full text-sm font-medium hover:bg-[#4A7185] transition-all duration-200 hover:scale-105"
                   >
                     <Linkedin size={14} />
-                    LinkedIn
+                    {t.footer.linkedin}
                   </a>
                   {member.email && (
                     <a
@@ -194,7 +190,7 @@ export default function Team() {
                       className="flex items-center gap-2 px-4 py-2 border border-[#141517]/20 text-[#141517]/70 rounded-full text-sm font-medium hover:border-[#141517]/40 hover:text-[#141517] transition-all duration-200"
                     >
                       <Mail size={14} />
-                      Email
+                      {t.team.email}
                     </a>
                   )}
                 </div>
@@ -222,16 +218,16 @@ export default function Team() {
               rel="noopener noreferrer"
               className="hover:text-[#141517] transition-colors duration-200"
             >
-              LinkedIn
+              {t.footer.linkedin}
             </a>
             <a
               href="mailto:info@polisenseai.com"
               className="hover:text-[#141517] transition-colors duration-200"
             >
-              Contact
+              {t.footer.contact}
             </a>
           </div>
-          <div className="text-sm text-[#141517]/50">© 2026 Polisense AI. All rights reserved.</div>
+          <div className="text-sm text-[#141517]/50">{t.footer.copyright}</div>
         </div>
       </footer>
 
