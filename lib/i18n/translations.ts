@@ -4,6 +4,7 @@ const en = {
   nav: {
     features: 'Features',
     testimonials: 'Testimonials',
+    blogs: 'Blogs',
     getStarted: 'Get Started',
     toggleMenu: 'Toggle menu',
     languageLabel: 'Language',
@@ -163,6 +164,14 @@ const en = {
       },
     ],
   },
+  blog: {
+    heroTitle: 'Blog',
+    heroDescription:
+      'Insights on AI, geospatial analysis, and accelerating resource and energy access worldwide.',
+    emptyTitle: 'New posts are on the way',
+    emptyDescription:
+      "We're working on our first articles. Check back soon for updates on our research, product, and mission.",
+  },
   demoModal: {
     successTitle: 'Request Submitted!',
     successDescription: "We'll be in touch shortly to schedule your demo.",
@@ -183,6 +192,7 @@ const es: typeof en = {
   nav: {
     features: 'Funcionalidades',
     testimonials: 'Testimonios',
+    blogs: 'Blog',
     getStarted: 'Comenzar',
     toggleMenu: 'Alternar menú',
     languageLabel: 'Idioma',
@@ -342,6 +352,14 @@ const es: typeof en = {
           'Gerente Senior de Producto de IA en Siemens con más de 6 años en energía e infraestructura de red. Impulsa la estrategia de producto y las alianzas',
       },
     ],
+  },
+  blog: {
+    heroTitle: 'Blog',
+    heroDescription:
+      'Perspectivas sobre IA, análisis geoespacial y cómo acelerar el acceso a recursos y energía en el mundo.',
+    emptyTitle: 'Nuevos artículos en camino',
+    emptyDescription:
+      'Estamos preparando nuestros primeros artículos. Vuelve pronto para conocer novedades sobre nuestra investigación, producto y misión.',
   },
   demoModal: {
     successTitle: '¡Solicitud Enviada!',
