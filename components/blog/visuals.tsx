@@ -26,7 +26,13 @@ const PALETTE = {
  * transmission tower on the horizon — the visual thread that ties the whole
  * article (desert siting, solar resource, grid infrastructure) together.
  */
-export function HeroIllustration({ className = '' }: { className?: string }) {
+export function HeroIllustration({
+  className = '',
+  title = 'Atardecer sobre dunas desérticas con un parque solar y una torre de transmisión en el horizonte',
+}: {
+  className?: string
+  title?: string
+}) {
   return (
     <svg
       viewBox="0 0 1200 500"
@@ -34,7 +40,7 @@ export function HeroIllustration({ className = '' }: { className?: string }) {
       role="img"
       preserveAspectRatio="xMidYMid slice"
     >
-      <title>Atardecer sobre dunas desérticas con un parque solar y una torre de transmisión en el horizonte</title>
+      <title>{title}</title>
       <defs>
         <linearGradient id="hero-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor={PALETTE.haze} />
@@ -211,7 +217,23 @@ const connectorLabelPos: [number, number] = [
  * cartographic grid, warm palette — but traced from the parcels' real
  * surveyed boundaries (source GeoJSON) rather than an arbitrary shape.
  */
-export function ParcelMapIllustration({ className = '' }: { className?: string }) {
+export function ParcelMapIllustration({
+  className = '',
+  title = 'Mapa de los predios evaluados, trazado a partir de los límites reales de Majes y Santa Rita de Siguas, Arequipa',
+  connectorLabel = 'predios evaluados',
+  majesLabel = 'Predio Majes',
+  majesSubLabel = 'Irrigación Majes-Pedregal',
+  santaRitaLabel = 'Santa Rita',
+  santaRitaSubLabel = 'de Siguas',
+}: {
+  className?: string
+  title?: string
+  connectorLabel?: string
+  majesLabel?: string
+  majesSubLabel?: string
+  santaRitaLabel?: string
+  santaRitaSubLabel?: string
+}) {
   return (
     // The wrapper's aspect ratio matches the map's real geographic extent
     // (mapW:mapH), so both parcels stay fully visible at any container
@@ -223,7 +245,7 @@ export function ParcelMapIllustration({ className = '' }: { className?: string }
         className="absolute inset-0 h-full w-full"
         role="img"
       >
-        <title>Mapa de los predios evaluados, trazado a partir de los límites reales de Majes y Santa Rita de Siguas, Arequipa</title>
+        <title>{title}</title>
         <defs>
           <pattern id="parcel-map-grid" width="46" height="46" patternUnits="userSpaceOnUse">
             <path d="M46 0 L0 0 0 46" fill="none" stroke={PALETTE.fog} strokeWidth="1" />
@@ -271,7 +293,7 @@ export function ParcelMapIllustration({ className = '' }: { className?: string }
           strokeLinejoin="round"
           paintOrder="stroke"
         >
-          predios evaluados
+          {connectorLabel}
         </text>
 
         {majesRings.map((ring, i) => (
@@ -300,18 +322,18 @@ export function ParcelMapIllustration({ className = '' }: { className?: string }
 
         <g>
           <text x={majesCentroid[0]} y={majesCentroid[1] - 6} textAnchor="middle" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
-            Predio Majes
+            {majesLabel}
           </text>
           <text x={majesCentroid[0]} y={majesCentroid[1] + 13} textAnchor="middle" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
-            Irrigación Majes-Pedregal
+            {majesSubLabel}
           </text>
         </g>
         <g>
           <text x={santaRitaCentroid[0]} y={santaRitaCentroid[1] - 6} textAnchor="middle" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
-            Santa Rita
+            {santaRitaLabel}
           </text>
           <text x={santaRitaCentroid[0]} y={santaRitaCentroid[1] + 13} textAnchor="middle" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
-            de Siguas
+            {santaRitaSubLabel}
           </text>
         </g>
 
@@ -344,11 +366,33 @@ export function ParcelMapIllustration({ className = '' }: { className?: string }
  * desk analysis located: substation, transmission corridor, solar resource,
  * logistics route, and the permitting sequence.
  */
-export function InfrastructureIllustration({ className = '' }: { className?: string }) {
+interface InfrastructureLabel {
+  title: string
+  subtitle: string
+}
+
+const DEFAULT_INFRASTRUCTURE_LABELS: InfrastructureLabel[] = [
+  { title: 'Subestación Majes', subtitle: '138 / 60 / 10 kV' },
+  { title: 'Corredor previsto', subtitle: '500 / 220 kV' },
+  { title: 'Recurso solar', subtitle: 'declarado en el expediente' },
+  { title: 'Ruta a Matarani', subtitle: '~129 km por carretera' },
+  { title: 'Secuencia normativa', subtitle: 'SEIA · concesiones · ANA' },
+]
+
+export function InfrastructureIllustration({
+  className = '',
+  title = 'Elementos identificados por Polisense: subestación de Majes, corredor de transmisión previsto, recurso solar, ruta logística a Matarani y secuencia normativa',
+  labels = DEFAULT_INFRASTRUCTURE_LABELS,
+}: {
+  className?: string
+  title?: string
+  labels?: InfrastructureLabel[]
+}) {
   const nodeY = 120
+  const [substation, corridor, solar, logistics, regulatory] = labels
   return (
     <svg viewBox="0 0 1000 240" className={className} role="img">
-      <title>Elementos identificados por Polisense: subestación de Majes, corredor de transmisión previsto, recurso solar, ruta logística a Matarani y secuencia normativa</title>
+      <title>{title}</title>
 
       <line x1="60" y1={nodeY} x2="940" y2={nodeY} stroke={PALETTE.fog} strokeWidth="2" />
 
@@ -359,10 +403,10 @@ export function InfrastructureIllustration({ className = '' }: { className?: str
         <circle cx="-9" cy={nodeY - 43} r="7" fill="none" stroke={PALETTE.meridian} strokeWidth="2" />
         <circle cx="9" cy={nodeY - 43} r="7" fill="none" stroke={PALETTE.meridian} strokeWidth="2" />
         <text x="0" y={nodeY + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill={PALETTE.obsidian}>
-          Subestación Majes
+          {substation.title}
         </text>
         <text x="0" y={nodeY + 46} textAnchor="middle" fontSize="11" fill={PALETTE.obsidian} opacity="0.6">
-          138 / 60 / 10 kV
+          {substation.subtitle}
         </text>
       </g>
 
@@ -373,10 +417,10 @@ export function InfrastructureIllustration({ className = '' }: { className?: str
         <path d={`M-24,${nodeY - 55} L24,${nodeY - 55}`} />
         <path d={`M-24,${nodeY - 45} L24,${nodeY - 45}`} />
         <text x="0" y={nodeY + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill={PALETTE.obsidian} stroke="none">
-          Corredor previsto
+          {corridor.title}
         </text>
         <text x="0" y={nodeY + 46} textAnchor="middle" fontSize="11" fill={PALETTE.obsidian} opacity="0.6" stroke="none">
-          500 / 220 kV
+          {corridor.subtitle}
         </text>
       </g>
 
@@ -393,10 +437,10 @@ export function InfrastructureIllustration({ className = '' }: { className?: str
           return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={PALETTE.terra} strokeWidth="2.5" />
         })}
         <text x="0" y={nodeY + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill={PALETTE.obsidian}>
-          Recurso solar
+          {solar.title}
         </text>
         <text x="0" y={nodeY + 46} textAnchor="middle" fontSize="11" fill={PALETTE.obsidian} opacity="0.6">
-          declarado en el expediente
+          {solar.subtitle}
         </text>
       </g>
 
@@ -406,10 +450,10 @@ export function InfrastructureIllustration({ className = '' }: { className?: str
         <path d={`M-20,${nodeY - 22} Q0,${nodeY - 60} 22,${nodeY - 22}`} fill="none" stroke={PALETTE.sandstone} strokeWidth="2.5" strokeDasharray="5 5" />
         <path d="M14,-8 L28,-2 L14,4 Z" fill={PALETTE.sandstone} transform={`translate(0,${nodeY - 22})`} />
         <text x="0" y={nodeY + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill={PALETTE.obsidian}>
-          Ruta a Matarani
+          {logistics.title}
         </text>
         <text x="0" y={nodeY + 46} textAnchor="middle" fontSize="11" fill={PALETTE.obsidian} opacity="0.6">
-          ~129 km por carretera
+          {logistics.subtitle}
         </text>
       </g>
 
@@ -421,10 +465,10 @@ export function InfrastructureIllustration({ className = '' }: { className?: str
         <path d={`M-9,${nodeY - 43} L9,${nodeY - 43}`} stroke={PALETTE.meridian} strokeWidth="1.5" />
         <path d={`M-9,${nodeY - 36} L3,${nodeY - 36}`} stroke={PALETTE.meridian} strokeWidth="1.5" />
         <text x="0" y={nodeY + 30} textAnchor="middle" fontSize="12" fontWeight="700" fill={PALETTE.obsidian}>
-          Secuencia normativa
+          {regulatory.title}
         </text>
         <text x="0" y={nodeY + 46} textAnchor="middle" fontSize="11" fill={PALETTE.obsidian} opacity="0.6">
-          SEIA · concesiones · ANA
+          {regulatory.subtitle}
         </text>
       </g>
     </svg>
