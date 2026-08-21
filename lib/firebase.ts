@@ -16,5 +16,17 @@ export const app: FirebaseApp = getApps().length ? getApps()[0]! : initializeApp
 export const db: Firestore = getFirestore(app);
 
 // Analytics is browser-only; keep it optional to avoid SSR/static-build issues.
-export const analytics: Analytics | null =
-  typeof window !== "undefined" ? getAnalytics(app) : null;
+// It also throws if the Firebase config is incomplete (e.g. no NEXT_PUBLIC_FIREBASE_*
+// env vars in local dev, where only Firestore is needed) — guard so that case
+// degrades to "no analytics" instead of crashing every page at module load.
+function initAnalytics(): Analytics | null {
+  if (typeof window === "undefined" || !firebaseConfig.projectId) return null;
+  try {
+    return getAnalytics(app);
+  } catch (error) {
+    console.warn("Firebase Analytics disabled:", error);
+    return null;
+  }
+}
+
+export const analytics: Analytics | null = initAnalytics();
