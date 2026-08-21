@@ -3,6 +3,9 @@
 // the site's own "Warm Cartography" palette (defined in app/globals.css)
 // instead of introducing new brand colors.
 
+import majesGeo from './majes.geojson'
+import santaRitaGeo from './santa_rita.geojson'
+
 const PALETTE = {
   meridian: '#5E8EA6',
   strato: '#A3C4D4',
@@ -100,80 +103,168 @@ export function HeroIllustration({ className = '' }: { className?: string }) {
   )
 }
 
+type LonLat = [number, number]
+
+function ringsFromFeatureCollection(fc: {
+  features: { geometry: { coordinates: number[][][] } }[]
+}): LonLat[][] {
+  return fc.features.map((f) => f.geometry.coordinates[0] as LonLat[])
+}
+
+function ringCentroid(ring: LonLat[]): LonLat {
+  const sum = ring.reduce<LonLat>((acc, [lon, lat]) => [acc[0] + lon, acc[1] + lat], [0, 0])
+  return [sum[0] / ring.length, sum[1] / ring.length]
+}
+
+const majesRings = ringsFromFeatureCollection(majesGeo)
+const santaRitaRings = ringsFromFeatureCollection(santaRitaGeo)
+
+// Bounding box of both parcels, in real WGS84 coordinates, padded for
+// breathing room around the boundaries.
+const allPoints = [...majesRings, ...santaRitaRings].flat()
+const rawWest = Math.min(...allPoints.map((p) => p[0]))
+const rawEast = Math.max(...allPoints.map((p) => p[0]))
+const rawSouth = Math.min(...allPoints.map((p) => p[1]))
+const rawNorth = Math.max(...allPoints.map((p) => p[1]))
+
+const PAD_RATIO = 0.16
+const lonPad = (rawEast - rawWest) * PAD_RATIO
+const latPad = (rawNorth - rawSouth) * PAD_RATIO
+const mapWest = rawWest - lonPad
+const mapEast = rawEast + lonPad
+const mapSouth = rawSouth - latPad
+const mapNorth = rawNorth + latPad
+
+const avgLatDeg = (mapSouth + mapNorth) / 2
+const avgLatRad = (avgLatDeg * Math.PI) / 180
+// Longitude degrees are shorter than latitude degrees away from the equator;
+// correct for that so the requested image isn't stretched.
+const effectiveAspect = ((mapEast - mapWest) * Math.cos(avgLatRad)) / (mapNorth - mapSouth)
+
+const MAX_DIM = 1280
+const MIN_DIM = 480
+const mapW = Math.round(
+  Math.min(Math.max(effectiveAspect >= 1 ? MAX_DIM : MAX_DIM * effectiveAspect, MIN_DIM), MAX_DIM)
+)
+const mapH = Math.round(
+  Math.min(Math.max(effectiveAspect >= 1 ? MAX_DIM / effectiveAspect : MAX_DIM, MIN_DIM), MAX_DIM)
+)
+
+function project([lon, lat]: LonLat): [number, number] {
+  const x = ((lon - mapWest) / (mapEast - mapWest)) * mapW
+  const y = ((mapNorth - lat) / (mapNorth - mapSouth)) * mapH
+  return [x, y]
+}
+
+function ringToPoints(ring: LonLat[]): string {
+  return ring.map((p) => project(p).map((v) => v.toFixed(1)).join(',')).join(' ')
+}
+
+// Real, computed scale bar (metres per pixel at the crop's average latitude)
+// rather than a placeholder distance.
+const metersPerDegreeLon = 111320 * Math.cos(avgLatRad)
+const metersPerPx = ((mapEast - mapWest) * metersPerDegreeLon) / mapW
+const SCALE_STEPS_M = [250, 500, 1000, 2000, 5000, 10000, 20000]
+const targetBarPx = mapW * 0.16
+const scaleMeters = SCALE_STEPS_M.reduce(
+  (best, m) => (m / metersPerPx <= targetBarPx * 1.5 ? m : best),
+  SCALE_STEPS_M[0]
+)
+const scaleBarPx = scaleMeters / metersPerPx
+const scaleLabel = scaleMeters >= 1000 ? `${scaleMeters / 1000} km` : `${scaleMeters} m`
+
+// Esri World Imagery, requested in plain lat/lon (imageSR=4326) so pixels map
+// linearly to coordinates — no tiling library needed to align the overlay.
+const SATELLITE_IMAGE_URL =
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export' +
+  `?bbox=${mapWest},${mapSouth},${mapEast},${mapNorth}&bboxSR=4326&imageSR=4326` +
+  `&size=${mapW},${mapH}&format=jpg&transparent=false&f=image`
+
 /**
- * Schematic (non-satellite) map of the two evaluated sites: a cadastral-style
- * grid with the Majes and Santa Rita de Siguas parcels, in place of a real
- * satellite image we don't have permission to embed.
+ * Real satellite view (Esri World Imagery) of the two evaluated sites, with
+ * the actual surveyed boundaries of Predio Majes and Santa Rita de Siguas
+ * overlaid from their source GeoJSON.
  */
-export function MajesMapIllustration({ className = '' }: { className?: string }) {
+export function SatelliteMapIllustration({ className = '' }: { className?: string }) {
+  const majesLabelPos = project(ringCentroid(majesRings[0]))
+  const santaRitaLabelPos = project(ringCentroid(santaRitaRings[1] ?? santaRitaRings[0]))
+
   return (
-    <svg viewBox="0 0 640 420" className={className} role="img">
-      <title>Mapa esquemático de los predios evaluados: Majes, en la irrigación Majes-Pedregal, y Santa Rita de Siguas, Arequipa</title>
-      <defs>
-        <pattern id="map-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-          <path d="M32 0 L0 0 0 32" fill="none" stroke={PALETTE.fog} strokeWidth="1" />
-        </pattern>
-      </defs>
-
-      <rect width="640" height="420" fill={PALETTE.paper} />
-      <rect width="640" height="420" fill="url(#map-grid)" />
-
-      {/* Predio Majes */}
-      <polygon
-        points="90,150 240,120 270,230 160,270 80,220"
-        fill={PALETTE.meridian}
-        opacity="0.16"
-        stroke={PALETTE.meridian}
-        strokeWidth="2.5"
+    <div className={`relative overflow-hidden ${className}`}>
+      <img
+        src={SATELLITE_IMAGE_URL}
+        alt="Vista satelital de los predios Majes, en la irrigación Majes-Pedregal, y Santa Rita de Siguas, Arequipa, con los límites evaluados delimitados"
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
       />
-      <text x="115" y="205" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
-        Predio Majes
-      </text>
-      <text x="115" y="224" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
-        Irrigación Majes-Pedregal
-      </text>
+      <svg
+        viewBox={`0 0 ${mapW} ${mapH}`}
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+        role="img"
+        aria-hidden="true"
+      >
+        <title>Límites evaluados de los predios Majes y Santa Rita de Siguas sobre imagen satelital</title>
 
-      {/* Predio Santa Rita de Siguas */}
-      <polygon
-        points="360,220 480,190 540,270 470,330 370,310"
-        fill={PALETTE.terra}
-        opacity="0.16"
-        stroke={PALETTE.terra}
-        strokeWidth="2.5"
-      />
-      <text x="385" y="270" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
-        Santa Rita
-      </text>
-      <text x="385" y="289" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
-        de Siguas
-      </text>
+        {majesRings.map((ring, i) => (
+          <polygon
+            key={`majes-${i}`}
+            points={ringToPoints(ring)}
+            fill={PALETTE.meridian}
+            fillOpacity="0.22"
+            stroke={PALETTE.meridian}
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+        ))}
 
-      {/* Proximity connector */}
-      <line x1="260" y1="205" x2="390" y2="255" stroke={PALETTE.sandstone} strokeWidth="2" strokeDasharray="6 6" />
-      <text x="285" y="222" fontSize="11" fill={PALETTE.obsidian} opacity="0.55" fontStyle="italic">
-        predios evaluados
-      </text>
+        {santaRitaRings.map((ring, i) => (
+          <polygon
+            key={`sr-${i}`}
+            points={ringToPoints(ring)}
+            fill={PALETTE.terra}
+            fillOpacity="0.22"
+            stroke={PALETTE.terra}
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+        ))}
 
-      {/* Compass rose */}
-      <g transform="translate(568,58)" stroke={PALETTE.obsidian} opacity="0.5">
-        <circle r="22" fill="none" strokeWidth="1.2" />
-        <path d="M0,-18 L0,18 M-18,0 L18,0" strokeWidth="1.2" />
-        <path d="M0,-18 L5,-8 L-5,-8 Z" fill={PALETTE.obsidian} stroke="none" />
-        <text x="-4" y="-26" fontSize="11" fontWeight="700" stroke="none" fill={PALETTE.obsidian}>
-          N
-        </text>
-      </g>
+        <g>
+          <rect x={majesLabelPos[0] - 62} y={majesLabelPos[1] - 15} width="124" height="24" rx="6" fill={PALETTE.obsidian} opacity="0.6" />
+          <text x={majesLabelPos[0]} y={majesLabelPos[1] + 2} textAnchor="middle" fontSize="13" fontWeight="700" fill={PALETTE.paper}>
+            Predio Majes
+          </text>
+        </g>
+        <g>
+          <rect x={santaRitaLabelPos[0] - 86} y={santaRitaLabelPos[1] - 15} width="172" height="24" rx="6" fill={PALETTE.obsidian} opacity="0.6" />
+          <text x={santaRitaLabelPos[0]} y={santaRitaLabelPos[1] + 2} textAnchor="middle" fontSize="13" fontWeight="700" fill={PALETTE.paper}>
+            Santa Rita de Siguas
+          </text>
+        </g>
 
-      {/* Scale reference (no fabricated distance value) */}
-      <g transform="translate(40,380)" stroke={PALETTE.obsidian} opacity="0.45">
-        <line x1="0" y1="0" x2="70" y2="0" strokeWidth="1.5" />
-        <line x1="0" y1="-4" x2="0" y2="4" strokeWidth="1.5" />
-        <line x1="70" y1="-4" x2="70" y2="4" strokeWidth="1.5" />
-        <text x="0" y="18" fontSize="10" stroke="none" fill={PALETTE.obsidian}>
-          escala referencial
-        </text>
-      </g>
-    </svg>
+        {/* Compass rose */}
+        <g transform={`translate(${mapW - 46},46)`} stroke={PALETTE.paper} opacity="0.9">
+          <circle r="20" fill={PALETTE.obsidian} fillOpacity="0.4" strokeWidth="1.2" />
+          <path d="M0,-16 L0,16 M-16,0 L16,0" strokeWidth="1.2" />
+          <path d="M0,-16 L5,-7 L-5,-7 Z" fill={PALETTE.paper} stroke="none" />
+          <text x="-4" y="-24" fontSize="11" fontWeight="700" stroke="none" fill={PALETTE.paper}>
+            N
+          </text>
+        </g>
+
+        {/* Scale bar, computed from the crop's real geographic extent */}
+        <g transform={`translate(28,${mapH - 22})`} stroke={PALETTE.paper} opacity="0.9">
+          <line x1="0" y1="0" x2={scaleBarPx} y2="0" strokeWidth="2" />
+          <line x1="0" y1="-5" x2="0" y2="5" strokeWidth="2" />
+          <line x1={scaleBarPx} y1="-5" x2={scaleBarPx} y2="5" strokeWidth="2" />
+          <text x="0" y="-9" fontSize="11" fontWeight="600" stroke="none" fill={PALETTE.paper}>
+            {scaleLabel}
+          </text>
+        </g>
+      </svg>
+    </div>
   )
 }
 
