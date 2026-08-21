@@ -173,49 +173,85 @@ const scaleMeters = SCALE_STEPS_M.reduce(
 const scaleBarPx = scaleMeters / metersPerPx
 const scaleLabel = scaleMeters >= 1000 ? `${scaleMeters / 1000} km` : `${scaleMeters} m`
 
-// Esri World Imagery, requested in plain lat/lon (imageSR=4326) so pixels map
-// linearly to coordinates — no tiling library needed to align the overlay.
-const SATELLITE_IMAGE_URL =
-  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export' +
-  `?bbox=${mapWest},${mapSouth},${mapEast},${mapNorth}&bboxSR=4326&imageSR=4326` +
-  `&size=${mapW},${mapH}&format=jpg&transparent=false&f=image`
+const majesCentroid = project(ringCentroid(majesRings[0]))
+// Anchor the Santa Rita label on its middle block (B), the largest and most
+// central of the three surveyed blocks.
+const santaRitaCentroid = project(ringCentroid(santaRitaRings[1] ?? santaRitaRings[0]))
+const connectorMid: [number, number] = [
+  (majesCentroid[0] + santaRitaCentroid[0]) / 2,
+  (majesCentroid[1] + santaRitaCentroid[1]) / 2,
+]
 
 /**
- * Real satellite view (Esri World Imagery) of the two evaluated sites, with
- * the actual surveyed boundaries of Predio Majes and Santa Rita de Siguas
- * overlaid from their source GeoJSON.
+ * Editorial map of the two evaluated sites, drawn in the same flat vector
+ * style as the rest of the article's illustrations — paper background,
+ * cartographic grid, warm palette — but traced from the parcels' real
+ * surveyed boundaries (source GeoJSON) rather than an arbitrary shape.
  */
-export function SatelliteMapIllustration({ className = '' }: { className?: string }) {
-  const majesLabelPos = project(ringCentroid(majesRings[0]))
-  const santaRitaLabelPos = project(ringCentroid(santaRitaRings[1] ?? santaRitaRings[0]))
-
+export function ParcelMapIllustration({ className = '' }: { className?: string }) {
   return (
-    // The wrapper's aspect ratio matches the requested satellite crop
-    // exactly (mapW:mapH), so the full extent — both parcels, uncropped —
-    // is always visible instead of being cut off by a mismatched container.
+    // The wrapper's aspect ratio matches the map's real geographic extent
+    // (mapW:mapH), so both parcels stay fully visible at any container
+    // width instead of being cropped by a mismatched fixed-height box.
     <div className={`relative overflow-hidden ${className}`} style={{ aspectRatio: `${mapW} / ${mapH}` }}>
-      <img
-        src={SATELLITE_IMAGE_URL}
-        alt="Vista satelital de los predios Majes, en la irrigación Majes-Pedregal, y Santa Rita de Siguas, Arequipa, con los límites evaluados delimitados"
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
-        decoding="async"
-      />
       <svg
         viewBox={`0 0 ${mapW} ${mapH}`}
-        preserveAspectRatio="xMidYMid slice"
+        preserveAspectRatio="xMidYMid meet"
         className="absolute inset-0 h-full w-full"
         role="img"
-        aria-hidden="true"
       >
-        <title>Límites evaluados de los predios Majes y Santa Rita de Siguas sobre imagen satelital</title>
+        <title>Mapa de los predios evaluados, trazado a partir de los límites reales de Majes y Santa Rita de Siguas, Arequipa</title>
+        <defs>
+          <pattern id="parcel-map-grid" width="46" height="46" patternUnits="userSpaceOnUse">
+            <path d="M46 0 L0 0 0 46" fill="none" stroke={PALETTE.fog} strokeWidth="1" />
+          </pattern>
+        </defs>
+
+        <rect width={mapW} height={mapH} fill={PALETTE.paper} />
+
+        {/* Soft desert-toned terrain flourish, echoing the hero illustration's
+            dune ridges — abstract, not a claim about real topography. */}
+        <path
+          d={`M0,${mapH * 0.72} Q${mapW * 0.22},${mapH * 0.62} ${mapW * 0.48},${mapH * 0.7} T${mapW},${mapH * 0.66} L${mapW},${mapH} L0,${mapH} Z`}
+          fill={PALETTE.dune}
+          opacity="0.12"
+        />
+        <path
+          d={`M0,${mapH * 0.86} Q${mapW * 0.3},${mapH * 0.8} ${mapW * 0.6},${mapH * 0.88} T${mapW},${mapH * 0.84} L${mapW},${mapH} L0,${mapH} Z`}
+          fill={PALETTE.duneDeep}
+          opacity="0.14"
+        />
+
+        <rect width={mapW} height={mapH} fill="url(#parcel-map-grid)" />
+
+        {/* Proximity connector, drawn first so the parcels sit on top */}
+        <line
+          x1={majesCentroid[0]}
+          y1={majesCentroid[1]}
+          x2={santaRitaCentroid[0]}
+          y2={santaRitaCentroid[1]}
+          stroke={PALETTE.sandstone}
+          strokeWidth="2"
+          strokeDasharray="6 6"
+        />
+        <text
+          x={connectorMid[0]}
+          y={connectorMid[1] - 10}
+          textAnchor="middle"
+          fontSize="11"
+          fontStyle="italic"
+          fill={PALETTE.obsidian}
+          opacity="0.55"
+        >
+          predios evaluados
+        </text>
 
         {majesRings.map((ring, i) => (
           <polygon
             key={`majes-${i}`}
             points={ringToPoints(ring)}
             fill={PALETTE.meridian}
-            fillOpacity="0.22"
+            fillOpacity="0.18"
             stroke={PALETTE.meridian}
             strokeWidth="2.5"
             strokeLinejoin="round"
@@ -227,7 +263,7 @@ export function SatelliteMapIllustration({ className = '' }: { className?: strin
             key={`sr-${i}`}
             points={ringToPoints(ring)}
             fill={PALETTE.terra}
-            fillOpacity="0.22"
+            fillOpacity="0.18"
             stroke={PALETTE.terra}
             strokeWidth="2.5"
             strokeLinejoin="round"
@@ -235,34 +271,38 @@ export function SatelliteMapIllustration({ className = '' }: { className?: strin
         ))}
 
         <g>
-          <rect x={majesLabelPos[0] - 62} y={majesLabelPos[1] - 15} width="124" height="24" rx="6" fill={PALETTE.obsidian} opacity="0.6" />
-          <text x={majesLabelPos[0]} y={majesLabelPos[1] + 2} textAnchor="middle" fontSize="13" fontWeight="700" fill={PALETTE.paper}>
+          <text x={majesCentroid[0]} y={majesCentroid[1] - 6} textAnchor="middle" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
             Predio Majes
+          </text>
+          <text x={majesCentroid[0]} y={majesCentroid[1] + 13} textAnchor="middle" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
+            Irrigación Majes-Pedregal
           </text>
         </g>
         <g>
-          <rect x={santaRitaLabelPos[0] - 86} y={santaRitaLabelPos[1] - 15} width="172" height="24" rx="6" fill={PALETTE.obsidian} opacity="0.6" />
-          <text x={santaRitaLabelPos[0]} y={santaRitaLabelPos[1] + 2} textAnchor="middle" fontSize="13" fontWeight="700" fill={PALETTE.paper}>
-            Santa Rita de Siguas
+          <text x={santaRitaCentroid[0]} y={santaRitaCentroid[1] - 6} textAnchor="middle" fontSize="16" fontWeight="700" fill={PALETTE.obsidian}>
+            Santa Rita
+          </text>
+          <text x={santaRitaCentroid[0]} y={santaRitaCentroid[1] + 13} textAnchor="middle" fontSize="12" fill={PALETTE.obsidian} opacity="0.6">
+            de Siguas
           </text>
         </g>
 
         {/* Compass rose */}
-        <g transform={`translate(${mapW - 46},46)`} stroke={PALETTE.paper} opacity="0.9">
-          <circle r="20" fill={PALETTE.obsidian} fillOpacity="0.4" strokeWidth="1.2" />
-          <path d="M0,-16 L0,16 M-16,0 L16,0" strokeWidth="1.2" />
-          <path d="M0,-16 L5,-7 L-5,-7 Z" fill={PALETTE.paper} stroke="none" />
-          <text x="-4" y="-24" fontSize="11" fontWeight="700" stroke="none" fill={PALETTE.paper}>
+        <g transform={`translate(${mapW - 50},50)`} stroke={PALETTE.obsidian} opacity="0.5">
+          <circle r="22" fill="none" strokeWidth="1.2" />
+          <path d="M0,-18 L0,18 M-18,0 L18,0" strokeWidth="1.2" />
+          <path d="M0,-18 L5,-8 L-5,-8 Z" fill={PALETTE.obsidian} stroke="none" />
+          <text x="-4" y="-26" fontSize="11" fontWeight="700" stroke="none" fill={PALETTE.obsidian}>
             N
           </text>
         </g>
 
-        {/* Scale bar, computed from the crop's real geographic extent */}
-        <g transform={`translate(28,${mapH - 22})`} stroke={PALETTE.paper} opacity="0.9">
-          <line x1="0" y1="0" x2={scaleBarPx} y2="0" strokeWidth="2" />
-          <line x1="0" y1="-5" x2="0" y2="5" strokeWidth="2" />
-          <line x1={scaleBarPx} y1="-5" x2={scaleBarPx} y2="5" strokeWidth="2" />
-          <text x="0" y="-9" fontSize="11" fontWeight="600" stroke="none" fill={PALETTE.paper}>
+        {/* Scale bar, computed from the parcels' real geographic extent */}
+        <g transform={`translate(32,${mapH - 30})`} stroke={PALETTE.obsidian} opacity="0.5">
+          <line x1="0" y1="0" x2={scaleBarPx} y2="0" strokeWidth="1.5" />
+          <line x1="0" y1="-4" x2="0" y2="4" strokeWidth="1.5" />
+          <line x1={scaleBarPx} y1="-4" x2={scaleBarPx} y2="4" strokeWidth="1.5" />
+          <text x="0" y="18" fontSize="10" stroke="none" fill={PALETTE.obsidian}>
             {scaleLabel}
           </text>
         </g>

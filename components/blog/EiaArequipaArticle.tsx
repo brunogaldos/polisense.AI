@@ -1,6 +1,6 @@
 import { Calendar, Clock, ArrowRight, CheckCircle2, AlertTriangle } from 'lucide-react'
 import { featuredPost } from '@/lib/blog/posts'
-import { HeroIllustration, SatelliteMapIllustration, InfrastructureIllustration } from './visuals'
+import { HeroIllustration, ParcelMapIllustration, InfrastructureIllustration } from './visuals'
 
 interface EiaArequipaArticleProps {
   /** Opens the site's existing lead-capture modal, scoped to the pilot CTA. */
@@ -179,10 +179,10 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
         <figure className="mb-8 -mx-2 sm:mx-0">
           <div className="rounded-2xl overflow-hidden border border-[#E3DED6] bg-[#FDFCFA]">
-            <SatelliteMapIllustration className="w-full" />
+            <ParcelMapIllustration className="w-full" />
           </div>
           <figcaption className="text-xs text-[#141517]/45 text-center mt-3">
-            Vista satelital de los predios evaluados, con los límites de Majes y Santa Rita de Siguas superpuestos. Imagen: Esri, Maxar, Earthstar Geographics.
+            Mapa ilustrado de los predios evaluados, trazado a partir de los límites reales (GeoJSON) de Majes y Santa Rita de Siguas — no es una imagen satelital.
           </figcaption>
         </figure>
 
