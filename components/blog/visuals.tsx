@@ -3,8 +3,8 @@
 // the site's own "Warm Cartography" palette (defined in app/globals.css)
 // instead of introducing new brand colors.
 
-import majesGeo from './majes.geojson'
-import santaRitaGeo from './santa_rita.geojson'
+import majesGeo from './majes.json'
+import santaRitaGeo from './santa_rita.json'
 
 const PALETTE = {
   meridian: '#5E8EA6',
