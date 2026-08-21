@@ -177,9 +177,32 @@ const majesCentroid = project(ringCentroid(majesRings[0]))
 // Anchor the Santa Rita label on its middle block (B), the largest and most
 // central of the three surveyed blocks.
 const santaRitaCentroid = project(ringCentroid(santaRitaRings[1] ?? santaRitaRings[0]))
+
+// Inset the connector so it stops short of each parcel's title/subtitle
+// labels instead of running underneath them, and offset its own caption to
+// the side of the dashed line rather than sitting directly on top of it.
+const connectorDx = santaRitaCentroid[0] - majesCentroid[0]
+const connectorDy = santaRitaCentroid[1] - majesCentroid[1]
+const connectorLen = Math.hypot(connectorDx, connectorDy)
+const connectorUx = connectorDx / connectorLen
+const connectorUy = connectorDy / connectorLen
+const CONNECTOR_INSET = 78
+const connectorStart: [number, number] = [
+  majesCentroid[0] + connectorUx * CONNECTOR_INSET,
+  majesCentroid[1] + connectorUy * CONNECTOR_INSET,
+]
+const connectorEnd: [number, number] = [
+  santaRitaCentroid[0] - connectorUx * CONNECTOR_INSET,
+  santaRitaCentroid[1] - connectorUy * CONNECTOR_INSET,
+]
 const connectorMid: [number, number] = [
-  (majesCentroid[0] + santaRitaCentroid[0]) / 2,
-  (majesCentroid[1] + santaRitaCentroid[1]) / 2,
+  (connectorStart[0] + connectorEnd[0]) / 2,
+  (connectorStart[1] + connectorEnd[1]) / 2,
+]
+const CONNECTOR_LABEL_OFFSET = 14
+const connectorLabelPos: [number, number] = [
+  connectorMid[0] - connectorUy * CONNECTOR_LABEL_OFFSET,
+  connectorMid[1] + connectorUx * CONNECTOR_LABEL_OFFSET,
 ]
 
 /**
@@ -224,24 +247,29 @@ export function ParcelMapIllustration({ className = '' }: { className?: string }
 
         <rect width={mapW} height={mapH} fill="url(#parcel-map-grid)" />
 
-        {/* Proximity connector, drawn first so the parcels sit on top */}
+        {/* Proximity connector, drawn first so the parcels sit on top. Inset
+            from both labels so it never runs under their text. */}
         <line
-          x1={majesCentroid[0]}
-          y1={majesCentroid[1]}
-          x2={santaRitaCentroid[0]}
-          y2={santaRitaCentroid[1]}
+          x1={connectorStart[0]}
+          y1={connectorStart[1]}
+          x2={connectorEnd[0]}
+          y2={connectorEnd[1]}
           stroke={PALETTE.sandstone}
           strokeWidth="2"
           strokeDasharray="6 6"
         />
         <text
-          x={connectorMid[0]}
-          y={connectorMid[1] - 10}
+          x={connectorLabelPos[0]}
+          y={connectorLabelPos[1]}
           textAnchor="middle"
           fontSize="11"
           fontStyle="italic"
           fill={PALETTE.obsidian}
-          opacity="0.55"
+          opacity="0.6"
+          stroke={PALETTE.paper}
+          strokeWidth="4"
+          strokeLinejoin="round"
+          paintOrder="stroke"
         >
           predios evaluados
         </text>
