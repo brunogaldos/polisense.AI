@@ -190,7 +190,10 @@ export function SatelliteMapIllustration({ className = '' }: { className?: strin
   const santaRitaLabelPos = project(ringCentroid(santaRitaRings[1] ?? santaRitaRings[0]))
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    // The wrapper's aspect ratio matches the requested satellite crop
+    // exactly (mapW:mapH), so the full extent — both parcels, uncropped —
+    // is always visible instead of being cut off by a mismatched container.
+    <div className={`relative overflow-hidden ${className}`} style={{ aspectRatio: `${mapW} / ${mapH}` }}>
       <img
         src={SATELLITE_IMAGE_URL}
         alt="Vista satelital de los predios Majes, en la irrigación Majes-Pedregal, y Santa Rita de Siguas, Arequipa, con los límites evaluados delimitados"
