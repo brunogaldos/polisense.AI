@@ -46,3 +46,10 @@ scripts/raw_data/
 *.tif
 *.zip
 next-env.d.ts
+
+# Firebase extension secrets (SMTP app password) - never commit
+extensions/*.secret.local
+
+# functions/.env holds only the non-secret notify address, and the deploy
+# needs it, so exempt it from the blanket .env* rule above.
+!functions/.env

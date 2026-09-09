@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "landing-page-polisense"
+  },
+  "targets": {},
+  "etags": {
+    "landing-page-polisense": {
+      "extensionInstances": {
+        "firestore-send-email": "a0a66fcbb8f6a5c17c191179dd5b839cfee277a5c7ef802988f0d076bb38460c"
+      }
+    }
+  }
+}

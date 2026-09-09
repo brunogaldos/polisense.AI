@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Constrain the shape of a public write so the collection can't be used as
+    // free-form storage.
+    function isValidDemoRequest(data) {
+      return data.keys().hasOnly(['email', 'company', 'timestamp', 'status'])
+        && data.keys().hasAll(['email', 'company', 'timestamp', 'status'])
+        && data.email is string
+        && data.email.size() > 3
+        && data.email.size() <= 254
+        && data.email.matches('^[^@]+@[^@]+[.][^@]+$')
+        && data.company is string
+        && data.company.size() > 0
+        && data.company.size() <= 200
+        && data.status == 'pending'
+        && data.timestamp == request.time;
+    }
+
+    // Public demo requests from the "Book a Demo" modal. Anyone may submit one,
+    // but nobody may read them back from the client — reviewing happens in the
+    // Firebase console or via the Admin SDK, both of which bypass these rules.
+    match /demo-requests/{requestId} {
+      allow create: if isValidDemoRequest(request.resource.data);
+      allow read, update, delete: if false;
+    }
+
+    // The Trigger Email extension sends a message for every document written
+    // here, so client access must stay shut: a writable mail collection is an
+    // open spam relay. Only the Cloud Function (Admin SDK) writes to it.
+    match /mail/{mailId} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
