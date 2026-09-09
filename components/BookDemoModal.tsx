@@ -12,6 +12,20 @@ interface BookDemoModalProps {
   onClose: () => void
 }
 
+// addDoc only settles once the server acknowledges the write. When the browser
+// can't reach firestore.googleapis.com — an ad blocker or privacy extension, App
+// Check enforcement, a corporate firewall — the SDK queues the write offline and
+// the promise stays pending forever, neither resolving nor rejecting. Without a
+// bound on the wait the form spins indefinitely and the catch block never runs.
+const SUBMIT_TIMEOUT_MS = 15000
+
+class SubmitTimeoutError extends Error {
+  constructor() {
+    super('Timed out waiting for Firestore to acknowledge the write')
+    this.name = 'SubmitTimeoutError'
+  }
+}
+
 export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
   const { t } = useLanguage()
   const [email, setEmail] = useState('')
@@ -23,16 +37,38 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    // Fail fast when the browser already knows it is offline, rather than making
+    // the user sit through the full timeout.
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      setError(t.demoModal.errorBlocked)
+      return
+    }
+
     setIsSubmitting(true)
 
+    // Add document to Firestore
+    const write = addDoc(collection(db, 'demo-requests'), {
+      email,
+      company,
+      timestamp: serverTimestamp(),
+      status: 'pending'
+    })
+
+    // If the timeout wins the race below, this write is still queued and may land
+    // once connectivity returns — so the lead isn't lost. Swallow its eventual
+    // outcome here so it can't surface later as an unhandled rejection.
+    write.catch(() => {})
+
+    let timer: ReturnType<typeof setTimeout> | undefined
+
     try {
-      // Add document to Firestore
-      await addDoc(collection(db, 'demo-requests'), {
-        email,
-        company,
-        timestamp: serverTimestamp(),
-        status: 'pending'
-      })
+      await Promise.race([
+        write,
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new SubmitTimeoutError()), SUBMIT_TIMEOUT_MS)
+        })
+      ])
 
       setIsSuccess(true)
 
@@ -45,8 +81,13 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
       }, 2000)
     } catch (err) {
       console.error('Error submitting form:', err)
-      setError(t.demoModal.errorMessage)
+      setError(
+        err instanceof SubmitTimeoutError
+          ? t.demoModal.errorBlocked
+          : t.demoModal.errorMessage
+      )
     } finally {
+      clearTimeout(timer)
       setIsSubmitting(false)
     }
   }

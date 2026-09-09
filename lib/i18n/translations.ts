@@ -182,6 +182,8 @@ const en = {
     organizationLabel: 'Organization',
     organizationPlaceholder: 'Your organization name',
     errorMessage: 'Failed to submit. Please try again.',
+    errorBlocked:
+      "Couldn't reach our servers. Check your internet connection, or disable any ad blocker or privacy extension for this site, then try again.",
     submitting: 'Submitting...',
     submit: 'Submit Request',
     disclaimer: 'By submitting, you agree to our Terms of Service and Privacy Policy',
@@ -371,6 +373,8 @@ const es: typeof en = {
     organizationLabel: 'Organización',
     organizationPlaceholder: 'Nombre de tu organización',
     errorMessage: 'No se pudo enviar. Por favor, inténtalo de nuevo.',
+    errorBlocked:
+      'No pudimos conectar con nuestros servidores. Revisa tu conexión a internet, o desactiva cualquier bloqueador de anuncios o extensión de privacidad para este sitio, e inténtalo de nuevo.',
     submitting: 'Enviando...',
     submit: 'Enviar Solicitud',
     disclaimer: 'Al enviar, aceptas nuestros Términos de Servicio y Política de Privacidad',
