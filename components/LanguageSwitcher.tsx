@@ -7,7 +7,7 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
 
   return (
     <div
-      className={`flex items-center rounded-full border border-[#E3DED6] bg-[#F5F2EC] p-0.5 text-sm font-medium ${className}`}
+      className={`flex items-center rounded-full border border-line bg-canvas p-0.5 text-sm font-medium ${className}`}
       role="group"
       aria-label={t.nav.languageLabel}
     >
@@ -16,8 +16,8 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
         aria-pressed={language === 'en'}
         className={`px-3 py-1 rounded-full transition-all duration-200 ${
           language === 'en'
-            ? 'bg-[#5E8EA6] text-white shadow-sm'
-            : 'text-[#141517]/60 hover:text-[#141517]'
+            ? 'bg-accent text-canvas shadow-sm'
+            : 'text-ink/60 hover:text-ink'
         }`}
       >
         EN
@@ -27,8 +27,8 @@ export default function LanguageSwitcher({ className = '' }: { className?: strin
         aria-pressed={language === 'es'}
         className={`px-3 py-1 rounded-full transition-all duration-200 ${
           language === 'es'
-            ? 'bg-[#5E8EA6] text-white shadow-sm'
-            : 'text-[#141517]/60 hover:text-[#141517]'
+            ? 'bg-accent text-canvas shadow-sm'
+            : 'text-ink/60 hover:text-ink'
         }`}
       >
         ES

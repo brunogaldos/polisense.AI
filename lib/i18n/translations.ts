@@ -2,141 +2,174 @@ export type Language = 'en' | 'es'
 
 const en = {
   nav: {
-    features: 'Features',
-    testimonials: 'Testimonials',
-    blogs: 'Blogs',
-    getStarted: 'Get Started',
+    products: 'Products',
+    platform: 'Platform',
+    blogs: 'Blog',
+    getStarted: 'Book a demo',
     toggleMenu: 'Toggle menu',
     languageLabel: 'Language',
+    skipToContent: 'Skip to content',
   },
   hero: {
     badge: 'Backed by the Global Covenant of Mayors',
-    titleLine1: 'AI-Powered',
-    titleLine2: 'Resource & Energy Access',
-    titleLine3: 'Intelligence',
+    title: 'Know where to invest, protect',
+    titleHighlight: 'and intervene first.',
     description:
-      'Democratizing resource and energy infrastructure planning with AI. Analyze geospatial data layers, automate compliance reporting, and accelerate access in underserved communities.',
-    bookDemo: 'Book a Demo',
-    learnMore: 'Learn More',
-    visualizationTitle: 'Texas Energy Infrastructure Visualization',
-    stats: {
-      withoutPower: 'Without Power',
-      projectsFail: 'Projects Fail',
-      fasterPlanning: 'Faster Planning',
-    },
+      'Polisense turns satellite, climate, infrastructure and regulatory data into ranked, explainable answers, in hours instead of months.',
+    bookDemo: 'Book a demo',
+    secondary: 'How it works',
+    imageAlt:
+      'Polisense answering a question about vegetation change in a watershed near Arequipa, Peru: a change map, summary numbers and the answer in the chat.',
+    layers: ['Regulation', 'Terrain', 'Infrastructure'],
+    meta: [
+      { label: 'lat/lon', value: '16.4°S 71.5°W' },
+      { label: 'area', value: '225 km²' },
+      { label: 'imagery', value: 'Landsat 2017-2025' },
+    ],
+    stats: [
+      { value: '~30 min', label: 'per analysis, down from 3.5-4 hours' },
+      { value: '196 → 41', label: 'water sites screened, then shortlisted' },
+      { value: '8', label: 'capabilities on one engine' },
+    ],
   },
   problem: {
-    title: "Resource & Energy Planning Shouldn't Take Months",
+    title: 'The money exists. The analysis is the bottleneck.',
     description:
-      'Government planners waste weeks gathering fragmented data from multiple sources, analyzing outdated spreadsheets, and making infrastructure decisions with incomplete information.',
-    withoutTitle: 'Without Polisense AI',
+      'Teams pay around $150K and wait six months for a feasibility report. 49% of climate projects never get built, and funding is rarely why.',
+    withoutTitle: 'Today',
     withoutItems: [
-      'Months of manual data collection',
-      'Siloed information across departments',
-      '50% of projects fail within 5 years',
-      'Limited spatial analysis capabilities',
+      'Ten disconnected tools and hand-matched datasets',
+      '3.5-4 hours per GIS analysis, which can still fail',
+      '$15K-$80K consultant studies, 4-12 weeks each',
+      'Scores nobody can explain to an investment committee',
     ],
-    withTitle: 'With Polisense AI',
+    withTitle: 'With Polisense',
     withItems: [
-      'Minutes to generate comprehensive plans',
-      'Unified geospatial intelligence platform',
-      'AI-powered risk assessment',
-      'Real-time infrastructure modeling',
+      'One map workspace and one engine',
+      'About 30 minutes per analysis',
+      'Constrained zones excluded automatically',
+      'Every ranking traced back to its sources',
     ],
   },
-  features: {
-    title: 'Built for Impact',
-    description: 'Powerful tools to accelerate resource and energy access in emerging markets',
-    items: [
-      {
-        title: 'AI Site Recommendations',
-        description:
-          'Get intelligent site recommendations for resource deployment, renewable energy, and grid infrastructure based on comprehensive geospatial analysis.',
-      },
-      {
-        title: 'Geospatial Analysis',
-        description:
-          'Analyze terrain, population density, and infrastructure constraints with natural language queries.',
-      },
-      {
-        title: 'Impact Modeling',
-        description:
-          'Simulate and optimize infrastructure investments to maximize reach and sustainability.',
-      },
-      {
-        title: 'Automated Compliance Reports',
-        description:
-          'Generate regulatory-compliant reports instantly, eliminating weeks of manual documentation and accelerating project approvals.',
-      },
-    ],
-  },
-  transformation: {
-    title: 'From Months to Minutes',
+  how: {
+    title: 'One loop, from question to decision',
     description:
-      'Join government agencies transforming how they plan and deploy resource and energy infrastructure. Make data-driven decisions with confidence and expand access for millions.',
+      'Every capability runs on the same engine, so a new question is a configuration rather than a new tool.',
     steps: [
       {
-        title: 'Upload Your Data',
+        label: 'Ask',
+        title: 'Describe the territory and the question',
         description:
-          'Import existing geospatial datasets, census data, and infrastructure maps into our unified platform.',
+          'Write it in plain language: where should we invest, protect or intervene first? Mention datasets in the chat and add layers to the map.',
       },
       {
-        title: 'AI Analysis',
+        label: 'Analyze',
+        title: 'The engine runs the workflow end to end',
         description:
-          'Our AI analyzes terrain, population density, resource availability, and grid constraints in real-time.',
+          'Terrain, weather, infrastructure, land and regulation are combined in one pass. Constrained zones drop out and every candidate area is scored.',
       },
       {
-        title: 'Deploy Confidently',
+        label: 'Act',
+        title: 'Take a defensible answer to the room',
         description:
-          'Generate optimized infrastructure plans, risk assessments, and ROI projections ready for stakeholder approval.',
+          'Ranked candidates arrive with the evidence behind each one, plus a report ready for an investment committee, a funder or a field team.',
       },
     ],
+    explainTitle: 'Every ranking explains itself',
+    explainDescription:
+      'Factor attribution shows what drove each score. Citations link every claim to the regulation, report or dataset behind it.',
+    readout: {
+      cells: '{n} cells in the study area',
+      excluded: '{n} cells excluded: river corridor and historic centre',
+      ranked: 'Top {n} candidates ranked',
+    },
+    caption:
+      'Illustration on real Arequipa streets and the Chili river (OpenStreetMap data). The study area and scores are generated, not a real result.',
+    mapAlt:
+      'Map of central Arequipa, Peru, with a grid of candidate cells over the city. Cells along the Chili river and around the historic centre are excluded, the rest are scored, and the top five are ranked.',
+    mapLabels: {
+      place: 'Arequipa, Peru',
+      river: 'Chili river',
+      centre: 'Historic centre',
+      excluded: 'Excluded',
+      score: 'Score',
+    },
   },
-  mission: {
+  productsSection: {
+    title: 'Eight capabilities, one engine',
+    description:
+      'Each capability answers a different territorial question, and each was proven on real territories and real data.',
+    viewAll: 'All products',
+  },
+  proof: {
+    title: 'Early, and already in the field',
+    mapAlt:
+      'World map marking live deployments in Peru, Jordan and Moldova, and letters of intent from Argentina, Bangladesh and Mozambique.',
+    legendLive: 'Live deployment',
+    legendLoi: 'Letter of intent',
     stats: [
-      { value: '760M+', label: 'People without electricity access globally' },
-      { value: '50%', label: 'Infrastructure projects fail within first 5 years' },
-      { value: '10x', label: 'Faster infrastructure planning with AI' },
+      { value: '3', label: 'Countries live: Peru, Jordan and Moldova' },
+      { value: '3', label: 'Letters of intent: Argentina, Bangladesh and Mozambique' },
+      { value: '10+', label: 'Active users running analyses' },
     ],
-  },
-  testimonials: {
-    title: 'Trusted by Resource & Energy Leaders',
-    description: 'Government agencies and international organizations rely on Polisense AI',
-    items: [
-      {
-        quote:
-          'Polisense AI reduced our planning cycle from 6 months to 3 weeks. The geospatial analysis is remarkably accurate.',
-        author: 'Maria Santos',
-        role: 'Director of Infrastructure Planning',
-        organization: 'Ministry of Energy, Peru',
-      },
-      {
-        quote:
-          'The automated compliance reports saved us months of documentation work. We can now move from analysis to implementation in days, not months.',
-        author: 'Dr. Ahmed Hassan',
-        role: 'Chief Energy Strategist',
-        organization: 'National Power Authority',
-      },
-      {
-        quote:
-          "Finally, a tool that speaks our language. Polisense AI understands the real challenges of emerging market electrification.",
-        author: 'Jane Ochieng',
-        role: 'Program Director',
-        organization: 'East Africa Energy Access',
-      },
+    recognitionTitle: 'Recognition',
+    recognition: [
+      'Winner, AI x City Climate Action Hackathon, Climate Week NYC 2025, energy access track',
+      'Winner, IEEE climate challenge, for an AI extreme-weather advisor',
+      'Selected for the IRENA NewGen Accelerator',
+      'EXIST Founders’ Grant, Germany, 2026',
+      'Harvard Innovation Labs, 2026 cohort',
     ],
   },
   cta: {
-    title: 'Ready to Transform Resource & Energy Access?',
+    title: 'Bring us a territory and a question',
     description:
-      'Join leading organizations using Polisense AI to accelerate resource and energy access, optimize infrastructure investments, and improve lives in underserved communities.',
-    button: 'Schedule a Demo',
+      'We will run a live demo on a real question from your region, so you see your own problem answered in minutes.',
+    button: 'Book a demo',
+  },
+  productPage: {
+    indexTitle: 'Products',
+    indexDescription:
+      'Eight capabilities on one territorial climate engine, each answering where to invest, protect or intervene first.',
+    backToProducts: 'All products',
+    validatedIn: 'Validated in',
+    whatItDoes: 'What it does',
+    dataLabel: 'Data it combines',
+    outputsLabel: 'What you get',
+    proofLabel: 'Results',
+    engineTitle: 'Runs on the shared engine',
+    engineDescription:
+      'Ask in plain language, let the engine run the analysis, and act on ranked, explainable results. The same loop powers every capability.',
+    otherProducts: 'Other products',
+    ctaTitle: 'Try it on your own territory',
+    ctaDescription: 'We will run a live demo on a real question from your region.',
+    ctaButton: 'Book a demo',
+    toolsTitle: 'Engines behind this',
+  },
+  platform: {
+    eyebrow: 'Built in-house by Polisense',
+    title: 'Our analysis engines',
+    description:
+      'Seven engines designed and built by the Polisense team, running on one platform. Every product combines them.',
+    usedBy: 'Powers',
+    principles: [
+      'Runs only after you approve the plan',
+      'Every answer cites its sources',
+      'Results open in the GIS tools you already use',
+    ],
+    ctaTitle: 'See the tools on your own territory',
+    ctaDescription: 'We will run a live demo on a real question from your region.',
+    ctaButton: 'Book a demo',
   },
   footer: {
     linkedin: 'LinkedIn',
     contact: 'Contact',
     copyright: '© 2026 Polisense AI. All rights reserved.',
     partners: 'Partners',
+    products: 'Products',
+    platform: 'Platform',
+    blog: 'Blog',
+    whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Our Team',
@@ -158,7 +191,7 @@ const en = {
       },
       {
         name: 'Jose Pastor',
-        role: 'Advisory Board — Product',
+        role: 'Advisory Board, Product',
         description:
           'Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships',
       },
@@ -173,161 +206,193 @@ const en = {
       "We're working on our first articles. Check back soon for updates on our research, product, and mission.",
   },
   demoModal: {
-    successTitle: 'Request Submitted!',
+    successTitle: 'Request received',
     successDescription: "We'll be in touch shortly to schedule your demo.",
-    title: 'Book a Demo',
-    description: 'See how Polisense AI can transform your energy planning',
-    emailLabel: 'Email Address',
+    title: 'Book a demo',
+    description: 'We will run a live demo on a real question from your territory.',
+    emailLabel: 'Work email',
     emailPlaceholder: 'you@organization.com',
     organizationLabel: 'Organization',
     organizationPlaceholder: 'Your organization name',
-    errorMessage: 'Failed to submit. Please try again.',
+    errorMessage: 'We couldn’t send your request. Please try again.',
     errorBlocked:
       "Couldn't reach our servers. Check your internet connection, or disable any ad blocker or privacy extension for this site, then try again.",
-    submitting: 'Submitting...',
-    submit: 'Submit Request',
-    disclaimer: 'By submitting, you agree to our Terms of Service and Privacy Policy',
+    submitting: 'Sending…',
+    submit: 'Request a demo',
+    disclaimer: 'We only use your details to arrange the demo.',
   },
 }
 
 const es: typeof en = {
   nav: {
-    features: 'Funcionalidades',
-    testimonials: 'Testimonios',
+    products: 'Productos',
+    platform: 'Plataforma',
     blogs: 'Blog',
-    getStarted: 'Comenzar',
+    getStarted: 'Agendar una demo',
     toggleMenu: 'Alternar menú',
     languageLabel: 'Idioma',
+    skipToContent: 'Saltar al contenido',
   },
   hero: {
     badge: 'Respaldado por el Pacto Global de Alcaldes',
-    titleLine1: 'Inteligencia de Acceso a',
-    titleLine2: 'Recursos y Energía',
-    titleLine3: 'Impulsada por IA',
+    title: 'Sepa dónde invertir, proteger',
+    titleHighlight: 'e intervenir primero.',
     description:
-      'Democratizando la planificación de infraestructura de recursos y energía con IA. Analiza capas de datos geoespaciales, automatiza reportes de cumplimiento y acelera el acceso en comunidades desatendidas.',
-    bookDemo: 'Agendar una Demo',
-    learnMore: 'Saber Más',
-    visualizationTitle: 'Visualización de Infraestructura Energética de Texas',
-    stats: {
-      withoutPower: 'Sin Electricidad',
-      projectsFail: 'Proyectos Fallidos',
-      fasterPlanning: 'Planificación Más Rápida',
-    },
+      'Polisense convierte datos satelitales, climáticos, de infraestructura y regulatorios en respuestas ordenadas y explicables, en horas y no meses.',
+    bookDemo: 'Agendar una demo',
+    secondary: 'Cómo funciona',
+    imageAlt:
+      'Polisense respondiendo una pregunta sobre el cambio de vegetación en una cuenca cerca de Arequipa, Perú: un mapa de cambio, cifras resumen y la respuesta en el chat.',
+    layers: ['Regulación', 'Terreno', 'Infraestructura'],
+    meta: [
+      { label: 'lat/lon', value: '16.4°S 71.5°W' },
+      { label: 'área', value: '225 km²' },
+      { label: 'imágenes', value: 'Landsat 2017-2025' },
+    ],
+    stats: [
+      { value: '~30 min', label: 'por análisis, antes 3,5-4 horas' },
+      { value: '196 → 41', label: 'sitios de agua evaluados y preseleccionados' },
+      { value: '8', label: 'capacidades en un solo motor' },
+    ],
   },
   problem: {
-    title: 'La Planificación de Recursos y Energía No Debería Tomar Meses',
+    title: 'El dinero existe. El cuello de botella es el análisis.',
     description:
-      'Los planificadores gubernamentales pierden semanas recopilando datos fragmentados de múltiples fuentes, analizando hojas de cálculo desactualizadas y tomando decisiones de infraestructura con información incompleta.',
-    withoutTitle: 'Sin Polisense AI',
+      'Los equipos pagan unos $150K y esperan seis meses por un estudio de factibilidad. El 49% de los proyectos climáticos nunca se construye, y rara vez por falta de fondos.',
+    withoutTitle: 'Hoy',
     withoutItems: [
-      'Meses de recopilación manual de datos',
-      'Información aislada entre departamentos',
-      'El 50% de los proyectos fallan en 5 años',
-      'Capacidades limitadas de análisis espacial',
+      'Diez herramientas desconectadas y datos cruzados a mano',
+      '3,5-4 horas por análisis SIG, que aun así puede fallar',
+      'Estudios de consultoría de $15K-$80K y 4-12 semanas cada uno',
+      'Puntajes que nadie puede explicar a un comité de inversión',
     ],
-    withTitle: 'Con Polisense AI',
+    withTitle: 'Con Polisense',
     withItems: [
-      'Minutos para generar planes integrales',
-      'Plataforma unificada de inteligencia geoespacial',
-      'Evaluación de riesgos impulsada por IA',
-      'Modelado de infraestructura en tiempo real',
+      'Un solo espacio de mapas y un solo motor',
+      'Unos 30 minutos por análisis',
+      'Zonas restringidas excluidas automáticamente',
+      'Cada clasificación trazable hasta sus fuentes',
     ],
   },
-  features: {
-    title: 'Diseñado para Generar Impacto',
+  how: {
+    title: 'Un solo ciclo, de la pregunta a la decisión',
     description:
-      'Herramientas poderosas para acelerar el acceso a recursos y energía en mercados emergentes',
-    items: [
-      {
-        title: 'Recomendaciones de Sitios con IA',
-        description:
-          'Obtén recomendaciones inteligentes de sitios para el despliegue de recursos, energía renovable e infraestructura de red, basadas en un análisis geoespacial integral.',
-      },
-      {
-        title: 'Análisis Geoespacial',
-        description:
-          'Analiza el terreno, la densidad de población y las restricciones de infraestructura con consultas en lenguaje natural.',
-      },
-      {
-        title: 'Modelado de Impacto',
-        description:
-          'Simula y optimiza inversiones en infraestructura para maximizar el alcance y la sostenibilidad.',
-      },
-      {
-        title: 'Reportes de Cumplimiento Automatizados',
-        description:
-          'Genera reportes conformes con la normativa al instante, eliminando semanas de documentación manual y acelerando las aprobaciones de proyectos.',
-      },
-    ],
-  },
-  transformation: {
-    title: 'De Meses a Minutos',
-    description:
-      'Únete a agencias gubernamentales que transforman la forma en que planifican y despliegan infraestructura de recursos y energía. Toma decisiones basadas en datos con confianza y amplía el acceso para millones.',
+      'Todas las capacidades corren sobre el mismo motor, así que una nueva pregunta es una configuración y no una herramienta nueva.',
     steps: [
       {
-        title: 'Sube Tus Datos',
+        label: 'Preguntar',
+        title: 'Describa el territorio y la pregunta',
         description:
-          'Importa conjuntos de datos geoespaciales existentes, datos censales y mapas de infraestructura a nuestra plataforma unificada.',
+          'Escríbala en lenguaje natural: ¿dónde deberíamos invertir, proteger o intervenir primero? Mencione conjuntos de datos en el chat y agregue capas al mapa.',
       },
       {
-        title: 'Análisis con IA',
+        label: 'Analizar',
+        title: 'El motor ejecuta el flujo completo',
         description:
-          'Nuestra IA analiza el terreno, la densidad de población, la disponibilidad de recursos y las restricciones de red en tiempo real.',
+          'Terreno, clima, infraestructura, suelo y regulación se combinan en una sola pasada. Las zonas restringidas quedan fuera y cada área candidata recibe un puntaje.',
       },
       {
-        title: 'Despliega con Confianza',
+        label: 'Actuar',
+        title: 'Lleve una respuesta defendible a la mesa',
         description:
-          'Genera planes de infraestructura optimizados, evaluaciones de riesgo y proyecciones de retorno listas para la aprobación de las partes interesadas.',
+          'Los candidatos llegan ordenados con la evidencia de cada uno, más un informe listo para un comité de inversión, un financiador o un equipo de campo.',
       },
     ],
+    explainTitle: 'Cada clasificación se explica sola',
+    explainDescription:
+      'La atribución de factores muestra qué determinó cada puntaje. Las citas vinculan cada afirmación con la norma, el informe o los datos que la respaldan.',
+    readout: {
+      cells: '{n} celdas en el área de estudio',
+      excluded: '{n} celdas excluidas: cauce del río y centro histórico',
+      ranked: 'Los {n} mejores candidatos ordenados',
+    },
+    caption:
+      'Ilustración sobre calles reales de Arequipa y el río Chili (datos de OpenStreetMap). El área de estudio y los puntajes son generados, no un resultado real.',
+    mapAlt:
+      'Mapa del centro de Arequipa, Perú, con una grilla de celdas candidatas sobre la ciudad. Las celdas junto al río Chili y alrededor del centro histórico quedan excluidas, el resto recibe un puntaje y las cinco mejores se ordenan.',
+    mapLabels: {
+      place: 'Arequipa, Perú',
+      river: 'Río Chili',
+      centre: 'Centro histórico',
+      excluded: 'Excluido',
+      score: 'Puntaje',
+    },
   },
-  mission: {
+  productsSection: {
+    title: 'Ocho capacidades, un solo motor',
+    description:
+      'Cada capacidad responde a una pregunta territorial distinta, y cada una fue probada en territorios y datos reales.',
+    viewAll: 'Todos los productos',
+  },
+  proof: {
+    title: 'En etapa temprana, y ya en el campo',
+    mapAlt:
+      'Mapa mundial que marca despliegues activos en Perú, Jordania y Moldavia, y cartas de intención de Argentina, Bangladés y Mozambique.',
+    legendLive: 'Despliegue activo',
+    legendLoi: 'Carta de intención',
     stats: [
-      { value: '760M+', label: 'Personas sin acceso a electricidad en el mundo' },
-      { value: '50%', label: 'Proyectos de infraestructura fallan en los primeros 5 años' },
-      { value: '10x', label: 'Planificación de infraestructura más rápida con IA' },
+      { value: '3', label: 'Países activos: Perú, Jordania y Moldavia' },
+      { value: '3', label: 'Cartas de intención: Argentina, Bangladés y Mozambique' },
+      { value: '10+', label: 'Usuarios activos realizando análisis' },
     ],
-  },
-  testimonials: {
-    title: 'Confiado por Líderes de Recursos y Energía',
-    description: 'Agencias gubernamentales y organizaciones internacionales confían en Polisense AI',
-    items: [
-      {
-        quote:
-          'Polisense AI redujo nuestro ciclo de planificación de 6 meses a 3 semanas. El análisis geoespacial es sorprendentemente preciso.',
-        author: 'Maria Santos',
-        role: 'Directora de Planificación de Infraestructura',
-        organization: 'Ministerio de Energía, Perú',
-      },
-      {
-        quote:
-          'Los reportes de cumplimiento automatizados nos ahorraron meses de trabajo de documentación. Ahora podemos pasar del análisis a la implementación en días, no en meses.',
-        author: 'Dr. Ahmed Hassan',
-        role: 'Estratega Jefe de Energía',
-        organization: 'Autoridad Nacional de Energía',
-      },
-      {
-        quote:
-          'Finalmente, una herramienta que habla nuestro idioma. Polisense AI entiende los verdaderos desafíos de la electrificación en mercados emergentes.',
-        author: 'Jane Ochieng',
-        role: 'Directora de Programa',
-        organization: 'East Africa Energy Access',
-      },
+    recognitionTitle: 'Reconocimientos',
+    recognition: [
+      'Ganador, AI x City Climate Action Hackathon, Climate Week NYC 2025, categoría acceso a la energía',
+      'Ganador, desafío climático del IEEE, por un asesor de clima extremo con IA',
+      'Seleccionado para el IRENA NewGen Accelerator',
+      'Beca EXIST para fundadores, Alemania, 2026',
+      'Harvard Innovation Labs, cohorte 2026',
     ],
   },
   cta: {
-    title: '¿Listo para Transformar el Acceso a Recursos y Energía?',
+    title: 'Tráiganos un territorio y una pregunta',
     description:
-      'Únete a organizaciones líderes que usan Polisense AI para acelerar el acceso a recursos y energía, optimizar inversiones en infraestructura y mejorar la vida de comunidades desatendidas.',
-    button: 'Agendar una Demo',
+      'Haremos una demo en vivo con una pregunta real de su región, para que vea su propio problema resuelto en minutos.',
+    button: 'Agendar una demo',
+  },
+  productPage: {
+    indexTitle: 'Productos',
+    indexDescription:
+      'Ocho capacidades sobre un mismo motor climático territorial, cada una responde dónde invertir, proteger o intervenir primero.',
+    backToProducts: 'Todos los productos',
+    validatedIn: 'Validado en',
+    whatItDoes: 'Qué hace',
+    dataLabel: 'Datos que combina',
+    outputsLabel: 'Qué obtiene',
+    proofLabel: 'Resultados',
+    engineTitle: 'Corre sobre el motor compartido',
+    engineDescription:
+      'Pregunte en lenguaje natural, deje que el motor ejecute el análisis y actúe sobre resultados ordenados y explicables. El mismo ciclo impulsa cada capacidad.',
+    otherProducts: 'Otros productos',
+    ctaTitle: 'Pruébelo en su propio territorio',
+    ctaDescription: 'Haremos una demo en vivo con una pregunta real de su región.',
+    ctaButton: 'Agendar una demo',
+    toolsTitle: 'Motores detrás de esto',
+  },
+  platform: {
+    eyebrow: 'Desarrollado internamente por Polisense',
+    title: 'Nuestros motores de análisis',
+    description:
+      'Siete motores diseñados y construidos por el equipo de Polisense, sobre una misma plataforma. Cada producto los combina.',
+    usedBy: 'Impulsa',
+    principles: [
+      'Solo se ejecuta después de que usted aprueba el plan',
+      'Cada respuesta cita sus fuentes',
+      'Los resultados se abren en las herramientas SIG que ya usa',
+    ],
+    ctaTitle: 'Vea las herramientas en su propio territorio',
+    ctaDescription: 'Haremos una demo en vivo con una pregunta real de su región.',
+    ctaButton: 'Agendar una demo',
   },
   footer: {
     linkedin: 'LinkedIn',
     contact: 'Contacto',
     copyright: '© 2026 Polisense AI. Todos los derechos reservados.',
     partners: 'Socios',
+    products: 'Productos',
+    platform: 'Plataforma',
+    blog: 'Blog',
+    whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Nuestro Equipo',
@@ -349,7 +414,7 @@ const es: typeof en = {
       },
       {
         name: 'Jose Pastor',
-        role: 'Junta Asesora — Producto',
+        role: 'Junta Asesora, Producto',
         description:
           'Gerente Senior de Producto de IA en Siemens con más de 6 años en energía e infraestructura de red. Impulsa la estrategia de producto y las alianzas',
       },
@@ -364,20 +429,20 @@ const es: typeof en = {
       'Estamos preparando nuestros primeros artículos. Vuelve pronto para conocer novedades sobre nuestra investigación, producto y misión.',
   },
   demoModal: {
-    successTitle: '¡Solicitud Enviada!',
+    successTitle: 'Solicitud recibida',
     successDescription: 'Nos pondremos en contacto pronto para agendar tu demo.',
-    title: 'Agendar una Demo',
-    description: 'Descubre cómo Polisense AI puede transformar tu planificación energética',
-    emailLabel: 'Correo Electrónico',
+    title: 'Agendar una demo',
+    description: 'Haremos una demo en vivo con una pregunta real de su territorio.',
+    emailLabel: 'Correo de trabajo',
     emailPlaceholder: 'tu@organizacion.com',
     organizationLabel: 'Organización',
     organizationPlaceholder: 'Nombre de tu organización',
-    errorMessage: 'No se pudo enviar. Por favor, inténtalo de nuevo.',
+    errorMessage: 'No pudimos enviar su solicitud. Inténtelo de nuevo.',
     errorBlocked:
       'No pudimos conectar con nuestros servidores. Revisa tu conexión a internet, o desactiva cualquier bloqueador de anuncios o extensión de privacidad para este sitio, e inténtalo de nuevo.',
-    submitting: 'Enviando...',
-    submit: 'Enviar Solicitud',
-    disclaimer: 'Al enviar, aceptas nuestros Términos de Servicio y Política de Privacidad',
+    submitting: 'Enviando…',
+    submit: 'Solicitar una demo',
+    disclaimer: 'Solo usamos sus datos para organizar la demo.',
   },
 }
 

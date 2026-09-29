@@ -1,85 +1,97 @@
 @import "tailwindcss";
 
-:root {
-  --background: #F5F2EC;
-  --foreground: #141517;
-}
-
+/*
+ * "Map room" theme: one dark theme for the whole site, matching the Polisense
+ * app. Components use these tokens (bg-canvas, text-ink/70, border-line,
+ * bg-accent...) instead of raw hex values, so the palette lives here only.
+ */
 @theme inline {
-  /* Colors - Warm Cartography Palette */
-  --color-meridian: #5E8EA6;
-  --color-strato: #A3C4D4;
-  --color-haze: #D0DFE6;
-  --color-obsidian: #141517;
-  --color-parchment: #F5F2EC;
-  --color-sandstone: #B5AFA5;
-  --color-dune: #C9A96E;
-  --color-canopy: #6B9E7A;
-  --color-terra: #BF6A5A;
-  --color-paper: #FDFCFA;
-  --color-basalt: #1E2024;
-  --color-fog: #E3DED6;
+  --color-canvas: #0F1623;        /* page background */
+  --color-surface: #151F2F;       /* raised panels, cards */
+  --color-surface-2: #1C293C;     /* inset panels, chips */
+  --color-line: #26344A;          /* hairlines and borders */
+  --color-ink: #E6ECF2;           /* text; use /70, /55 for secondary */
+  --color-accent: #7FB3CC;        /* brand blue, lifted for contrast on dark */
+  --color-accent-strong: #A5CCDE; /* accent hover */
 
   /* Fonts */
-  --font-display: var(--font-display);
+  --font-display: var(--font-body);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
+}
 
-  /* Typography Scale */
-  --font-size-display: 56px;
-  --font-size-h1: 40px;
-  --font-size-h2: 32px;
-  --font-size-h3: 24px;
-  --font-size-body-lg: 18px;
-  --font-size-body: 16px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(20, 21, 23, 0.04);
-  --shadow-md: 0 4px 16px rgba(20, 21, 23, 0.08);
-  --shadow-lg: 0 8px 32px rgba(20, 21, 23, 0.12);
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #F5F2EC; /* Parchment */
-  color: rgba(20, 21, 23, 0.85); /* Obsidian 85% */
+  background-color: #0F1623;
+  color: #E6ECF2;
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Topographic contour pattern overlay */
+::selection {
+  background: rgba(127, 179, 204, 0.35);
+  color: #FFFFFF;
+}
+
+/* Topographic contour lines, very faint, fixed behind everything */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10 30 Q 30 20, 50 30 T 90 30' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 50 Q 30 40, 50 50 T 90 50' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 70 Q 30 60, 50 70 T 90 70' stroke='%23B5AFA5' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10 30 Q 30 20, 50 30 T 90 30' stroke='%237FB3CC' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 50 Q 30 40, 50 50 T 90 50' stroke='%237FB3CC' stroke-width='0.5' fill='none'/%3E%3Cpath d='M 10 70 Q 30 60, 50 70 T 90 70' stroke='%237FB3CC' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
   background-size: 200px 200px;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
-/* Noise grain overlay */
+/* Noise grain overlay: fixed and pointer-events-none so it never repaints on scroll */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  opacity: 0.025;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 9999;
+  z-index: 60;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Headings: Geist, tight tracking, balanced wrapping */
+h1, h2, .font-display {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-/* Grid pattern for hero section */
-.bg-grid-pattern {
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
+p {
+  text-wrap: pretty;
+}
+
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Contour-line panel: stands in for product imagery until real screenshots exist. */
+.bg-contour {
+  background-color: #1C293C;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%237FB3CC' stroke-opacity='0.22' stroke-width='0.8'%3E%3Cpath d='M0 20 Q30 8 60 20 T120 20'/%3E%3Cpath d='M0 44 Q30 30 60 44 T120 44'/%3E%3Cpath d='M0 68 Q30 56 60 68 T120 68'/%3E%3Cpath d='M0 92 Q30 78 60 92 T120 92'/%3E%3Cpath d='M0 116 Q30 104 60 116 T120 116'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* Hatch for constrained (excluded) map cells */
+.bg-hatch {
+  background-color: #1A2231;
+  background-image: repeating-linear-gradient(135deg, rgba(230, 236, 242, 0.14) 0 1px, transparent 1px 6px);
 }
 
 /* Custom scrollbar */
@@ -88,21 +100,27 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #E3DED6; /* Fog */
+  background: #0F1623;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #B5AFA5; /* Sandstone */
+  background: #26344A;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5E8EA6; /* Meridian */
+  background: #7FB3CC;
 }
 
-/* Smooth animations */
-* {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+/* Visible keyboard focus everywhere, invisible for mouse clicks. */
+:focus-visible {
+  outline: 2px solid #7FB3CC;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

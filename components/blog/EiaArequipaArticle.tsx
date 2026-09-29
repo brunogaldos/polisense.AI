@@ -89,11 +89,11 @@ const content: Record<'es' | 'en', ArticleContent> = {
     timeline: [
       { value: '400', unit: 'días', label: 'Hasta 2024' },
       { value: '~300', unit: 'días', label: 'Hoy' },
-      { value: '150–160', unit: 'días', label: 'Meta SENACE 2026', emphasized: true },
+      { value: '150-160', unit: 'días', label: 'Meta SENACE 2026', emphasized: true },
     ],
     caseTitle: 'El caso: Majes y Santa Rita',
     mapCaption:
-      'Mapa ilustrado de los predios evaluados, trazado a partir de los límites reales (GeoJSON) de Majes y Santa Rita de Siguas — no es una imagen satelital.',
+      'Mapa ilustrado de los predios evaluados, trazado a partir de los límites reales (GeoJSON) de Majes y Santa Rita de Siguas. No es una imagen satelital.',
     caseParas: [
       'Trabajamos con la Gerencia Regional de Ciencia, Tecnología e Innovación (CTI) del Gobierno Regional (GORE) de Arequipa en el análisis de dos terrenos estatales con potencial para el desarrollo de un parque industrial vinculado a energías renovables, hidrógeno verde e industrias electrointensivas: el predio Majes, ubicado en la irrigación Majes-Pedregal, y el predio Santa Rita de Siguas. Ambos se encuentran bajo la modalidad de Proyectos en Activos (PEA), mecanismo que permite desarrollar inversiones sobre terrenos de propiedad del Estado.',
       'El encargo consistió en elaborar y presentar un expediente técnico comparativo de ambos predios, evaluando sus características, aptitud y condiciones para el desarrollo del proyecto, con el objetivo de proporcionar a la empresa desarrolladora los elementos técnicos necesarios para seleccionar la alternativa más idónea.',
@@ -209,11 +209,11 @@ const content: Record<'es' | 'en', ArticleContent> = {
     timeline: [
       { value: '400', unit: 'days', label: 'Until 2024' },
       { value: '~300', unit: 'days', label: 'Today' },
-      { value: '150–160', unit: 'days', label: 'SENACE 2026 target', emphasized: true },
+      { value: '150-160', unit: 'days', label: 'SENACE 2026 target', emphasized: true },
     ],
     caseTitle: 'The case: Majes and Santa Rita',
     mapCaption:
-      'Illustrated map of the evaluated parcels, traced from the real boundaries (GeoJSON) of Majes and Santa Rita de Siguas — not a satellite image.',
+      'Illustrated map of the evaluated parcels, traced from the real boundaries (GeoJSON) of Majes and Santa Rita de Siguas. Not a satellite image.',
     caseParas: [
       'We worked with the Regional Management of Science, Technology and Innovation (CTI) of the Regional Government (GORE) of Arequipa on the analysis of two state-owned parcels with potential for developing an industrial park linked to renewable energy, green hydrogen, and electro-intensive industries: the Majes parcel, located in the Majes-Pedregal irrigation area, and the Santa Rita de Siguas parcel. Both fall under the Projects on Assets (PEA) mechanism, which allows investments to be developed on state-owned land.',
       "The assignment consisted of preparing and presenting a comparative technical case file for both parcels, evaluating their characteristics, suitability, and conditions for the project's development, with the goal of giving the developing company the technical elements needed to select the most suitable option.",
@@ -305,7 +305,7 @@ const content: Record<'es' | 'en', ArticleContent> = {
     ctaBadge: 'No cost and no commercial commitment',
     ctaP3:
       "We don't sign environmental management instruments. That's the responsibility of a consultancy registered with SENACE and licensed professionals who put their name behind it.",
-    ctaP4: "Polisense's work is the groundwork beforehand — all the data analysis that can be automated.",
+    ctaP4: "Polisense's work is the groundwork beforehand: all the data analysis that can be automated.",
     ctaButton: 'Apply for a pilot project',
     ctaQuote:
       '“If you prepare environmental instruments for mining or energy in Peru and this is useful or debatable to you, write to me. Technical objections are welcome.”',
@@ -330,14 +330,14 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
     <article className="pb-8">
       {/* Article header */}
       <header className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
-        <span className="inline-flex px-4 py-1.5 bg-[#5E8EA6]/10 border border-[#5E8EA6]/30 rounded-full text-xs sm:text-sm text-[#5E8EA6] font-medium mb-6">
+        <span className="inline-flex px-4 py-1.5 bg-accent/10 border border-accent/30 rounded-full text-xs sm:text-sm text-accent font-medium mb-6">
           {post.category[language]}
         </span>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#141517] tracking-tight leading-tight mb-5">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-ink tracking-tight leading-tight mb-5">
           {post.title[language]}
         </h1>
-        <p className="text-lg sm:text-xl text-[#141517]/70 leading-relaxed mb-6">{post.subtitle[language]}</p>
-        <div className="flex items-center justify-center gap-4 text-sm text-[#141517]/50">
+        <p className="text-lg sm:text-xl text-ink/70 leading-relaxed mb-6">{post.subtitle[language]}</p>
+        <div className="flex items-center justify-center gap-4 text-sm text-ink/50">
           <span className="flex items-center gap-1.5">
             <Calendar size={15} />
             <time dateTime={post.date}>{post.dateLabel[language]}</time>
@@ -352,35 +352,35 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
       {/* Hero image */}
       <figure className="max-w-5xl mx-auto mb-12 sm:mb-16">
-        <div className="rounded-2xl overflow-hidden border border-[#E3DED6] shadow-md">
+        <div className="rounded-2xl overflow-hidden border border-line shadow-md">
           <HeroIllustration className="w-full h-[220px] sm:h-[340px] md:h-[420px]" title={T.heroAlt} />
         </div>
-        <figcaption className="text-xs text-[#141517]/45 text-center mt-3">{T.heroCaption}</figcaption>
+        <figcaption className="text-xs text-ink/45 text-center mt-3">{T.heroCaption}</figcaption>
       </figure>
 
       {/* Lede */}
-      <div className="max-w-3xl mx-auto space-y-6 text-lg text-[#141517]/85 leading-relaxed mb-16 sm:mb-20">
+      <div className="max-w-3xl mx-auto space-y-6 text-lg text-ink/85 leading-relaxed mb-16 sm:mb-20">
         <p>{T.ledeP1}</p>
 
         {/* 400 → 300 → 150–160 days progression */}
         <div className="not-prose py-8">
           <div className="relative flex items-center justify-between max-w-xl mx-auto">
-            <div className="absolute left-0 right-0 top-1/2 h-px bg-[#E3DED6]" aria-hidden="true" />
+            <div className="absolute left-0 right-0 top-1/2 h-px bg-line" aria-hidden="true" />
             {T.timeline.map((step, index) => (
-              <div key={step.label} className="relative z-10 flex flex-col items-center gap-2 bg-[#F5F2EC] px-2 sm:px-4">
+              <div key={step.label} className="relative z-10 flex flex-col items-center gap-2 bg-canvas px-2 sm:px-4">
                 <span
                   className={`text-3xl sm:text-4xl font-bold ${
-                    step.emphasized ? 'text-[#5E8EA6]' : 'text-[#141517]'
+                    step.emphasized ? 'text-accent' : 'text-ink'
                   }`}
                 >
                   {step.value}
                 </span>
-                <span className="text-[10px] sm:text-xs text-[#141517]/50 uppercase tracking-wider text-center">
+                <span className="text-[10px] sm:text-xs text-ink/50 uppercase tracking-wider text-center">
                   {step.unit}
                 </span>
                 <span
                   className={`text-xs sm:text-sm font-medium text-center ${
-                    step.emphasized ? 'text-[#5E8EA6]' : 'text-[#141517]/70'
+                    step.emphasized ? 'text-accent' : 'text-ink/70'
                   }`}
                 >
                   {step.label}
@@ -388,7 +388,7 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
                 {index < T.timeline.length - 1 && (
                   <ArrowRight
                     size={16}
-                    className="hidden sm:block absolute top-4 -right-8 sm:-right-10 text-[#141517]/30"
+                    className="hidden sm:block absolute top-4 -right-8 sm:-right-10 text-ink/30"
                     aria-hidden="true"
                   />
                 )}
@@ -402,10 +402,10 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
       {/* El caso: Majes y Santa Rita */}
       <section className="max-w-3xl mx-auto mb-16 sm:mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#141517] mb-6">{T.caseTitle}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6">{T.caseTitle}</h2>
 
         <figure className="mb-8 -mx-2 sm:mx-0">
-          <div className="rounded-2xl overflow-hidden border border-[#E3DED6] bg-[#FDFCFA]">
+          <div className="rounded-2xl overflow-hidden border border-line bg-surface">
             <ParcelMapIllustration
               className="w-full"
               title={T.mapAlt}
@@ -416,10 +416,10 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
               santaRitaSubLabel={T.santaRitaSubLabel}
             />
           </div>
-          <figcaption className="text-xs text-[#141517]/45 text-center mt-3">{T.mapCaption}</figcaption>
+          <figcaption className="text-xs text-ink/45 text-center mt-3">{T.mapCaption}</figcaption>
         </figure>
 
-        <div className="space-y-6 text-lg text-[#141517]/85 leading-relaxed">
+        <div className="space-y-6 text-lg text-ink/85 leading-relaxed">
           {T.caseParas.map((para) => (
             <p key={para}>{para}</p>
           ))}
@@ -429,10 +429,10 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
       {/* Cómo se construyó — four evidence layers */}
       <section className="max-w-5xl mx-auto mb-16 sm:mb-20">
         <div className="max-w-3xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#141517] mb-6">{T.howBuiltTitle}</h2>
-          <p className="text-lg text-[#141517]/85 leading-relaxed">
+          <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6">{T.howBuiltTitle}</h2>
+          <p className="text-lg text-ink/85 leading-relaxed">
             {T.howBuiltIntroPre}
-            <strong className="text-[#141517]">{T.howBuiltIntroStrong}</strong>
+            <strong className="text-ink">{T.howBuiltIntroStrong}</strong>
             {T.howBuiltIntroPost}
           </p>
         </div>
@@ -440,14 +440,14 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4">
           {T.evidenceLayers.map((layer, index) => (
             <div key={layer.number} className="relative">
-              <div className="h-full p-6 bg-[#FDFCFA] rounded-2xl border border-[#E3DED6] hover:border-[#5E8EA6]/40 hover:shadow-md transition-all duration-200">
-                <div className="w-10 h-10 bg-[#5E8EA6] rounded-full flex items-center justify-center text-white font-bold text-sm mb-4">
+              <div className="h-full p-6 bg-surface rounded-2xl border border-line hover:border-accent/40 hover:shadow-md transition-all duration-200">
+                <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-canvas font-bold text-sm mb-4">
                   {layer.number}
                 </div>
-                <h3 className="text-base font-bold text-[#141517] mb-2">{layer.title}</h3>
-                <p className="text-sm text-[#141517]/70 leading-relaxed">{layer.description}</p>
+                <h3 className="text-base font-bold text-ink mb-2">{layer.title}</h3>
+                <p className="text-sm text-ink/70 leading-relaxed">{layer.description}</p>
                 {layer.stat && (
-                  <div className="mt-4 pt-4 border-t border-[#E3DED6] text-2xl font-bold text-[#5E8EA6]">
+                  <div className="mt-4 pt-4 border-t border-line text-2xl font-bold text-accent">
                     {layer.stat}
                   </div>
                 )}
@@ -455,7 +455,7 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
               {index < T.evidenceLayers.length - 1 && (
                 <ArrowRight
                   size={18}
-                  className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 text-[#141517]/25 z-10"
+                  className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 text-ink/25 z-10"
                   aria-hidden="true"
                 />
               )}
@@ -466,49 +466,49 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
       {/* Lo que el sistema resolvió */}
       <section className="max-w-3xl mx-auto mb-16 sm:mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#141517] mb-6">{T.resolvedTitle}</h2>
-        <p className="text-lg text-[#141517]/85 leading-relaxed mb-6">{T.resolvedIntro}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6">{T.resolvedTitle}</h2>
+        <p className="text-lg text-ink/85 leading-relaxed mb-6">{T.resolvedIntro}</p>
         <ul className="space-y-4 mb-10">
           {T.resolvedItems.map((item) => (
-            <li key={item} className="flex gap-3 text-lg text-[#141517]/85 leading-relaxed">
-              <CheckCircle2 size={20} className="flex-shrink-0 mt-1 text-[#5E8EA6]" aria-hidden="true" />
+            <li key={item} className="flex gap-3 text-lg text-ink/85 leading-relaxed">
+              <CheckCircle2 size={20} className="flex-shrink-0 mt-1 text-accent" aria-hidden="true" />
               <span>{item}</span>
             </li>
           ))}
         </ul>
 
         <figure>
-          <div className="rounded-2xl overflow-hidden border border-[#E3DED6] bg-[#FDFCFA] py-6">
+          <div className="rounded-2xl overflow-hidden border border-line bg-surface py-6">
             <InfrastructureIllustration className="w-full h-[200px] sm:h-[220px]" title={T.infraAlt} />
           </div>
-          <figcaption className="text-xs text-[#141517]/45 text-center mt-3">{T.infraCaption}</figcaption>
+          <figcaption className="text-xs text-ink/45 text-center mt-3">{T.infraCaption}</figcaption>
         </figure>
       </section>
 
       {/* Lo que el sistema no pudo resolver */}
       <section className="max-w-3xl mx-auto mb-16 sm:mb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#141517] mb-6">{T.notResolvedTitle}</h2>
-        <p className="text-lg text-[#141517]/85 leading-relaxed mb-2">{T.notResolvedP1}</p>
-        <p className="text-lg text-[#141517]/85 leading-relaxed mb-8">{T.notResolvedP2}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6">{T.notResolvedTitle}</h2>
+        <p className="text-lg text-ink/85 leading-relaxed mb-2">{T.notResolvedP1}</p>
+        <p className="text-lg text-ink/85 leading-relaxed mb-8">{T.notResolvedP2}</p>
 
         <div className="grid sm:grid-cols-2 gap-5 mb-6">
-          <div className="p-6 bg-[#F5F2EC] rounded-xl border border-[#E3DED6]">
-            <h3 className="flex items-center gap-2 text-base font-bold text-[#141517] mb-4">
-              <CheckCircle2 size={18} className="text-[#5E8EA6]" aria-hidden="true" />
+          <div className="p-6 bg-canvas rounded-xl border border-line">
+            <h3 className="flex items-center gap-2 text-base font-bold text-ink mb-4">
+              <CheckCircle2 size={18} className="text-accent" aria-hidden="true" />
               {T.knownTitle}
             </h3>
-            <ul className="space-y-3 text-[#141517]/70 text-sm leading-relaxed">
+            <ul className="space-y-3 text-ink/70 text-sm leading-relaxed">
               {T.knownRecap.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
             </ul>
           </div>
-          <div className="p-6 bg-[#5E8EA6]/10 rounded-xl border border-[#5E8EA6]/30">
-            <h3 className="flex items-center gap-2 text-base font-bold text-[#141517] mb-4">
-              <AlertTriangle size={18} className="text-[#5E8EA6]" aria-hidden="true" />
+          <div className="p-6 bg-accent/10 rounded-xl border border-accent/30">
+            <h3 className="flex items-center gap-2 text-base font-bold text-ink mb-4">
+              <AlertTriangle size={18} className="text-accent" aria-hidden="true" />
               {T.pendingTitle}
             </h3>
-            <ul className="space-y-3 text-[#141517]/70 text-sm leading-relaxed">
+            <ul className="space-y-3 text-ink/70 text-sm leading-relaxed">
               {T.pendingValidation.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -516,27 +516,27 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
           </div>
         </div>
 
-        <p className="text-center text-sm text-[#141517]/50 italic">{T.notResolvedFooter}</p>
+        <p className="text-center text-sm text-ink/50 italic">{T.notResolvedFooter}</p>
       </section>
 
       {/* Tres lecciones */}
       <section className="max-w-5xl mx-auto mb-16 sm:mb-20">
-        <h2 className="max-w-3xl mx-auto text-2xl sm:text-3xl font-bold text-[#141517] mb-10 text-center">
+        <h2 className="max-w-3xl mx-auto text-2xl sm:text-3xl font-bold text-ink mb-10 text-center">
           {T.lessonsTitle}
         </h2>
         <div className="grid md:grid-cols-3 gap-6">
           {T.lessons.map((lesson) => (
             <div
               key={lesson.number}
-              className="p-8 bg-[#FDFCFA] rounded-2xl border border-[#E3DED6] hover:border-[#5E8EA6]/40 hover:shadow-md transition-all duration-200"
+              className="p-8 bg-surface rounded-2xl border border-line hover:border-accent/40 hover:shadow-md transition-all duration-200"
             >
-              <div className="w-12 h-12 bg-[#5E8EA6] rounded-xl flex items-center justify-center text-white font-bold mb-5">
+              <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center text-canvas font-bold mb-5">
                 {lesson.number}
               </div>
-              <h3 className="text-lg font-bold text-[#141517] mb-3 leading-snug">{lesson.title}</h3>
-              <p className="text-[#141517]/70 leading-relaxed">{lesson.description}</p>
+              <h3 className="text-lg font-bold text-ink mb-3 leading-snug">{lesson.title}</h3>
+              <p className="text-ink/70 leading-relaxed">{lesson.description}</p>
               {lesson.closing && (
-                <p className="text-[#141517] font-medium leading-relaxed mt-3">{lesson.closing}</p>
+                <p className="text-ink font-medium leading-relaxed mt-3">{lesson.closing}</p>
               )}
             </div>
           ))}
@@ -545,7 +545,7 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
       {/* Una invitación concreta — CTA */}
       <section className="max-w-5xl mx-auto px-2 sm:px-0">
-        <div className="rounded-3xl bg-[#1E2024] text-white px-6 py-12 sm:px-14 sm:py-16">
+        <div className="rounded-3xl bg-surface-2 border border-line text-white px-6 py-12 sm:px-14 sm:py-16">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-6">{T.ctaTitle}</h2>
 
@@ -565,7 +565,7 @@ export default function EiaArequipaArticle({ onOpenPilotForm }: EiaArequipaArtic
 
             <button
               onClick={onOpenPilotForm}
-              className="px-8 py-4 bg-white text-[#1E2024] rounded-full font-medium shadow-md hover:shadow-lg hover:bg-[#F5F2EC] transition-all duration-200 hover:scale-105 mb-10"
+              className="px-8 py-4 bg-accent text-canvas rounded-full font-medium shadow-md hover:shadow-lg hover:bg-accent-strong transition-all duration-200 hover:scale-105 mb-10"
             >
               {T.ctaButton}
             </button>

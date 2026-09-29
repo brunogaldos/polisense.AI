@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, DM_Sans, JetBrains_Mono } from "next/font/google";
-import { LanguageProvider } from "@/lib/i18n/context";
+import { Geist, JetBrains_Mono } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
-const dmSerifDisplay = DM_Serif_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
-const dmSans = DM_Sans({
+// Geist for headings and body; JetBrains Mono for numbers and coordinates.
+const geist = Geist({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -40,9 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSerifDisplay.variable} ${dmSans.variable} ${jetBrainsMono.variable} antialiased`}
+        className={`${geist.variable} ${jetBrainsMono.variable} antialiased`}
       >
-        <LanguageProvider>{children}</LanguageProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
