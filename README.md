@@ -1,22 +1,25 @@
 # Polisense AI
 
-AI-Powered Energy Access Intelligence — democratizing energy infrastructure planning for underserved communities worldwide.
+The landing site for [polisenseai.com](https://polisenseai.com/): a territorial climate engine that tells organizations where to invest, protect and intervene first.
 
 ## About
 
-Polisense AI is a geospatial intelligence platform that helps government agencies and international organizations plan and deploy energy infrastructure faster. By combining AI-driven analysis with comprehensive geospatial data, we reduce planning cycles from months to minutes.
+Polisense turns satellite, climate, infrastructure and regulatory data into ranked, explainable recommendations for a territory, in hours instead of months. An analyst asks a question in plain language, the engine runs the geospatial analysis, and the result comes back ranked, with the evidence behind each answer and a report ready for a funder, a committee or a field team.
 
-**Key stats:**
-- 760M+ people globally lack electricity access
-- 50% of energy projects fail within 5 years
-- Polisense AI enables 10x faster infrastructure planning
+It is built for NGOs, development finance institutions, climate funds and project developers working in emerging markets, and is live in Peru, Jordan and Moldova.
 
-## Features
+**Results the site cites:**
+- A GIS analysis that takes 3.5-4 hours in desktop tools takes about 30 minutes
+- Solar site prioritization plus a draft EIA: from 3 months with consultants to 2 days for one planner
+- Andean water storage: 196 candidate sites screened, 41 flagged for field validation
 
-- **AI Site Recommendations** — Intelligent site selection for renewable energy and grid infrastructure based on geospatial analysis
-- **Geospatial Analysis** — Analyze terrain, population density, and infrastructure constraints with natural language queries
-- **Impact Modeling** — Simulate and optimize infrastructure investments to maximize reach and sustainability
-- **Automated Compliance Reports** — Generate regulatory-compliant reports instantly, eliminating weeks of manual documentation
+## What the Site Covers
+
+- **Home**: the positioning, an Ask / Analyze / Act walkthrough on a real map of Arequipa, the products, and traction
+- **Products** (`/products/`): eight capabilities, each with its own page: solar site screening, natural water storage mapping, vegetation change analysis, farmer early warning, air-quality sensor placement, community solar, net-zero opportunity scans and green corridors
+- **Platform** (`/platform/`): an overview of the in-house analysis engines behind the products
+- **Blog** and **Team** pages
+- English and Spanish throughout, switchable in the header
 
 ## Tech Stack
 
@@ -25,27 +28,69 @@ Polisense AI is a geospatial intelligence platform that helps government agencie
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Backend**: Firebase (Firestore + Cloud Functions v2, Node 22)
+- **Maps**: d3-geo, world-atlas and OpenStreetMap data, projected to SVG at build time
 - **Language**: TypeScript
 - **Hosting**: GitHub Pages (static export via GitHub Actions)
 
 ## Getting Started
 
+### Prerequisites
+
+| Tool | Version | Notes |
+|---|---|---|
+| Git | any recent | |
+| Node.js | **20.9 or newer** (required by Next.js 16) | 20 or 22 LTS recommended; CI builds with 20. npm ships with it. |
+| Internet access | first run | `npm install` and the Google Fonts used by `next/font` |
+
+You also need access to this GitHub repository. Nothing else has to be set up first: there is no database, and the map data is committed.
+
+### Run it locally
+
 ```bash
-# Install dependencies
+git clone https://github.com/brunogaldos/polisense.AI.git
+cd polisense.AI
 npm install
-
-# Run development server
 npm run dev
-
-# Build for production (static export to ./out)
-npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:3000](http://localhost:3000). Saved files reload in the browser automatically; stop the server with `Ctrl + C`.
 
-Copy the Firebase values into `.env` before running — see [Environment Variables](#environment-variables). Without them the site still renders; only the demo form stops working.
+Other commands:
+
+```bash
+npm run build   # production static export to ./out (what GitHub Pages serves)
+npm run lint    # ESLint
+```
+
+### Optional: the "Book a Demo" form
+
+Everything renders without configuration. Only the demo form needs Firebase: create a `.env` with the values in [Environment Variables](#environment-variables), shared privately by a teammate. Never commit it.
+
+### Not in the repo, on purpose
+
+Internal company documents (strategy notes, the app team's tool guide, `Polisense_ground_truth/`) and local AI-assistant folders (`.claude/`, `.agents/`) are kept out of git. The site does not need them.
+
+### Troubleshooting
+
+- **`Unable to acquire lock ... is another instance of next dev running?`**: a dev server is already running in this folder. Stop it and run `npm run dev` again.
+- **`npm install` or the dev server fails on startup**: check `node -v`; anything below 20.9 will not work.
+- **The first homepage load takes a moment in dev**: the two maps are projected when the page first renders and cached after that. Production builds do this once, at build time.
 
 > `next.config.ts` sets `output: 'export'`, so this is a **static site**. There is no Node server in production and no API routes — `npm start` does not apply. Anything server-side has to live in a Cloud Function.
+
+## Project Structure
+
+| Path | What lives there |
+|---|---|
+| `app/` | Routes: home, `products/` (index + one generated page per capability), `platform/`, `blog/`, `team/` |
+| `components/` | UI; `home/` holds the homepage sections and maps |
+| `lib/products.ts` | Every capability's content (EN/ES). Add an entry to add a product page. |
+| `lib/toolkits.ts` | The in-house engines on `/platform/`. Overview only, by decision. |
+| `lib/i18n/translations.ts` | All other site copy, English and Spanish |
+| `lib/geo/` | Build-time map projection (world deployments map, Arequipa screening map) |
+| `data/geo/` | OpenStreetMap extract for Arequipa; refresh with `node scripts/fetch-osm-arequipa.mjs` |
+| `public/products/` | Product screenshots |
+| `functions/` | Cloud Function that emails demo requests |
 
 ## Environment Variables
 
