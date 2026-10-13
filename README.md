@@ -16,7 +16,7 @@ It is built for NGOs, development finance institutions, climate funds and projec
 ## What the Site Covers
 
 - **Home**: the positioning, an Ask / Analyze / Act walkthrough on a real map of Arequipa, the products, and traction
-- **Products** (`/products/`): eight capabilities, each with its own page: solar site screening, natural water storage mapping, vegetation change analysis, farmer early warning, air-quality sensor placement, community solar, net-zero opportunity scans and green corridors
+- **Products** (`/products/`): seven capabilities, each with its own page: solar site screening, natural water storage mapping, vegetation change analysis, farmer early warning, air-quality sensor placement, net-zero opportunity scans and green corridors
 - **Platform** (`/platform/`): an overview of the in-house analysis engines behind the products
 - **Blog** and **Team** pages
 - English and Spanish throughout, switchable in the header

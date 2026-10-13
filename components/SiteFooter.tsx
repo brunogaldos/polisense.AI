@@ -61,6 +61,36 @@ export default function SiteFooter() {
               className="h-5 invert opacity-50 hover:opacity-80 transition-opacity duration-200"
             />
           </a>
+          <a href="https://www.tum-ai.com/" target="_blank" rel="noopener noreferrer">
+            <img
+              src={`${basePath}/tum-ai-logo.svg`}
+              alt="TUM.ai"
+              className="h-6 opacity-50 hover:opacity-80 transition-opacity duration-200"
+            />
+          </a>
+          <a
+            href="https://innovationlabs.harvard.edu/climate/climate-circle"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium leading-tight text-ink opacity-50 hover:opacity-80 transition-opacity duration-200"
+          >
+            Harvard Innovation Labs
+            <span className="block text-[11px] font-normal">Climate Circle</span>
+          </a>
+          <a href="https://www.exist.de/" target="_blank" rel="noopener noreferrer">
+            <img
+              src={`${basePath}/exist-logo.svg`}
+              alt="EXIST Gründungsstipendium"
+              className="h-6 opacity-50 hover:opacity-80 transition-opacity duration-200 brightness-0 invert"
+            />
+          </a>
+          <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">
+            <img
+              src={`${basePath}/google-logo.svg`}
+              alt="Google"
+              className="h-6 opacity-50 hover:opacity-80 transition-opacity duration-200 brightness-0 invert"
+            />
+          </a>
         </div>
         <p className="text-xs text-ink/50">{t.footer.copyright}</p>
       </div>

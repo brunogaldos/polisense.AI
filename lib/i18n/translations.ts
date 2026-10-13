@@ -18,14 +18,11 @@ const en = {
       'Polisense turns satellite, climate, infrastructure and regulatory data into ranked, explainable answers, in hours instead of months.',
     bookDemo: 'Book a demo',
     secondary: 'How it works',
-    imageAlt:
-      'Polisense answering a question about vegetation change in a watershed near Arequipa, Peru: a change map, summary numbers and the answer in the chat.',
-    layers: ['Regulation', 'Terrain', 'Infrastructure'],
-    meta: [
-      { label: 'lat/lon', value: '16.4°S 71.5°W' },
-      { label: 'area', value: '225 km²' },
-      { label: 'imagery', value: 'Landsat 2017-2025' },
-    ],
+    layers: ['Terrain', 'Water', 'Infrastructure', 'Constraints', 'Ranked result'],
+    priority: 'Priority {n}',
+    layersAlt:
+      'Isometric stack of map layers for Arequipa, Peru: terrain, the Chili river, the road network, constraints and a ranked result, which spread apart as the page scrolls.',
+    layersCaption: 'Arequipa, Peru. Streets and river from OpenStreetMap; scores are illustrative.',
     stats: [
       { value: '~30 min', label: 'per analysis, down from 3.5-4 hours' },
       { value: '196 → 41', label: 'water sites screened, then shortlisted' },
@@ -35,56 +32,28 @@ const en = {
   problem: {
     title: 'The money exists. The analysis is the bottleneck.',
     description:
-      'Teams pay around $150K and wait six months for a feasibility report. 49% of climate projects never get built, and funding is rarely why.',
+      '49% of climate projects never get built. Funding is rarely why.',
     withoutTitle: 'Today',
-    withoutItems: [
-      'Ten disconnected tools and hand-matched datasets',
-      '3.5-4 hours per GIS analysis, which can still fail',
-      '$15K-$80K consultant studies, 4-12 weeks each',
-      'Scores nobody can explain to an investment committee',
-    ],
     withTitle: 'With Polisense',
-    withItems: [
-      'One map workspace and one engine',
-      'About 30 minutes per analysis',
-      'Constrained zones excluded automatically',
-      'Every ranking traced back to its sources',
+    compare: [
+      { before: '3.5-4 h', after: '~30 min', label: 'per GIS analysis' },
+      { before: '10 tools', after: '1 workspace', label: 'from question to answer' },
+      { before: 'Black-box scores', after: 'Cited evidence', label: 'behind every ranking' },
     ],
   },
   how: {
     title: 'One loop, from question to decision',
-    description:
-      'Every capability runs on the same engine, so a new question is a configuration rather than a new tool.',
     steps: [
-      {
-        label: 'Ask',
-        title: 'Describe the territory and the question',
-        description:
-          'Write it in plain language: where should we invest, protect or intervene first? Mention datasets in the chat and add layers to the map.',
-      },
-      {
-        label: 'Analyze',
-        title: 'The engine runs the workflow end to end',
-        description:
-          'Terrain, weather, infrastructure, land and regulation are combined in one pass. Constrained zones drop out and every candidate area is scored.',
-      },
-      {
-        label: 'Act',
-        title: 'Take a defensible answer to the room',
-        description:
-          'Ranked candidates arrive with the evidence behind each one, plus a report ready for an investment committee, a funder or a field team.',
-      },
+      { label: 'Ask', title: 'Describe the area and the question', description: 'In plain language, right in the chat.' },
+      { label: 'Analyze', title: 'The engine does the GIS work', description: 'Constraints drop out. Every area is scored.' },
+      { label: 'Act', title: 'Get a ranked, defensible answer', description: 'With the evidence and a ready report.' },
     ],
-    explainTitle: 'Every ranking explains itself',
-    explainDescription:
-      'Factor attribution shows what drove each score. Citations link every claim to the regulation, report or dataset behind it.',
     readout: {
       cells: '{n} cells in the study area',
       excluded: '{n} cells excluded: river corridor and historic centre',
       ranked: 'Top {n} candidates ranked',
     },
-    caption:
-      'Illustration on real Arequipa streets and the Chili river (OpenStreetMap data). The study area and scores are generated, not a real result.',
+    caption: 'Real Arequipa streets and river (OpenStreetMap). Scores are illustrative.',
     mapAlt:
       'Map of central Arequipa, Peru, with a grid of candidate cells over the city. Cells along the Chili river and around the historic centre are excluded, the rest are scored, and the top five are ranked.',
     mapLabels: {
@@ -96,55 +65,32 @@ const en = {
     },
   },
   productsSection: {
-    title: 'Eight capabilities, one engine',
-    description:
-      'Each capability answers a different territorial question, and each was proven on real territories and real data.',
+    title: 'Seven capabilities, one engine',
     viewAll: 'All products',
-  },
-  proof: {
-    title: 'Early, and already in the field',
-    mapAlt:
-      'World map marking live deployments in Peru, Jordan and Moldova, and letters of intent from Argentina, Bangladesh and Mozambique.',
-    legendLive: 'Live deployment',
-    legendLoi: 'Letter of intent',
-    stats: [
-      { value: '3', label: 'Countries live: Peru, Jordan and Moldova' },
-      { value: '3', label: 'Letters of intent: Argentina, Bangladesh and Mozambique' },
-      { value: '10+', label: 'Active users running analyses' },
-    ],
-    recognitionTitle: 'Recognition',
-    recognition: [
-      'Winner, AI x City Climate Action Hackathon, Climate Week NYC 2025, energy access track',
-      'Winner, IEEE climate challenge, for an AI extreme-weather advisor',
-      'Selected for the IRENA NewGen Accelerator',
-      'EXIST Founders’ Grant, Germany, 2026',
-      'Harvard Innovation Labs, 2026 cohort',
-    ],
   },
   cta: {
     title: 'Bring us a territory and a question',
     description:
-      'We will run a live demo on a real question from your region, so you see your own problem answered in minutes.',
+      'We will answer it with you, live.',
     button: 'Book a demo',
   },
   productPage: {
     indexTitle: 'Products',
     indexDescription:
-      'Eight capabilities on one territorial climate engine, each answering where to invest, protect or intervene first.',
+      'Seven capabilities on one territorial climate engine, each answering where to invest, protect or intervene first.',
     backToProducts: 'All products',
     validatedIn: 'Validated in',
     whatItDoes: 'What it does',
     dataLabel: 'Data it combines',
     outputsLabel: 'What you get',
     proofLabel: 'Results',
-    engineTitle: 'Runs on the shared engine',
-    engineDescription:
-      'Ask in plain language, let the engine run the analysis, and act on ranked, explainable results. The same loop powers every capability.',
+    galleryTitle: 'Maps from a finished run',
+    dataGalleryTitle: 'Data the analysis reads',
     otherProducts: 'Other products',
     ctaTitle: 'Try it on your own territory',
-    ctaDescription: 'We will run a live demo on a real question from your region.',
+    ctaDescription: 'Live, on a real question from your region.',
     ctaButton: 'Book a demo',
-    toolsTitle: 'Engines behind this',
+    toolsTitle: 'Runs on',
   },
   platform: {
     eyebrow: 'Built in-house by Polisense',
@@ -241,14 +187,11 @@ const es: typeof en = {
       'Polisense convierte datos satelitales, climáticos, de infraestructura y regulatorios en respuestas ordenadas y explicables, en horas y no meses.',
     bookDemo: 'Agendar una demo',
     secondary: 'Cómo funciona',
-    imageAlt:
-      'Polisense respondiendo una pregunta sobre el cambio de vegetación en una cuenca cerca de Arequipa, Perú: un mapa de cambio, cifras resumen y la respuesta en el chat.',
-    layers: ['Regulación', 'Terreno', 'Infraestructura'],
-    meta: [
-      { label: 'lat/lon', value: '16.4°S 71.5°W' },
-      { label: 'área', value: '225 km²' },
-      { label: 'imágenes', value: 'Landsat 2017-2025' },
-    ],
+    layers: ['Terreno', 'Agua', 'Infraestructura', 'Restricciones', 'Resultado ordenado'],
+    priority: 'Prioridad {n}',
+    layersAlt:
+      'Pila isométrica de capas de mapa de Arequipa, Perú: terreno, el río Chili, la red vial, restricciones y un resultado ordenado, que se separan al desplazar la página.',
+    layersCaption: 'Arequipa, Perú. Calles y río de OpenStreetMap; los puntajes son ilustrativos.',
     stats: [
       { value: '~30 min', label: 'por análisis, antes 3,5-4 horas' },
       { value: '196 → 41', label: 'sitios de agua evaluados y preseleccionados' },
@@ -258,56 +201,28 @@ const es: typeof en = {
   problem: {
     title: 'El dinero existe. El cuello de botella es el análisis.',
     description:
-      'Los equipos pagan unos $150K y esperan seis meses por un estudio de factibilidad. El 49% de los proyectos climáticos nunca se construye, y rara vez por falta de fondos.',
+      'El 49% de los proyectos climáticos nunca se construye. Rara vez por falta de fondos.',
     withoutTitle: 'Hoy',
-    withoutItems: [
-      'Diez herramientas desconectadas y datos cruzados a mano',
-      '3,5-4 horas por análisis SIG, que aun así puede fallar',
-      'Estudios de consultoría de $15K-$80K y 4-12 semanas cada uno',
-      'Puntajes que nadie puede explicar a un comité de inversión',
-    ],
     withTitle: 'Con Polisense',
-    withItems: [
-      'Un solo espacio de mapas y un solo motor',
-      'Unos 30 minutos por análisis',
-      'Zonas restringidas excluidas automáticamente',
-      'Cada clasificación trazable hasta sus fuentes',
+    compare: [
+      { before: '3,5-4 h', after: '~30 min', label: 'por análisis SIG' },
+      { before: '10 herramientas', after: '1 espacio de trabajo', label: 'de la pregunta a la respuesta' },
+      { before: 'Puntajes opacos', after: 'Evidencia citada', label: 'detrás de cada clasificación' },
     ],
   },
   how: {
     title: 'Un solo ciclo, de la pregunta a la decisión',
-    description:
-      'Todas las capacidades corren sobre el mismo motor, así que una nueva pregunta es una configuración y no una herramienta nueva.',
     steps: [
-      {
-        label: 'Preguntar',
-        title: 'Describa el territorio y la pregunta',
-        description:
-          'Escríbala en lenguaje natural: ¿dónde deberíamos invertir, proteger o intervenir primero? Mencione conjuntos de datos en el chat y agregue capas al mapa.',
-      },
-      {
-        label: 'Analizar',
-        title: 'El motor ejecuta el flujo completo',
-        description:
-          'Terreno, clima, infraestructura, suelo y regulación se combinan en una sola pasada. Las zonas restringidas quedan fuera y cada área candidata recibe un puntaje.',
-      },
-      {
-        label: 'Actuar',
-        title: 'Lleve una respuesta defendible a la mesa',
-        description:
-          'Los candidatos llegan ordenados con la evidencia de cada uno, más un informe listo para un comité de inversión, un financiador o un equipo de campo.',
-      },
+      { label: 'Preguntar', title: 'Describa el área y la pregunta', description: 'En lenguaje natural, directo en el chat.' },
+      { label: 'Analizar', title: 'El motor hace el trabajo SIG', description: 'Las restricciones quedan fuera. Cada área recibe un puntaje.' },
+      { label: 'Actuar', title: 'Obtenga una respuesta ordenada y defendible', description: 'Con la evidencia y un informe listo.' },
     ],
-    explainTitle: 'Cada clasificación se explica sola',
-    explainDescription:
-      'La atribución de factores muestra qué determinó cada puntaje. Las citas vinculan cada afirmación con la norma, el informe o los datos que la respaldan.',
     readout: {
       cells: '{n} celdas en el área de estudio',
       excluded: '{n} celdas excluidas: cauce del río y centro histórico',
       ranked: 'Los {n} mejores candidatos ordenados',
     },
-    caption:
-      'Ilustración sobre calles reales de Arequipa y el río Chili (datos de OpenStreetMap). El área de estudio y los puntajes son generados, no un resultado real.',
+    caption: 'Calles y río reales de Arequipa (OpenStreetMap). Los puntajes son ilustrativos.',
     mapAlt:
       'Mapa del centro de Arequipa, Perú, con una grilla de celdas candidatas sobre la ciudad. Las celdas junto al río Chili y alrededor del centro histórico quedan excluidas, el resto recibe un puntaje y las cinco mejores se ordenan.',
     mapLabels: {
@@ -319,55 +234,32 @@ const es: typeof en = {
     },
   },
   productsSection: {
-    title: 'Ocho capacidades, un solo motor',
-    description:
-      'Cada capacidad responde a una pregunta territorial distinta, y cada una fue probada en territorios y datos reales.',
+    title: 'Siete capacidades, un solo motor',
     viewAll: 'Todos los productos',
-  },
-  proof: {
-    title: 'En etapa temprana, y ya en el campo',
-    mapAlt:
-      'Mapa mundial que marca despliegues activos en Perú, Jordania y Moldavia, y cartas de intención de Argentina, Bangladés y Mozambique.',
-    legendLive: 'Despliegue activo',
-    legendLoi: 'Carta de intención',
-    stats: [
-      { value: '3', label: 'Países activos: Perú, Jordania y Moldavia' },
-      { value: '3', label: 'Cartas de intención: Argentina, Bangladés y Mozambique' },
-      { value: '10+', label: 'Usuarios activos realizando análisis' },
-    ],
-    recognitionTitle: 'Reconocimientos',
-    recognition: [
-      'Ganador, AI x City Climate Action Hackathon, Climate Week NYC 2025, categoría acceso a la energía',
-      'Ganador, desafío climático del IEEE, por un asesor de clima extremo con IA',
-      'Seleccionado para el IRENA NewGen Accelerator',
-      'Beca EXIST para fundadores, Alemania, 2026',
-      'Harvard Innovation Labs, cohorte 2026',
-    ],
   },
   cta: {
     title: 'Tráiganos un territorio y una pregunta',
     description:
-      'Haremos una demo en vivo con una pregunta real de su región, para que vea su propio problema resuelto en minutos.',
+      'La responderemos con usted, en vivo.',
     button: 'Agendar una demo',
   },
   productPage: {
     indexTitle: 'Productos',
     indexDescription:
-      'Ocho capacidades sobre un mismo motor climático territorial, cada una responde dónde invertir, proteger o intervenir primero.',
+      'Siete capacidades sobre un mismo motor climático territorial, cada una responde dónde invertir, proteger o intervenir primero.',
     backToProducts: 'Todos los productos',
     validatedIn: 'Validado en',
     whatItDoes: 'Qué hace',
     dataLabel: 'Datos que combina',
     outputsLabel: 'Qué obtiene',
     proofLabel: 'Resultados',
-    engineTitle: 'Corre sobre el motor compartido',
-    engineDescription:
-      'Pregunte en lenguaje natural, deje que el motor ejecute el análisis y actúe sobre resultados ordenados y explicables. El mismo ciclo impulsa cada capacidad.',
+    galleryTitle: 'Mapas de una ejecución terminada',
+    dataGalleryTitle: 'Datos que lee el análisis',
     otherProducts: 'Otros productos',
     ctaTitle: 'Pruébelo en su propio territorio',
-    ctaDescription: 'Haremos una demo en vivo con una pregunta real de su región.',
+    ctaDescription: 'En vivo, con una pregunta real de su región.',
     ctaButton: 'Agendar una demo',
-    toolsTitle: 'Motores detrás de esto',
+    toolsTitle: 'Funciona con',
   },
   platform: {
     eyebrow: 'Desarrollado internamente por Polisense',

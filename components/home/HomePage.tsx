@@ -8,10 +8,8 @@ import BookDemoModal from '@/components/BookDemoModal'
 import Header from '@/components/Header'
 import SiteFooter from '@/components/SiteFooter'
 import ProductVisual from '@/components/products/ProductVisual'
-import DeploymentsMap from '@/components/home/DeploymentsMap'
-import HeroVisual from '@/components/home/HeroVisual'
+import HeroLayers from '@/components/home/HeroLayers'
 import ScreeningGrid from '@/components/home/ScreeningGrid'
-import type { DeploymentsMapData } from '@/lib/geo/deploymentsMap'
 import type { ScreeningMapData } from '@/lib/geo/screeningMap'
 import { products } from '@/lib/products'
 import { useLanguage } from '@/lib/i18n/context'
@@ -24,7 +22,7 @@ const reveal = (delay = 0) => ({
   transition: { duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] as const },
 })
 
-export default function HomePage({ map, screening }: { map: DeploymentsMapData; screening: ScreeningMapData }) {
+export default function HomePage({ screening }: { screening: ScreeningMapData }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { t, language } = useLanguage()
   const featured = products.filter((product) => product.featured)
@@ -36,7 +34,7 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
 
       <main id="main">
         {/* Hero: eyebrow, headline, subtext, CTAs. Nothing else. */}
-        <section className="relative min-h-[100dvh] flex items-center overflow-x-clip">
+        <section className="relative min-h-[100dvh] flex items-center overflow-clip">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-12 grid lg:grid-cols-[2fr_3fr] gap-8 sm:gap-12 items-center w-full">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -80,14 +78,14 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
               </div>
             </motion.div>
 
-            {/* Real product screen on the data layers it fuses */}
+            {/* Isometric map layers that spread apart on scroll */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
               className="relative lg:mr-[-4vw]"
             >
-              <HeroVisual />
+              <HeroLayers data={screening} />
             </motion.div>
           </div>
         </section>
@@ -111,7 +109,7 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
 
         {/* Problem: statement left, before/after comparison right */}
         <section className="pt-24 pb-28 px-6">
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-[5fr_7fr] gap-12 lg:gap-20">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-[5fr_6fr] gap-12 lg:gap-20 items-center">
             <motion.div {...reveal()}>
               <h2 className="text-4xl md:text-5xl leading-[1.1] text-ink mb-6">
                 {t.problem.title}
@@ -121,60 +119,48 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
               </p>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 gap-10 sm:gap-8 lg:pt-3">
-              <motion.div {...reveal(0.05)}>
-                <h3 className="text-sm font-medium text-ink/55 pb-3 mb-5 border-b border-ink/15">
-                  {t.problem.withoutTitle}
-                </h3>
-                <ul className="space-y-4">
-                  {t.problem.withoutItems.map((item) => (
-                    <li key={item} className="text-ink/60 leading-snug">{item}</li>
-                  ))}
-                </ul>
-              </motion.div>
-              <motion.div {...reveal(0.12)}>
-                <h3 className="text-sm font-medium text-accent pb-3 mb-5 border-b-2 border-accent">
-                  {t.problem.withTitle}
-                </h3>
-                <ul className="space-y-4">
-                  {t.problem.withItems.map((item) => (
-                    <li key={item} className="text-ink font-medium leading-snug">{item}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
+            <dl className="lg:pt-2">
+              <div className="grid grid-cols-[1fr_auto_1fr] gap-4 pb-3 mb-2 border-b border-line text-sm font-medium">
+                <span className="text-ink/55">{t.problem.withoutTitle}</span>
+                <span aria-hidden />
+                <span className="text-accent">{t.problem.withTitle}</span>
+              </div>
+              {t.problem.compare.map((row, index) => (
+                <motion.div
+                  key={row.label}
+                  {...reveal(index * 0.08)}
+                  className="grid grid-cols-[1fr_auto_1fr] items-baseline gap-4 py-5 border-b border-line"
+                >
+                  <dt className="sr-only">{row.label}</dt>
+                  <dd className="font-mono tabular text-xl md:text-2xl text-ink/45 line-through decoration-ink/25">{row.before}</dd>
+                  <dd aria-hidden className="text-accent">
+                    <ArrowRight size={18} />
+                  </dd>
+                  <dd>
+                    <span className="block font-mono tabular text-xl md:text-2xl text-ink">{row.after}</span>
+                    <span className="block text-sm text-ink/60 mt-1">{row.label}</span>
+                  </dd>
+                </motion.div>
+              ))}
+            </dl>
           </div>
         </section>
 
         {/* How it works: Ask / Analyze / Act, told by a grid that screens itself as you scroll */}
-        <section id="how" className="scroll-mt-20 pt-24 pb-28 px-6 bg-surface border-y border-line">
+        <section id="how" className="scroll-mt-0 px-6 bg-surface border-y border-line">
           <div className="max-w-6xl mx-auto">
-            <motion.div {...reveal()} className="max-w-2xl mb-4">
-              <h2 className="text-4xl md:text-5xl leading-[1.1] text-ink mb-5">{t.how.title}</h2>
-              <p className="text-lg text-ink/70 leading-relaxed">{t.how.description}</p>
-            </motion.div>
+            <ScreeningGrid data={screening} title={t.how.title} />
 
-            <ScreeningGrid data={screening} />
-
-            <motion.div {...reveal(0.1)} className="mt-8 p-8 md:p-12 rounded-2xl bg-contour border border-line">
-              <h3 className="font-display text-3xl md:text-4xl text-ink leading-tight mb-4 max-w-xl">
-                {t.how.explainTitle}
-              </h3>
-              <p className="text-lg text-ink/75 leading-relaxed max-w-[60ch]">{t.how.explainDescription}</p>
-            </motion.div>
           </div>
         </section>
 
         {/* Products: two featured cards with results, then an index of the rest */}
-        <section id="products" className="scroll-mt-20 pt-24 pb-28 px-6">
+        <section id="products" className="scroll-mt-20 pt-24 pb-12 px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-              <motion.div {...reveal()} className="max-w-2xl">
-                <h2 className="text-4xl md:text-5xl leading-[1.1] text-ink mb-5">
-                  {t.productsSection.title}
-                </h2>
-                <p className="text-lg text-ink/70 leading-relaxed">{t.productsSection.description}</p>
-              </motion.div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <motion.h2 {...reveal()} className="text-4xl md:text-5xl leading-[1.1] text-ink max-w-2xl">
+                {t.productsSection.title}
+              </motion.h2>
               <Link
                 href="/products/"
                 className="shrink-0 inline-flex items-center gap-1.5 font-medium text-ink hover:text-accent transition-colors duration-200"
@@ -217,23 +203,18 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
               ))}
             </div>
 
-            <motion.ul {...reveal(0.1)} className="grid md:grid-cols-2 gap-x-12">
+            <motion.ul {...reveal(0.1)} className="flex flex-wrap gap-3">
               {others.map((product) => (
                 <li key={product.slug}>
                   <Link
                     href={`/products/${product.slug}/`}
-                    className="group flex items-start justify-between gap-6 py-5 border-t border-ink/10"
+                    className="group inline-flex items-center gap-3 pl-5 pr-4 py-3 rounded-full border border-line bg-surface hover:border-accent/50 transition-colors duration-200"
                   >
-                    <span>
-                      <span className="block font-medium text-lg text-ink group-hover:text-accent transition-colors duration-200">
-                        {product.name[language]}
-                      </span>
-                      <span className="block text-ink/65 mt-1 leading-snug">{product.question[language]}</span>
+                    <span className="font-medium text-ink group-hover:text-accent transition-colors duration-200">
+                      {product.name[language]}
                     </span>
-                    <ArrowRight
-                      size={18}
-                      className="shrink-0 mt-1.5 text-ink/35 group-hover:text-accent group-hover:translate-x-1 transition-all duration-200"
-                    />
+                    <span className="font-mono text-xs text-ink/50">{product.location[language]}</span>
+                    <ArrowRight size={15} className="text-ink/35 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-200" />
                   </Link>
                 </li>
               ))}
@@ -241,41 +222,8 @@ export default function HomePage({ map, screening }: { map: DeploymentsMapData; 
           </div>
         </section>
 
-        {/* Traction: where Polisense runs, on a map */}
-        <section className="pt-24 pb-28 px-6 bg-surface border-t border-line">
-          <div className="max-w-6xl mx-auto">
-            <motion.h2 {...reveal()} className="text-4xl md:text-5xl leading-[1.1] text-ink mb-12 max-w-2xl">
-              {t.proof.title}
-            </motion.h2>
-
-            <div className="grid lg:grid-cols-[8fr_3fr] gap-10 lg:gap-14 items-center">
-              <motion.div {...reveal()}>
-                <DeploymentsMap data={map} />
-              </motion.div>
-              <dl className="grid sm:grid-cols-3 lg:grid-cols-1 gap-8">
-                {t.proof.stats.map((stat, index) => (
-                  <motion.div key={stat.label} {...reveal(0.06 * index)} className="border-l-2 border-accent/60 pl-5">
-                    <dt className="sr-only">{stat.label}</dt>
-                    <dd className="font-mono tabular text-4xl text-ink mb-1">{stat.value}</dd>
-                    <dd className="text-ink/70 leading-snug">{stat.label}</dd>
-                  </motion.div>
-                ))}
-              </dl>
-            </div>
-
-            <motion.div {...reveal(0.1)} className="mt-16 pt-8 border-t border-line">
-              <h3 className="text-sm font-medium text-ink/55 mb-6">{t.proof.recognitionTitle}</h3>
-              <ul className="grid md:grid-cols-2 gap-x-12 gap-y-4">
-                {t.proof.recognition.map((item) => (
-                  <li key={item} className="text-ink/85 leading-snug">{item}</li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </section>
-
         {/* CTA */}
-        <section id="cta" className="px-4 sm:px-6 py-24">
+        <section id="cta" className="px-4 sm:px-6 pt-8 pb-24">
           <motion.div
             {...reveal()}
             className="max-w-6xl mx-auto rounded-3xl bg-surface-2 border border-line text-white px-8 py-16 md:px-16 md:py-20 grid md:grid-cols-[3fr_2fr] gap-10 items-end"

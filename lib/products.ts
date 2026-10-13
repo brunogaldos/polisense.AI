@@ -51,6 +51,18 @@ export interface Product {
    * capability: a landscape capture of the ranked result map, 1600px+ wide.
    */
   image?: { src: string; alt: Localized }
+  /**
+   * Maps drawn from a finished run's stored outputs, shown whole (never
+   * cropped) under the intro. Rendered by the engine repo's
+   * backend/scripts/render_run_maps.py; the caption says which run it is.
+   */
+  gallery?: { src: string; alt: Localized; caption: Localized }[]
+  /**
+   * 'data' when the gallery shows the public data an analysis reads, for a
+   * capability with no finished run to draw yet. Changes the section title;
+   * each caption also says the map is not a result. Defaults to a run.
+   */
+  galleryKind?: 'run' | 'data'
   /** Optional section listing the ways a result can be read on the map. */
   views?: { title: Localized; items: ProductView[] }
   /** Optional short trust statements shown as a strip on the product page. */
@@ -72,22 +84,10 @@ export const products: Product[] = [
       es: 'Puntúa cada parcela candidata de un territorio según recurso solar, terreno, acceso a red y a carreteras, descarta el suelo legal o físicamente inviable y ordena lo que queda. La lista corta llega con la evidencia de cada sitio y los insumos para un borrador de Estudio de Impacto Ambiental.',
     },
     steps: [
-      {
-        en: 'Excludes protected areas, steep terrain and other constrained zones automatically.',
-        es: 'Excluye automáticamente áreas protegidas, pendientes fuertes y otras zonas restringidas.',
-      },
-      {
-        en: 'Scores the remaining land on irradiance, slope, distance to the grid and road access.',
-        es: 'Puntúa el suelo restante por irradiación, pendiente, distancia a la red y acceso vial.',
-      },
-      {
-        en: 'Ranks candidate sites and explains which factors drove each score.',
-        es: 'Ordena los sitios candidatos y explica qué factores determinaron cada puntaje.',
-      },
-      {
-        en: 'Assembles the evidence into a draft EIA package a planner can review and submit.',
-        es: 'Reúne la evidencia en un borrador de EIA que un planificador puede revisar y presentar.',
-      },
+      { en: 'Rules out protected areas and steep terrain.', es: 'Descarta áreas protegidas y pendientes fuertes.' },
+      { en: 'Scores the land on sun, slope, grid and road access.', es: 'Puntúa el suelo por sol, pendiente, red y acceso vial.' },
+      { en: 'Ranks the sites and shows what drove each score.', es: 'Ordena los sitios y muestra qué definió cada puntaje.' },
+      { en: 'Assembles the evidence into a draft EIA.', es: 'Reúne la evidencia en un borrador de EIA.' },
     ],
     data: [
       { en: 'Solar irradiance and weather records', es: 'Irradiación solar y registros meteorológicos' },
@@ -126,12 +126,25 @@ export const products: Product[] = [
     },
     featured: true,
     image: {
-      src: '/products/solar-site-screening.jpg',
+      src: '/products/solar-site-screening-cover.jpg',
       alt: {
-        en: '3D terrain map of Arequipa, Peru, with candidate areas marked as renewable potential, secondary potential, excluded or needing review.',
-        es: 'Mapa 3D del terreno de Arequipa, Perú, con áreas candidatas marcadas como potencial renovable, potencial secundario, excluidas o por revisar.',
+        en: 'Shaded-relief map of Leipzig, Germany, divided into grid units coloured by relative score, with the top five numbered and excluded units hatched.',
+        es: 'Mapa de relieve sombreado de Leipzig, Alemania, dividido en unidades de cuadrícula coloreadas por puntaje relativo, con las cinco mejores numeradas y las unidades excluidas rayadas.',
       },
     },
+    gallery: [
+      {
+        src: '/products/solar-site-screening-ranking.jpg',
+        alt: {
+          en: 'Map of Leipzig divided into grid units coloured by relative score, the top five numbered, five excluded units hatched, beside the criteria weights used.',
+          es: 'Mapa de Leipzig dividido en unidades de cuadrícula coloreadas por puntaje relativo, las cinco mejores numeradas, cinco unidades excluidas rayadas, junto a los pesos de los criterios usados.',
+        },
+        caption: {
+          en: 'Example run: Leipzig, Germany. 57 units ranked on four criteria, 5 excluded. Screening-level result.',
+          es: 'Ejemplo de ejecución: Leipzig, Alemania. 57 unidades ordenadas con cuatro criterios, 5 excluidas. Resultado a nivel de tamizaje.',
+        },
+      },
+    ],
   },
   {
     slug: 'water-storage-mapping',
@@ -184,7 +197,27 @@ export const products: Product[] = [
         },
       },
     ],
-    featured: true,
+    featured: false,
+    image: {
+      src: '/products/water-storage-mapping-cover.jpg',
+      alt: {
+        en: 'Shaded-relief map of the Arequipa highlands, Peru, with the natural basins kept after screening marked in amber and the top five numbered.',
+        es: 'Mapa de relieve sombreado de la sierra de Arequipa, Perú, con las cuencas naturales que pasaron la evaluación marcadas en ámbar y las cinco mejores numeradas.',
+      },
+    },
+    gallery: [
+      {
+        src: '/products/water-storage-mapping-candidates.jpg',
+        alt: {
+          en: 'Shaded-relief map of the Arequipa highlands with the natural basins kept after screening marked in amber, the top five numbered, beside a table of their area, depth and volume.',
+          es: 'Mapa de relieve sombreado de la sierra de Arequipa con las cuencas naturales que pasaron la evaluación marcadas en ámbar, las cinco mejores numeradas, junto a una tabla con su área, profundidad y volumen.',
+        },
+        caption: {
+          en: 'Arequipa region, Peru: 196 candidate depressions screened, 41 kept for field validation.',
+          es: 'Región Arequipa, Perú: 196 depresiones candidatas evaluadas, 41 conservadas para validación en campo.',
+        },
+      },
+    ],
   },
   {
     slug: 'farmer-early-warning',
@@ -215,6 +248,14 @@ export const products: Product[] = [
     ],
     data: [
       { en: 'Historical and projected weather', es: 'Clima histórico y proyectado' },
+      {
+        en: 'Soil moisture, runoff and evapotranspiration',
+        es: 'Humedad del suelo, escorrentía y evapotranspiración',
+      },
+      {
+        en: 'Cropland segmentation with the Prithvi model',
+        es: 'Segmentación de cultivos con el modelo Prithvi',
+      },
       { en: 'Land use and cropland', es: 'Uso de suelo y tierras de cultivo' },
       { en: 'Census and settlement data', es: 'Datos censales y de asentamientos' },
       { en: 'Terrain and hydrology', es: 'Terreno e hidrología' },
@@ -224,6 +265,49 @@ export const products: Product[] = [
       { en: 'Priority list for warnings and interventions', es: 'Lista de prioridades para alertas e intervenciones' },
     ],
     proof: [],
+    image: {
+      src: '/products/farmer-early-warning-cover.jpg',
+      alt: {
+        en: 'Map of Bangladesh coloured by surface soil moisture in the dry season, drier in the north-west and wetter in the north-east wetlands and the south-west coast.',
+        es: 'Mapa de Bangladés coloreado por humedad superficial del suelo en la estación seca, más seco al noroeste y más húmedo en los humedales del noreste y la costa suroeste.',
+      },
+    },
+    galleryKind: 'data',
+    gallery: [
+      {
+        src: '/products/farmer-early-warning-soil-moisture.jpg',
+        alt: {
+          en: 'Map of Bangladesh coloured by surface soil moisture, with the mean, the 5th and 95th percentiles and a histogram of values inside the country.',
+          es: 'Mapa de Bangladés coloreado por humedad superficial del suelo, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del país.',
+        },
+        caption: {
+          en: 'Surface soil moisture, 1 Dec 2025 to 30 Apr 2026. NASA SMAP L4, 9 km. Input data, not an analysis result.',
+          es: 'Humedad superficial del suelo, del 1 de dic. de 2025 al 30 de abr. de 2026. NASA SMAP L4, 9 km. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+      {
+        src: '/products/farmer-early-warning-runoff.jpg',
+        alt: {
+          en: 'Map of Bangladesh coloured by surface runoff in the dry season, low across most of the country and highest in the north-east.',
+          es: 'Mapa de Bangladés coloreado por escorrentía superficial en la estación seca, baja en casi todo el país y más alta al noreste.',
+        },
+        caption: {
+          en: 'Storm surface runoff, same season. FLDAS Noah land surface model, 0.1°. Input data, not an analysis result.',
+          es: 'Escorrentía superficial de tormenta, misma estación. Modelo de superficie FLDAS Noah, 0,1°. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+      {
+        src: '/products/farmer-early-warning-evapotranspiration.jpg',
+        alt: {
+          en: 'Map of Bangladesh coloured by total evapotranspiration over the dry season at 500 m, highest in the forested south-east hills.',
+          es: 'Mapa de Bangladés coloreado por evapotranspiración total en la estación seca a 500 m, más alta en las colinas boscosas del sureste.',
+        },
+        caption: {
+          en: 'Evapotranspiration, season total. MODIS/Terra MOD16A2, 500 m. Input data, not an analysis result.',
+          es: 'Evapotranspiración, total de la estación. MODIS/Terra MOD16A2, 500 m. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+    ],
     featured: false,
   },
   {
@@ -264,46 +348,27 @@ export const products: Product[] = [
       { en: 'Coverage map', es: 'Mapa de cobertura' },
     ],
     proof: [],
-    featured: false,
-  },
-  {
-    slug: 'community-solar',
-    sector: { en: 'Energy', es: 'Energía' },
-    name: { en: 'Community solar for mosques', es: 'Solar comunitaria para mezquitas' },
-    location: { en: 'Greater Amman, Jordan', es: 'Gran Amán, Jordania' },
-    question: {
-      en: 'Which community buildings are the best hosts for shared solar?',
-      es: '¿Qué edificios comunitarios son los mejores anfitriones para energía solar compartida?',
+    image: {
+      src: '/products/air-quality-sensor-placement-cover.jpg',
+      alt: {
+        en: 'Map of Chișinău with the tropospheric nitrogen dioxide column for 2025, highest over the city centre and falling towards the edges.',
+        es: 'Mapa de Chișinău con la columna troposférica de dióxido de nitrógeno de 2025, más alta sobre el centro y decreciente hacia los bordes.',
+      },
     },
-    summary: {
-      en: 'Screens mosques across a metropolitan area as hosts for community solar, weighing solar resource, the community around each site and access to the grid, and ranks where installations would reach the most people.',
-      es: 'Evalúa mezquitas de un área metropolitana como anfitriones de energía solar comunitaria, considerando el recurso solar, la comunidad alrededor de cada sitio y el acceso a la red, y ordena dónde las instalaciones llegarían a más personas.',
-    },
-    steps: [
+    galleryKind: 'data',
+    gallery: [
       {
-        en: 'Locates candidate buildings across the metro area.',
-        es: 'Ubica los edificios candidatos en el área metropolitana.',
-      },
-      {
-        en: 'Scores each on solar resource, grid access and the surrounding community.',
-        es: 'Puntúa cada uno por recurso solar, acceso a la red y comunidad circundante.',
-      },
-      {
-        en: 'Ranks sites by the reach an installation would have.',
-        es: 'Ordena los sitios según el alcance que tendría una instalación.',
+        src: '/products/air-quality-sensor-placement-no2.jpg',
+        alt: {
+          en: 'Map of Chișinău coloured by tropospheric nitrogen dioxide for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
+          es: 'Mapa de Chișinău coloreado por dióxido de nitrógeno troposférico de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
+        },
+        caption: {
+          en: 'Tropospheric nitrogen dioxide, 2025 mean. Copernicus Sentinel-5P. Input data, not an analysis result.',
+          es: 'Dióxido de nitrógeno troposférico, promedio de 2025. Copernicus Sentinel-5P. Datos de entrada, no un resultado del análisis.',
+        },
       },
     ],
-    data: [
-      { en: 'Solar irradiance', es: 'Irradiación solar' },
-      { en: 'Building locations', es: 'Ubicación de edificios' },
-      { en: 'Population and census data', es: 'Datos de población y censo' },
-      { en: 'Grid network', es: 'Red eléctrica' },
-    ],
-    outputs: [
-      { en: 'Ranked host sites', es: 'Sitios anfitriones ordenados' },
-      { en: 'Community reach per site', es: 'Alcance comunitario por sitio' },
-    ],
-    proof: [],
     featured: false,
   },
   {
@@ -344,6 +409,27 @@ export const products: Product[] = [
       { en: 'Ranked intervention list', es: 'Lista de intervenciones ordenada' },
     ],
     proof: [],
+    image: {
+      src: '/products/net-zero-opportunity-scan-cover.jpg',
+      alt: {
+        en: 'Map of Córdoba, Argentina, showing night-time light radiance for 2025, brightest in the centre and along the main corridors.',
+        es: 'Mapa de Córdoba, Argentina, con la radiancia de luces nocturnas de 2025, más intensa en el centro y a lo largo de los corredores principales.',
+      },
+    },
+    galleryKind: 'data',
+    gallery: [
+      {
+        src: '/products/net-zero-opportunity-scan-night-lights.jpg',
+        alt: {
+          en: 'Map of Córdoba coloured by night-time radiance for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
+          es: 'Mapa de Córdoba coloreado por radiancia nocturna de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
+        },
+        caption: {
+          en: 'Night-time lights, 2025 mean. VIIRS Day/Night Band monthly composites. Input data, not an analysis result.',
+          es: 'Luces nocturnas, promedio de 2025. Compuestos mensuales VIIRS Day/Night Band. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+    ],
     featured: false,
   },
   {
@@ -400,26 +486,11 @@ export const products: Product[] = [
       es: 'Suba cualquier área, pregunte en lenguaje natural y vea cómo cambió su vegetación año a año desde 2017, con imágenes satelitales Landsat gratuitas. Un promedio del área puede parecer estable mientras partes del territorio se recuperan o decaen; el mapa muestra exactamente dónde.',
     },
     steps: [
-      {
-        en: 'Upload your study area (GeoJSON or Shapefile) and ask the question in the chat.',
-        es: 'Suba su área de estudio (GeoJSON o Shapefile) y haga la pregunta en el chat.',
-      },
-      {
-        en: 'Review the proposed plan: years, season, resolution and grid size. Nothing runs until you approve it.',
-        es: 'Revise el plan propuesto: años, temporada, resolución y tamaño de grilla. Nada se ejecuta hasta que usted lo aprueba.',
-      },
-      {
-        en: 'The engine builds one clean vegetation image per year and compares an early period with a recent one.',
-        es: 'El motor construye una imagen de vegetación limpia por año y compara un periodo inicial con uno reciente.',
-      },
-      {
-        en: 'Explore change classes, a change heatmap, a year slider, the long-term trend and per-pixel data quality.',
-        es: 'Explore clases de cambio, un mapa de calor del cambio, un deslizador por año, la tendencia de largo plazo y la calidad de datos por píxel.',
-      },
-      {
-        en: 'Rank grid cells by net change, compare zones, and ask follow-up questions in plain language.',
-        es: 'Ordene las celdas de la grilla por cambio neto, compare zonas y haga preguntas de seguimiento en lenguaje natural.',
-      },
+      { en: 'Upload your area and ask in the chat.', es: 'Suba su área y pregunte en el chat.' },
+      { en: 'Approve the plan. Nothing runs before you do.', es: 'Apruebe el plan. Nada se ejecuta antes.' },
+      { en: 'One clean image per year, early period against recent.', es: 'Una imagen limpia por año, periodo inicial frente al reciente.' },
+      { en: 'Explore six map views of the change.', es: 'Explore seis vistas del cambio en el mapa.' },
+      { en: 'Rank areas by change and download the results.', es: 'Ordene áreas por cambio y descargue los resultados.' },
     ],
     data: [
       { en: 'Landsat satellite imagery, 2017 to today', es: 'Imágenes satelitales Landsat, de 2017 a hoy' },
@@ -453,14 +524,49 @@ export const products: Product[] = [
       en: 'Landsat Collection 2 Level-2 surface reflectance; USGS/NASA.',
       es: 'Landsat Collection 2 Level-2, reflectancia de superficie; USGS/NASA.',
     },
-    featured: false,
+    featured: true,
     image: {
-      src: '/products/vegetation-change-analysis.jpg',
+      src: '/products/vegetation-change-analysis-cover.jpg',
       alt: {
-        en: 'Polisense showing vegetation change for a 225 km² watershed near Arequipa, 2017 to 2025: a change heatmap on the map, summary numbers in the side panel and the answer in the chat.',
-        es: 'Polisense mostrando el cambio de vegetación de una cuenca de 225 km² cerca de Arequipa, de 2017 a 2025: un mapa de calor del cambio, cifras resumen en el panel lateral y la respuesta en el chat.',
+        en: 'Shaded-relief map of a 225 km² watershed near Arequipa, 2017 to 2025, with each pixel coloured by vegetation recovery, decrease, stable or uncertain.',
+        es: 'Mapa de relieve sombreado de una cuenca de 225 km² cerca de Arequipa, de 2017 a 2025, con cada píxel coloreado según recuperación, disminución, estable o incierto.',
       },
     },
+    gallery: [
+      {
+        src: '/products/vegetation-change-analysis-classes.jpg',
+        alt: {
+          en: 'Map of a watershed near Arequipa with each 320 m pixel classed as vegetation recovery, decrease, stable or uncertain, beside the summary numbers and a yearly NDVI line from 2017 to 2025.',
+          es: 'Mapa de una cuenca cerca de Arequipa con cada píxel de 320 m clasificado como recuperación, disminución, estable o incierto, junto a las cifras resumen y una línea de NDVI anual de 2017 a 2025.',
+        },
+        caption: {
+          en: 'Change classes: where the signal is recovery, decrease or neither. 225 km² watershed near Arequipa, 2017 to 2025.',
+          es: 'Clases de cambio: dónde la señal es recuperación, disminución o ninguna. Cuenca de 225 km² cerca de Arequipa, de 2017 a 2025.',
+        },
+      },
+      {
+        src: '/products/vegetation-change-analysis-heatmap.jpg',
+        alt: {
+          en: 'The same watershed as a continuous heatmap of recent NDVI minus early NDVI, red for decrease through green for increase.',
+          es: 'La misma cuenca como mapa de calor continuo del NDVI reciente menos el inicial, de rojo para disminución a verde para aumento.',
+        },
+        caption: {
+          en: 'Change heatmap: the recent three years minus the first three.',
+          es: 'Mapa de calor del cambio: los tres años recientes menos los tres primeros.',
+        },
+      },
+      {
+        src: '/products/vegetation-change-analysis-years.jpg',
+        alt: {
+          en: 'Nine small maps of the watershed, one per year from 2017 to 2025, each showing the NDVI of that year and its mean.',
+          es: 'Nueve mapas pequeños de la cuenca, uno por año de 2017 a 2025, cada uno con el NDVI de ese año y su promedio.',
+        },
+        caption: {
+          en: 'One composite per year, May to October, on a shared colour scale.',
+          es: 'Un compuesto por año, de mayo a octubre, con una escala de color común.',
+        },
+      },
+    ],
     // Colours for change classes and the yearly ramp come from the feature brief.
     // Trend, data quality and review grid have no documented hex values, so they
     // reuse the class colours (trend, grid) and a plain blue scale (quality).

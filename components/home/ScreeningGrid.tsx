@@ -143,7 +143,7 @@ export function MapFigure({ data, phase }: { data: ScreeningMapData; phase: Phas
   )
 }
 
-export default function ScreeningGrid({ data }: { data: ScreeningMapData }) {
+export default function ScreeningGrid({ data, title }: { data: ScreeningMapData; title: string }) {
   const { t } = useLanguage()
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
@@ -165,9 +165,11 @@ export default function ScreeningGrid({ data }: { data: ScreeningMapData }) {
   ]
 
   return (
-    <div ref={ref} className={reduce ? '' : 'h-[260vh]'}>
-      <div className={reduce ? 'py-8' : 'sticky top-0 min-h-[100dvh] flex items-center py-16'}>
+    <div ref={ref} className={reduce ? 'py-20' : 'h-[220vh]'}>
+      <div className={reduce ? '' : 'sticky top-0 min-h-[100dvh] flex items-center pt-24 pb-10'}>
         <div className="w-full grid lg:grid-cols-[4fr_7fr] gap-8 lg:gap-12 items-center">
+          <div>
+          <h2 className="text-4xl md:text-5xl leading-[1.08] text-ink mb-8">{title}</h2>
           <ol className="space-y-3">
             {t.how.steps.map((step, index) => {
               const active = reduce || index === phase
@@ -185,6 +187,7 @@ export default function ScreeningGrid({ data }: { data: ScreeningMapData }) {
               )
             })}
           </ol>
+          </div>
 
           <figure>
             <div className="rounded-2xl border border-line overflow-hidden shadow-[0_30px_80px_-30px_rgba(0,0,0,0.8)]">

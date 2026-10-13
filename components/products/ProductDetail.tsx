@@ -13,6 +13,8 @@ import { toolkitsFor } from '@/lib/toolkits'
 import EngineIcon from '@/components/platform/EngineIcon'
 import { useLanguage } from '@/lib/i18n/context'
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
+
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 16 },
   whileInView: { opacity: 1, y: 0 },
@@ -77,10 +79,44 @@ export default function ProductDetail({ slug }: { slug: string }) {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="mt-14"
             >
-              <ProductVisual product={product} className="w-full h-56 md:h-80 rounded-2xl" />
+              {/* The contour placeholder is for products with nothing real to show yet. */}
+              {(product.image || !product.gallery) && (
+                <ProductVisual product={product} className="w-full h-56 md:h-80 rounded-2xl" />
+              )}
             </motion.div>
           </div>
         </section>
+
+        {/* Maps from a finished run, shown whole: the legend and numbers are part of the image */}
+        {product.gallery && (
+          <section className="px-4 sm:px-6 pb-20">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="font-sans text-sm font-medium tracking-normal text-ink/55 mb-8">
+                {product.galleryKind === 'data' ? t.productPage.dataGalleryTitle : t.productPage.galleryTitle}
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {product.gallery.map((map, index) => (
+                  <motion.figure
+                    key={map.src}
+                    {...reveal((index % 2) * 0.08)}
+                    className={index === 0 ? 'md:col-span-2' : undefined}
+                  >
+                    <img
+                      src={`${basePath}${map.src}`}
+                      alt={map.alt[language]}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto rounded-2xl border border-line"
+                    />
+                    <figcaption className="mt-3 text-sm text-ink/60 leading-relaxed">
+                      {map.caption[language]}
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Results, when the capability has measured ones */}
         {product.proof.length > 0 && (
@@ -111,38 +147,55 @@ export default function ProductDetail({ slug }: { slug: string }) {
           </section>
         )}
 
-        {/* What it does, as a sequence; data and outputs alongside */}
-        <section className="py-24 px-4 sm:px-6 bg-surface border-y border-line">
-          <div className="max-w-6xl mx-auto grid lg:grid-cols-[7fr_4fr] gap-14 lg:gap-20">
+        {/* What it does: short steps, the engines it runs on, data in and results out */}
+        <section className="py-20 px-4 sm:px-6 bg-surface border-y border-line">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-[7fr_4fr] gap-12 lg:gap-20">
             <motion.div {...reveal()}>
-              <h2 className="text-3xl md:text-4xl text-ink mb-6">{t.productPage.whatItDoes}</h2>
-              <p className="text-lg text-ink/75 leading-relaxed mb-12 max-w-[62ch]">
-                {product.summary[language]}
-              </p>
-              <ol className="border-l-2 border-accent/25 space-y-7">
+              <h2 className="text-3xl md:text-4xl text-ink mb-8">{t.productPage.whatItDoes}</h2>
+              <ol className="border-l-2 border-accent/25 space-y-5">
                 {product.steps.map((step) => (
                   <li key={step.en} className="pl-6 text-ink leading-relaxed">
                     {step[language]}
                   </li>
                 ))}
               </ol>
+
+              {tools.length > 0 && (
+                <div className="mt-10 flex flex-wrap items-center gap-2">
+                  <span className="text-sm text-ink/55 mr-2">{t.productPage.toolsTitle}</span>
+                  {tools.map((toolkit) => (
+                    <Link
+                      key={toolkit.id}
+                      href={`/platform/#${toolkit.id}`}
+                      className="group inline-flex items-center gap-2.5 pl-1.5 pr-4 py-1.5 rounded-full border border-line bg-canvas hover:border-accent/50 transition-colors duration-200"
+                    >
+                      <EngineIcon name={toolkit.icon} size="sm" />
+                      <span className="text-sm font-medium text-ink group-hover:text-accent transition-colors duration-200">
+                        {toolkit.name[language]}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </motion.div>
 
-            <motion.aside {...reveal(0.1)} className="space-y-6 lg:sticky lg:top-28 self-start">
-              <div className="rounded-2xl bg-canvas p-7">
-                <h3 className="text-sm font-medium text-ink/55 mb-4">{t.productPage.dataLabel}</h3>
-                <ul className="space-y-2.5">
+            <motion.aside {...reveal(0.1)} className="space-y-6 self-start">
+              <div>
+                <h3 className="text-sm font-medium text-ink/55 mb-3">{t.productPage.dataLabel}</h3>
+                <ul className="flex flex-wrap gap-2">
                   {product.data.map((item) => (
-                    <li key={item.en} className="text-ink/85 leading-snug">{item[language]}</li>
+                    <li key={item.en} className="text-sm px-3 py-1.5 rounded-lg bg-canvas border border-line text-ink/85">
+                      {item[language]}
+                    </li>
                   ))}
                 </ul>
                 {product.sourceNote && (
-                  <p className="mt-5 text-xs text-ink/60 leading-relaxed">{product.sourceNote[language]}</p>
+                  <p className="mt-3 text-xs text-ink/55 leading-relaxed">{product.sourceNote[language]}</p>
                 )}
               </div>
-              <div className="rounded-2xl bg-accent text-canvas p-7">
-                <h3 className="text-sm font-medium text-canvas/70 mb-4">{t.productPage.outputsLabel}</h3>
-                <ul className="space-y-2.5">
+              <div className="rounded-2xl bg-accent text-canvas p-6">
+                <h3 className="text-sm font-medium text-canvas/70 mb-3">{t.productPage.outputsLabel}</h3>
+                <ul className="space-y-2">
                   {product.outputs.map((item) => (
                     <li key={item.en} className="font-medium leading-snug">{item[language]}</li>
                   ))}
@@ -152,50 +205,26 @@ export default function ProductDetail({ slug }: { slug: string }) {
           </div>
         </section>
 
-        {/* Toolkits this capability is verified to run on, linked to /platform/ */}
-        {tools.length > 0 && (
-          <section className="pt-24 px-4 sm:px-6">
-            <div className="max-w-6xl mx-auto">
-              <motion.h2 {...reveal()} className="text-3xl md:text-4xl text-ink mb-10">
-                {t.productPage.toolsTitle}
-              </motion.h2>
-              <ul className="grid sm:grid-cols-2 gap-4 max-w-4xl">
-                {tools.map((toolkit, index) => (
-                  <motion.li key={toolkit.id} {...reveal((index % 4) * 0.05)}>
-                    <Link
-                      href={`/platform/#${toolkit.id}`}
-                      className="group flex flex-col h-full rounded-2xl border border-line bg-surface p-6 hover:border-accent/50 transition-colors duration-200"
-                    >
-                      <span className="flex items-center gap-3 font-medium text-ink mb-3 group-hover:text-accent transition-colors duration-200">
-                        <EngineIcon name={toolkit.icon} size="sm" />
-                        <span className="flex-1">{toolkit.name[language]}</span>
-                        <ArrowRight size={16} className="shrink-0 text-ink/35 group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-200" />
-                      </span>
-                      <span className="text-sm text-ink/65 leading-relaxed">{toolkit.summary[language]}</span>
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        )}
-
         {product.views && (
-          <section className="pt-24 px-4 sm:px-6">
+          <section className="pt-20 px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
-              <motion.h2 {...reveal()} className="text-3xl md:text-4xl text-ink mb-12">
+              <motion.h2 {...reveal()} className="text-2xl md:text-3xl text-ink mb-8">
                 {product.views.title[language]}
               </motion.h2>
-              <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
+              <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {product.views.items.map((view, index) => (
-                  <motion.li key={view.name.en} {...reveal((index % 3) * 0.06)}>
-                    <div className="flex h-2.5 rounded-full overflow-hidden mb-5 max-w-[12rem]" aria-hidden>
+                  <motion.li
+                    key={view.name.en}
+                    {...reveal((index % 6) * 0.04)}
+                    title={view.description[language]}
+                    className="rounded-xl border border-line bg-surface p-4"
+                  >
+                    <div className="flex h-2 rounded-full overflow-hidden mb-3" aria-hidden>
                       {view.swatch.map((colour) => (
                         <span key={colour} className="flex-1" style={{ backgroundColor: colour }} />
                       ))}
                     </div>
-                    <h3 className="text-lg font-medium text-ink mb-2">{view.name[language]}</h3>
-                    <p className="text-ink/70 leading-relaxed">{view.description[language]}</p>
+                    <h3 className="text-sm font-medium text-ink leading-snug">{view.name[language]}</h3>
                   </motion.li>
                 ))}
               </ul>
@@ -204,7 +233,7 @@ export default function ProductDetail({ slug }: { slug: string }) {
         )}
 
         {product.trust && (
-          <section className="pt-20 px-4 sm:px-6">
+          <section className="pt-16 px-4 sm:px-6">
             <ul className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 md:gap-10 border-y border-ink/15 py-8">
               {product.trust.map((item) => (
                 <li key={item.en} className="font-medium text-ink leading-snug">{item[language]}</li>
@@ -213,30 +242,8 @@ export default function ProductDetail({ slug }: { slug: string }) {
           </section>
         )}
 
-        {/* Shared engine: stacked heading and text, then the loop */}
-        <section className="py-24 px-4 sm:px-6">
-          <motion.div {...reveal()} className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl text-ink leading-tight mb-4">{t.productPage.engineTitle}</h2>
-            <p className="text-lg text-ink/70 leading-relaxed mb-8 max-w-[62ch]">
-              {t.productPage.engineDescription}
-            </p>
-            <ol className="flex flex-wrap items-center gap-3">
-              {t.how.steps.map((step, index) => (
-                <li key={step.label} className="flex items-center gap-3">
-                  <span className="font-mono text-sm px-4 py-2 rounded-full bg-surface-2 text-ink">
-                    {step.label}
-                  </span>
-                  {index < t.how.steps.length - 1 && (
-                    <ArrowRight size={16} className="text-ink/35" aria-hidden />
-                  )}
-                </li>
-              ))}
-            </ol>
-          </motion.div>
-        </section>
-
         {/* Other products */}
-        <section className="pb-24 px-4 sm:px-6">
+        <section className="pt-16 pb-16 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="font-sans text-sm font-medium tracking-normal text-ink/55 mb-6">
               {t.productPage.otherProducts}
