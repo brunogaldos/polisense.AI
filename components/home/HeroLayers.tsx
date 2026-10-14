@@ -16,8 +16,11 @@ const scoreColour = (score: number) => RAMP[Math.min(RAMP.length - 1, Math.floor
 
 const BASE_GAP = 34 // minimum distance between layers, in scene pixels
 const SPREAD = 64 // extra distance per layer at full spread
-// Spread at the top of the page: enough for the labels to separate.
-const REST = 0.32
+// Spread at the top of the page: enough for the labels to separate, so they
+// can show on load.
+const REST = 0.72
+// Page scroll, in pixels, over which the stack opens fully.
+const SPREAD_SCROLL = 280
 const MIDDLE = 2 // the stack spreads around its middle layer so it stays centred
 const zFor = (index: number, p: number) => (index - MIDDLE) * (BASE_GAP + SPREAD * p)
 
@@ -39,8 +42,6 @@ function Layer({
   solid?: boolean
 }) {
   const z = useTransform(spread, (p) => zFor(index, p))
-  // Labels fade in once the layers are far enough apart not to overlap.
-  const labelOpacity = useTransform(spread, [REST + 0.04, REST + 0.18], [0, 1])
   return (
     <motion.div
       className="absolute inset-0"
@@ -57,7 +58,12 @@ function Layer({
       {/* Label beside the layer, with a leader line, as in the original */}
       <motion.div
         className="absolute flex items-center gap-4 whitespace-nowrap pointer-events-none flex-row-reverse"
-        style={{ right: 'calc(100% + 24px)', top: `${12 + index * 18}%`, opacity: labelOpacity }}
+        style={{ right: 'calc(100% + 24px)', top: `${12 + index * 18}%` }}
+        // The stack already rests far enough apart for the labels, so they show
+        // on load, top layer first, rather than waiting for the reader to scroll.
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.6 + (4 - index) * 0.12 }}
       >
         <span className="block h-[3px] w-12 bg-accent/70" aria-hidden />
         <span className="font-mono text-[28px] font-medium text-ink/90">{label}</span>
@@ -70,11 +76,12 @@ export default function HeroLayers({ data }: { data: ScreeningMapData }) {
   const { t } = useLanguage()
   const reduce = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 20%', 'end start'] })
-  // Spread follows the scroll and completes while the hero is still on screen,
+  const { scrollY, scrollYProgress } = useScroll({ target: ref, offset: ['start 20%', 'end start'] })
+  // Spread follows the page scroll from the first pixel and completes within
+  // the first SPREAD_SCROLL pixels, while the whole hero is still on screen,
   // eased with a spring so it never feels jumpy. Scrolling back up reverses it.
-  const raw = useTransform(scrollYProgress, [0, 0.45], [REST, 1], { clamp: true })
-  const smooth = useSpring(raw, { stiffness: 120, damping: 24, mass: 0.4 })
+  const raw = useTransform(scrollY, [0, SPREAD_SCROLL], [REST, 1], { clamp: true })
+  const smooth = useSpring(raw, { stiffness: 160, damping: 26, mass: 0.4 })
   const still = useTransform(raw, () => 0.7)
   const spread = reduce ? still : smooth
   // The stack drifts down a little as the hero scrolls away, keeping it in view.
@@ -172,7 +179,7 @@ function PriorityMarkers({
   label: string
 }) {
   const z = useTransform(spread, (p) => zFor(4, p))
-  const opacity = useTransform(spread, [REST + 0.1, REST + 0.35], [0, 1])
+  const opacity = useTransform(spread, [REST + 0.05, REST + 0.25], [0, 1])
   const lineHeight = 70
   return (
     <motion.div className="absolute inset-0 pointer-events-none" style={{ z, opacity, transformStyle: 'preserve-3d' }}>

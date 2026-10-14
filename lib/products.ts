@@ -71,155 +71,6 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    slug: 'solar-site-screening',
-    sector: { en: 'Energy', es: 'Energía' },
-    name: { en: 'Solar site screening', es: 'Selección de sitios solares' },
-    location: { en: 'Peru', es: 'Perú' },
-    question: {
-      en: 'Where should the next solar plant go, and will the site survive regulatory review?',
-      es: '¿Dónde debería ir la próxima planta solar, y resistirá el sitio la revisión regulatoria?',
-    },
-    summary: {
-      en: 'Scores every candidate parcel in a territory on solar resource, terrain, grid and road access, removes land that is legally or physically off-limits, and ranks what is left. The shortlist arrives with the evidence behind each site and the inputs for a draft Environmental Impact Assessment.',
-      es: 'Puntúa cada parcela candidata de un territorio según recurso solar, terreno, acceso a red y a carreteras, descarta el suelo legal o físicamente inviable y ordena lo que queda. La lista corta llega con la evidencia de cada sitio y los insumos para un borrador de Estudio de Impacto Ambiental.',
-    },
-    steps: [
-      { en: 'Rules out protected areas and steep terrain.', es: 'Descarta áreas protegidas y pendientes fuertes.' },
-      { en: 'Scores the land on sun, slope, grid and road access.', es: 'Puntúa el suelo por sol, pendiente, red y acceso vial.' },
-      { en: 'Ranks the sites and shows what drove each score.', es: 'Ordena los sitios y muestra qué definió cada puntaje.' },
-      { en: 'Assembles the evidence into a draft EIA.', es: 'Reúne la evidencia en un borrador de EIA.' },
-    ],
-    data: [
-      { en: 'Solar irradiance and weather records', es: 'Irradiación solar y registros meteorológicos' },
-      { en: 'Digital elevation models', es: 'Modelos digitales de elevación' },
-      { en: 'Grid and road networks', es: 'Redes eléctricas y viales' },
-      { en: 'Land use and protected areas', es: 'Uso de suelo y áreas protegidas' },
-      { en: 'Regulatory and environmental records', es: 'Registros regulatorios y ambientales' },
-    ],
-    outputs: [
-      { en: 'Ranked site shortlist on the map', es: 'Lista corta de sitios ordenada en el mapa' },
-      { en: 'Per-site evidence and score breakdown', es: 'Evidencia y desglose del puntaje por sitio' },
-      { en: 'Draft EIA inputs', es: 'Insumos para el borrador de EIA' },
-    ],
-    proof: [
-      {
-        value: '3 mo → 2 days',
-        label: {
-          en: 'Site prioritization plus a draft EIA, done by one planner instead of a consultant team',
-          es: 'Priorización de sitios y borrador de EIA, hecho por un planificador en lugar de un equipo consultor',
-        },
-      },
-      {
-        value: '~30 min',
-        label: {
-          en: 'Per analysis, against 3.5-4 hours in desktop GIS',
-          es: 'Por análisis, frente a 3,5-4 horas en un SIG de escritorio',
-        },
-      },
-    ],
-    caseStudy: {
-      href: '/blog/',
-      label: {
-        en: 'Read the Arequipa case study',
-        es: 'Lee el caso de Arequipa',
-      },
-    },
-    featured: true,
-    image: {
-      src: '/products/solar-site-screening-cover.jpg',
-      alt: {
-        en: 'Shaded-relief map of Leipzig, Germany, divided into grid units coloured by relative score, with the top five numbered and excluded units hatched.',
-        es: 'Mapa de relieve sombreado de Leipzig, Alemania, dividido en unidades de cuadrícula coloreadas por puntaje relativo, con las cinco mejores numeradas y las unidades excluidas rayadas.',
-      },
-    },
-    gallery: [
-      {
-        src: '/products/solar-site-screening-ranking.jpg',
-        alt: {
-          en: 'Map of Leipzig divided into grid units coloured by relative score, the top five numbered, five excluded units hatched, beside the criteria weights used.',
-          es: 'Mapa de Leipzig dividido en unidades de cuadrícula coloreadas por puntaje relativo, las cinco mejores numeradas, cinco unidades excluidas rayadas, junto a los pesos de los criterios usados.',
-        },
-        caption: {
-          en: 'Example run: Leipzig, Germany. 57 units ranked on four criteria, 5 excluded. Screening-level result.',
-          es: 'Ejemplo de ejecución: Leipzig, Alemania. 57 unidades ordenadas con cuatro criterios, 5 excluidas. Resultado a nivel de tamizaje.',
-        },
-      },
-    ],
-  },
-  {
-    slug: 'water-storage-mapping',
-    sector: { en: 'Water', es: 'Agua' },
-    name: { en: 'Natural water storage mapping', es: 'Mapeo de almacenamiento natural de agua' },
-    location: { en: 'Andean highlands, Peru', es: 'Altoandino, Perú' },
-    question: {
-      en: 'Where can the landscape itself hold water through the dry season?',
-      es: '¿Dónde puede el propio paisaje retener agua durante la temporada seca?',
-    },
-    summary: {
-      en: 'Models the terrain of a watershed to find places where the landscape could store water naturally, then ranks them so field teams only visit the sites worth their time.',
-      es: 'Modela el terreno de una cuenca para encontrar lugares donde el paisaje podría almacenar agua de forma natural, y los ordena para que los equipos de campo solo visiten los sitios que valen la pena.',
-    },
-    steps: [
-      {
-        en: 'Builds a terrain model of the watershed from elevation data.',
-        es: 'Construye un modelo del terreno de la cuenca a partir de datos de elevación.',
-      },
-      {
-        en: 'Finds natural basins that could hold water and estimates their capacity.',
-        es: 'Encuentra cuencas naturales capaces de retener agua y estima su capacidad.',
-      },
-      {
-        en: 'Checks every site against protected areas and other constraints.',
-        es: 'Revisa cada sitio frente a áreas protegidas y otras restricciones.',
-      },
-      {
-        en: 'Ranks candidates and flags a shortlist for field validation.',
-        es: 'Ordena los candidatos y marca una lista corta para validación en campo.',
-      },
-    ],
-    data: [
-      { en: 'Digital elevation models', es: 'Modelos digitales de elevación' },
-      { en: 'Historical and projected climate data', es: 'Datos climáticos históricos y proyectados' },
-      { en: 'Satellite imagery', es: 'Imágenes satelitales' },
-      { en: 'Land use and access routes', es: 'Uso de suelo y rutas de acceso' },
-    ],
-    outputs: [
-      { en: 'Candidate sites with estimated volume', es: 'Sitios candidatos con volumen estimado' },
-      { en: 'Catchment layers on the map', es: 'Capas de captación en el mapa' },
-      { en: 'Field-validation shortlist', es: 'Lista corta para validación en campo' },
-    ],
-    proof: [
-      {
-        value: '196 → 41',
-        label: {
-          en: 'Candidate sites screened, and the number flagged for field validation',
-          es: 'Sitios candidatos evaluados, y los marcados para validación en campo',
-        },
-      },
-    ],
-    featured: false,
-    image: {
-      src: '/products/water-storage-mapping-cover.jpg',
-      alt: {
-        en: 'Shaded-relief map of the Arequipa highlands, Peru, with the natural basins kept after screening marked in amber and the top five numbered.',
-        es: 'Mapa de relieve sombreado de la sierra de Arequipa, Perú, con las cuencas naturales que pasaron la evaluación marcadas en ámbar y las cinco mejores numeradas.',
-      },
-    },
-    gallery: [
-      {
-        src: '/products/water-storage-mapping-candidates.jpg',
-        alt: {
-          en: 'Shaded-relief map of the Arequipa highlands with the natural basins kept after screening marked in amber, the top five numbered, beside a table of their area, depth and volume.',
-          es: 'Mapa de relieve sombreado de la sierra de Arequipa con las cuencas naturales que pasaron la evaluación marcadas en ámbar, las cinco mejores numeradas, junto a una tabla con su área, profundidad y volumen.',
-        },
-        caption: {
-          en: 'Arequipa region, Peru: 196 candidate depressions screened, 41 kept for field validation.',
-          es: 'Región Arequipa, Perú: 196 depresiones candidatas evaluadas, 41 conservadas para validación en campo.',
-        },
-      },
-    ],
-  },
-  {
     slug: 'farmer-early-warning',
     sector: { en: 'Agriculture', es: 'Agricultura' },
     name: { en: 'Farmer early warning', es: 'Alerta temprana para agricultores' },
@@ -308,169 +159,80 @@ export const products: Product[] = [
         },
       },
     ],
-    featured: false,
+    featured: true,
   },
   {
-    slug: 'air-quality-sensor-placement',
-    sector: { en: 'Air quality', es: 'Calidad del aire' },
-    name: { en: 'Air-quality sensor placement', es: 'Ubicación de sensores de calidad del aire' },
-    location: { en: 'Chișinău, Moldova', es: 'Chisináu, Moldavia' },
+    slug: 'water-storage-mapping',
+    sector: { en: 'Water', es: 'Agua' },
+    name: { en: 'Natural water storage mapping', es: 'Mapeo de almacenamiento natural de agua' },
+    location: { en: 'Andean highlands, Peru', es: 'Altoandino, Perú' },
     question: {
-      en: 'Where should a city put a limited number of air-quality sensors?',
-      es: '¿Dónde debería una ciudad instalar un número limitado de sensores de calidad del aire?',
+      en: 'Where can the landscape itself hold water through the dry season?',
+      es: '¿Dónde puede el propio paisaje retener agua durante la temporada seca?',
     },
     summary: {
-      en: 'Weighs where people live against likely pollution sources and existing coverage, then ranks sensor locations so a small network covers as many residents and hotspots as possible.',
-      es: 'Contrasta dónde vive la gente con las fuentes probables de contaminación y la cobertura existente, y ordena ubicaciones para que una red pequeña cubra a la mayor cantidad posible de residentes y puntos críticos.',
+      en: 'Models the terrain of a watershed to find places where the landscape could store water naturally, then ranks them so field teams only visit the sites worth their time.',
+      es: 'Modela el terreno de una cuenca para encontrar lugares donde el paisaje podría almacenar agua de forma natural, y los ordena para que los equipos de campo solo visiten los sitios que valen la pena.',
     },
     steps: [
       {
-        en: 'Maps population density alongside emission sources and road networks.',
-        es: 'Mapea la densidad de población junto con fuentes de emisión y redes viales.',
+        en: 'Builds a terrain model of the watershed from elevation data.',
+        es: 'Construye un modelo del terreno de la cuenca a partir de datos de elevación.',
       },
       {
-        en: 'Scores candidate locations on the coverage they would add.',
-        es: 'Puntúa las ubicaciones candidatas según la cobertura que aportarían.',
+        en: 'Finds natural basins that could hold water and estimates their capacity.',
+        es: 'Encuentra cuencas naturales capaces de retener agua y estima su capacidad.',
       },
       {
-        en: 'Ranks placements for the size of network the city can afford.',
-        es: 'Ordena las ubicaciones según el tamaño de red que la ciudad puede costear.',
+        en: 'Checks every site against protected areas and other constraints.',
+        es: 'Revisa cada sitio frente a áreas protegidas y otras restricciones.',
+      },
+      {
+        en: 'Ranks candidates and flags a shortlist for field validation.',
+        es: 'Ordena los candidatos y marca una lista corta para validación en campo.',
       },
     ],
     data: [
-      { en: 'Population and census data', es: 'Datos de población y censo' },
-      { en: 'Emissions data', es: 'Datos de emisiones' },
-      { en: 'Road networks', es: 'Redes viales' },
-      { en: 'Land use', es: 'Uso de suelo' },
-    ],
-    outputs: [
-      { en: 'Ranked sensor locations', es: 'Ubicaciones de sensores ordenadas' },
-      { en: 'Coverage map', es: 'Mapa de cobertura' },
-    ],
-    proof: [],
-    image: {
-      src: '/products/air-quality-sensor-placement-cover.jpg',
-      alt: {
-        en: 'Map of Chișinău with the tropospheric nitrogen dioxide column for 2025, highest over the city centre and falling towards the edges.',
-        es: 'Mapa de Chișinău con la columna troposférica de dióxido de nitrógeno de 2025, más alta sobre el centro y decreciente hacia los bordes.',
-      },
-    },
-    galleryKind: 'data',
-    gallery: [
-      {
-        src: '/products/air-quality-sensor-placement-no2.jpg',
-        alt: {
-          en: 'Map of Chișinău coloured by tropospheric nitrogen dioxide for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
-          es: 'Mapa de Chișinău coloreado por dióxido de nitrógeno troposférico de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
-        },
-        caption: {
-          en: 'Tropospheric nitrogen dioxide, 2025 mean. Copernicus Sentinel-5P. Input data, not an analysis result.',
-          es: 'Dióxido de nitrógeno troposférico, promedio de 2025. Copernicus Sentinel-5P. Datos de entrada, no un resultado del análisis.',
-        },
-      },
-    ],
-    featured: false,
-  },
-  {
-    slug: 'net-zero-opportunity-scan',
-    sector: { en: 'Cities', es: 'Ciudades' },
-    name: { en: 'Net-zero opportunity scan', es: 'Escaneo de oportunidades net-zero' },
-    location: { en: 'Córdoba, Argentina', es: 'Córdoba, Argentina' },
-    question: {
-      en: 'Where are a city’s biggest opportunities to cut emissions?',
-      es: '¿Dónde están las mayores oportunidades de una ciudad para reducir emisiones?',
-    },
-    summary: {
-      en: 'Scans a city’s emissions, infrastructure and land use to locate the interventions with the most potential, and ranks them so climate plans start where they will count most.',
-      es: 'Analiza las emisiones, la infraestructura y el uso de suelo de una ciudad para ubicar las intervenciones con más potencial, y las ordena para que los planes climáticos empiecen donde más cuentan.',
-    },
-    steps: [
-      {
-        en: 'Maps emissions against infrastructure and land use across the city.',
-        es: 'Mapea las emisiones frente a la infraestructura y el uso de suelo de la ciudad.',
-      },
-      {
-        en: 'Identifies candidate interventions by area.',
-        es: 'Identifica intervenciones candidatas por zona.',
-      },
-      {
-        en: 'Ranks opportunities and shows the evidence behind each one.',
-        es: 'Ordena las oportunidades y muestra la evidencia de cada una.',
-      },
-    ],
-    data: [
-      { en: 'Emissions data', es: 'Datos de emisiones' },
-      { en: 'Infrastructure networks', es: 'Redes de infraestructura' },
-      { en: 'Land use', es: 'Uso de suelo' },
-      { en: 'Satellite imagery, including night-time lights', es: 'Imágenes satelitales, incluidas luces nocturnas' },
-    ],
-    outputs: [
-      { en: 'Opportunity map', es: 'Mapa de oportunidades' },
-      { en: 'Ranked intervention list', es: 'Lista de intervenciones ordenada' },
-    ],
-    proof: [],
-    image: {
-      src: '/products/net-zero-opportunity-scan-cover.jpg',
-      alt: {
-        en: 'Map of Córdoba, Argentina, showing night-time light radiance for 2025, brightest in the centre and along the main corridors.',
-        es: 'Mapa de Córdoba, Argentina, con la radiancia de luces nocturnas de 2025, más intensa en el centro y a lo largo de los corredores principales.',
-      },
-    },
-    galleryKind: 'data',
-    gallery: [
-      {
-        src: '/products/net-zero-opportunity-scan-night-lights.jpg',
-        alt: {
-          en: 'Map of Córdoba coloured by night-time radiance for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
-          es: 'Mapa de Córdoba coloreado por radiancia nocturna de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
-        },
-        caption: {
-          en: 'Night-time lights, 2025 mean. VIIRS Day/Night Band monthly composites. Input data, not an analysis result.',
-          es: 'Luces nocturnas, promedio de 2025. Compuestos mensuales VIIRS Day/Night Band. Datos de entrada, no un resultado del análisis.',
-        },
-      },
-    ],
-    featured: false,
-  },
-  {
-    slug: 'green-corridors',
-    sector: { en: 'Resilience', es: 'Resiliencia' },
-    name: { en: 'Green corridors', es: 'Corredores verdes' },
-    location: { en: 'Validated capability', es: 'Capacidad validada' },
-    question: {
-      en: 'Where should green space connect to protect people and ecosystems?',
-      es: '¿Dónde debería conectarse el espacio verde para proteger a las personas y los ecosistemas?',
-    },
-    summary: {
-      en: 'Finds routes where connected green space would do the most for climate resilience, combining land cover, terrain and exposure data, and ranks corridor options for planners to take forward.',
-      es: 'Encuentra trazados donde un espacio verde conectado aportaría más a la resiliencia climática, combinando cobertura de suelo, terreno y datos de exposición, y ordena opciones de corredor para que los planificadores las desarrollen.',
-    },
-    steps: [
-      {
-        en: 'Maps existing green space, land cover and terrain.',
-        es: 'Mapea el espacio verde existente, la cobertura de suelo y el terreno.',
-      },
-      {
-        en: 'Scores connections on the exposure they would reduce.',
-        es: 'Puntúa las conexiones según la exposición que reducirían.',
-      },
-      {
-        en: 'Ranks corridor options with the reasoning attached.',
-        es: 'Ordena las opciones de corredor con el razonamiento incluido.',
-      },
-    ],
-    data: [
-      { en: 'Satellite imagery and land cover', es: 'Imágenes satelitales y cobertura de suelo' },
       { en: 'Digital elevation models', es: 'Modelos digitales de elevación' },
-      { en: 'Climate exposure data', es: 'Datos de exposición climática' },
-      { en: 'Land use and census data', es: 'Uso de suelo y datos censales' },
+      { en: 'Historical and projected climate data', es: 'Datos climáticos históricos y proyectados' },
+      { en: 'Satellite imagery', es: 'Imágenes satelitales' },
+      { en: 'Land use and access routes', es: 'Uso de suelo y rutas de acceso' },
     ],
     outputs: [
-      { en: 'Corridor options on the map', es: 'Opciones de corredor en el mapa' },
-      { en: 'Ranked list with evidence', es: 'Lista ordenada con evidencia' },
+      { en: 'Candidate sites with estimated volume', es: 'Sitios candidatos con volumen estimado' },
+      { en: 'Catchment layers on the map', es: 'Capas de captación en el mapa' },
+      { en: 'Field-validation shortlist', es: 'Lista corta para validación en campo' },
     ],
-    proof: [],
-    featured: false,
+    proof: [
+      {
+        value: '196 → 41',
+        label: {
+          en: 'Candidate sites screened, and the number flagged for field validation',
+          es: 'Sitios candidatos evaluados, y los marcados para validación en campo',
+        },
+      },
+    ],
+    featured: true,
+    image: {
+      src: '/products/water-storage-mapping-cover.jpg',
+      alt: {
+        en: 'Shaded-relief map of the Arequipa highlands, Peru, with the natural basins kept after screening marked in amber and the top five numbered.',
+        es: 'Mapa de relieve sombreado de la sierra de Arequipa, Perú, con las cuencas naturales que pasaron la evaluación marcadas en ámbar y las cinco mejores numeradas.',
+      },
+    },
+    gallery: [
+      {
+        src: '/products/water-storage-mapping-candidates.jpg',
+        alt: {
+          en: 'Shaded-relief map of the Arequipa highlands with the natural basins kept after screening marked in amber, the top five numbered, beside a table of their area, depth and volume.',
+          es: 'Mapa de relieve sombreado de la sierra de Arequipa con las cuencas naturales que pasaron la evaluación marcadas en ámbar, las cinco mejores numeradas, junto a una tabla con su área, profundidad y volumen.',
+        },
+        caption: {
+          en: 'Arequipa region, Peru: 196 candidate depressions screened, 41 kept for field validation.',
+          es: 'Región Arequipa, Perú: 196 depresiones candidatas evaluadas, 41 conservadas para validación en campo.',
+        },
+      },
+    ],
   },
   {
     slug: 'vegetation-change-analysis',
@@ -628,6 +390,244 @@ export const products: Product[] = [
       { en: 'Every result shows its data quality', es: 'Cada resultado muestra la calidad de sus datos' },
       { en: 'Built on USGS/NASA Landsat and Google Earth Engine', es: 'Construido sobre Landsat de USGS/NASA y Google Earth Engine' },
     ],
+  },
+  {
+    slug: 'air-quality-sensor-placement',
+    sector: { en: 'Air quality', es: 'Calidad del aire' },
+    name: { en: 'Air-quality sensor placement', es: 'Ubicación de sensores de calidad del aire' },
+    location: { en: 'Chișinău, Moldova', es: 'Chisináu, Moldavia' },
+    question: {
+      en: 'Where should a city put a limited number of air-quality sensors?',
+      es: '¿Dónde debería una ciudad instalar un número limitado de sensores de calidad del aire?',
+    },
+    summary: {
+      en: 'Weighs where people live against likely pollution sources and existing coverage, then ranks sensor locations so a small network covers as many residents and hotspots as possible.',
+      es: 'Contrasta dónde vive la gente con las fuentes probables de contaminación y la cobertura existente, y ordena ubicaciones para que una red pequeña cubra a la mayor cantidad posible de residentes y puntos críticos.',
+    },
+    steps: [
+      {
+        en: 'Maps population density alongside emission sources and road networks.',
+        es: 'Mapea la densidad de población junto con fuentes de emisión y redes viales.',
+      },
+      {
+        en: 'Scores candidate locations on the coverage they would add.',
+        es: 'Puntúa las ubicaciones candidatas según la cobertura que aportarían.',
+      },
+      {
+        en: 'Ranks placements for the size of network the city can afford.',
+        es: 'Ordena las ubicaciones según el tamaño de red que la ciudad puede costear.',
+      },
+    ],
+    data: [
+      { en: 'Population and census data', es: 'Datos de población y censo' },
+      { en: 'Emissions data', es: 'Datos de emisiones' },
+      { en: 'Road networks', es: 'Redes viales' },
+      { en: 'Land use', es: 'Uso de suelo' },
+    ],
+    outputs: [
+      { en: 'Ranked sensor locations', es: 'Ubicaciones de sensores ordenadas' },
+      { en: 'Coverage map', es: 'Mapa de cobertura' },
+    ],
+    proof: [],
+    image: {
+      src: '/products/air-quality-sensor-placement-cover.jpg',
+      alt: {
+        en: 'Map of Chișinău with the tropospheric nitrogen dioxide column for 2025, highest over the city centre and falling towards the edges.',
+        es: 'Mapa de Chișinău con la columna troposférica de dióxido de nitrógeno de 2025, más alta sobre el centro y decreciente hacia los bordes.',
+      },
+    },
+    galleryKind: 'data',
+    gallery: [
+      {
+        src: '/products/air-quality-sensor-placement-no2.jpg',
+        alt: {
+          en: 'Map of Chișinău coloured by tropospheric nitrogen dioxide for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
+          es: 'Mapa de Chișinău coloreado por dióxido de nitrógeno troposférico de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
+        },
+        caption: {
+          en: 'Tropospheric nitrogen dioxide, 2025 mean. Copernicus Sentinel-5P. Input data, not an analysis result.',
+          es: 'Dióxido de nitrógeno troposférico, promedio de 2025. Copernicus Sentinel-5P. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+    ],
+    featured: false,
+  },
+  {
+    slug: 'green-corridors',
+    sector: { en: 'Resilience', es: 'Resiliencia' },
+    name: { en: 'Green corridors', es: 'Corredores verdes' },
+    location: { en: 'Validated capability', es: 'Capacidad validada' },
+    question: {
+      en: 'Where should green space connect to protect people and ecosystems?',
+      es: '¿Dónde debería conectarse el espacio verde para proteger a las personas y los ecosistemas?',
+    },
+    summary: {
+      en: 'Finds routes where connected green space would do the most for climate resilience, combining land cover, terrain and exposure data, and ranks corridor options for planners to take forward.',
+      es: 'Encuentra trazados donde un espacio verde conectado aportaría más a la resiliencia climática, combinando cobertura de suelo, terreno y datos de exposición, y ordena opciones de corredor para que los planificadores las desarrollen.',
+    },
+    steps: [
+      {
+        en: 'Maps existing green space, land cover and terrain.',
+        es: 'Mapea el espacio verde existente, la cobertura de suelo y el terreno.',
+      },
+      {
+        en: 'Scores connections on the exposure they would reduce.',
+        es: 'Puntúa las conexiones según la exposición que reducirían.',
+      },
+      {
+        en: 'Ranks corridor options with the reasoning attached.',
+        es: 'Ordena las opciones de corredor con el razonamiento incluido.',
+      },
+    ],
+    data: [
+      { en: 'Satellite imagery and land cover', es: 'Imágenes satelitales y cobertura de suelo' },
+      { en: 'Digital elevation models', es: 'Modelos digitales de elevación' },
+      { en: 'Climate exposure data', es: 'Datos de exposición climática' },
+      { en: 'Land use and census data', es: 'Uso de suelo y datos censales' },
+    ],
+    outputs: [
+      { en: 'Corridor options on the map', es: 'Opciones de corredor en el mapa' },
+      { en: 'Ranked list with evidence', es: 'Lista ordenada con evidencia' },
+    ],
+    proof: [],
+    featured: false,
+  },
+  {
+    slug: 'solar-site-screening',
+    sector: { en: 'Infrastructure', es: 'Infraestructura' },
+    name: { en: 'Solar site screening', es: 'Selección de sitios solares' },
+    location: { en: 'Peru', es: 'Perú' },
+    question: {
+      en: 'Where should the next solar plant go, and will the site survive regulatory review?',
+      es: '¿Dónde debería ir la próxima planta solar, y resistirá el sitio la revisión regulatoria?',
+    },
+    summary: {
+      en: 'Scores every candidate parcel in a territory on solar resource, terrain, grid and road access, removes land that is legally or physically off-limits, and ranks what is left. The shortlist arrives with the evidence behind each site and the inputs for a draft Environmental Impact Assessment.',
+      es: 'Puntúa cada parcela candidata de un territorio según recurso solar, terreno, acceso a red y a carreteras, descarta el suelo legal o físicamente inviable y ordena lo que queda. La lista corta llega con la evidencia de cada sitio y los insumos para un borrador de Estudio de Impacto Ambiental.',
+    },
+    steps: [
+      { en: 'Rules out protected areas and steep terrain.', es: 'Descarta áreas protegidas y pendientes fuertes.' },
+      { en: 'Scores the land on sun, slope, grid and road access.', es: 'Puntúa el suelo por sol, pendiente, red y acceso vial.' },
+      { en: 'Ranks the sites and shows what drove each score.', es: 'Ordena los sitios y muestra qué definió cada puntaje.' },
+      { en: 'Assembles the evidence into a draft EIA.', es: 'Reúne la evidencia en un borrador de EIA.' },
+    ],
+    data: [
+      { en: 'Solar irradiance and weather records', es: 'Irradiación solar y registros meteorológicos' },
+      { en: 'Digital elevation models', es: 'Modelos digitales de elevación' },
+      { en: 'Grid and road networks', es: 'Redes eléctricas y viales' },
+      { en: 'Land use and protected areas', es: 'Uso de suelo y áreas protegidas' },
+      { en: 'Regulatory and environmental records', es: 'Registros regulatorios y ambientales' },
+    ],
+    outputs: [
+      { en: 'Ranked site shortlist on the map', es: 'Lista corta de sitios ordenada en el mapa' },
+      { en: 'Per-site evidence and score breakdown', es: 'Evidencia y desglose del puntaje por sitio' },
+      { en: 'Draft EIA inputs', es: 'Insumos para el borrador de EIA' },
+    ],
+    proof: [
+      {
+        value: '3 mo → 2 days',
+        label: {
+          en: 'Site prioritization plus a draft EIA, done by one planner instead of a consultant team',
+          es: 'Priorización de sitios y borrador de EIA, hecho por un planificador en lugar de un equipo consultor',
+        },
+      },
+      {
+        value: '~30 min',
+        label: {
+          en: 'Per analysis, against 3.5-4 hours in desktop GIS',
+          es: 'Por análisis, frente a 3,5-4 horas en un SIG de escritorio',
+        },
+      },
+    ],
+    caseStudy: {
+      href: '/blog/',
+      label: {
+        en: 'Read the Arequipa case study',
+        es: 'Lee el caso de Arequipa',
+      },
+    },
+    featured: false,
+    image: {
+      src: '/products/solar-site-screening-cover.jpg',
+      alt: {
+        en: 'Shaded-relief map of Leipzig, Germany, divided into grid units coloured by relative score, with the top five numbered and excluded units hatched.',
+        es: 'Mapa de relieve sombreado de Leipzig, Alemania, dividido en unidades de cuadrícula coloreadas por puntaje relativo, con las cinco mejores numeradas y las unidades excluidas rayadas.',
+      },
+    },
+    gallery: [
+      {
+        src: '/products/solar-site-screening-ranking.jpg',
+        alt: {
+          en: 'Map of Leipzig divided into grid units coloured by relative score, the top five numbered, five excluded units hatched, beside the criteria weights used.',
+          es: 'Mapa de Leipzig dividido en unidades de cuadrícula coloreadas por puntaje relativo, las cinco mejores numeradas, cinco unidades excluidas rayadas, junto a los pesos de los criterios usados.',
+        },
+        caption: {
+          en: 'Example run: Leipzig, Germany. 57 units ranked on four criteria, 5 excluded. Screening-level result.',
+          es: 'Ejemplo de ejecución: Leipzig, Alemania. 57 unidades ordenadas con cuatro criterios, 5 excluidas. Resultado a nivel de tamizaje.',
+        },
+      },
+    ],
+  },
+  {
+    slug: 'net-zero-opportunity-scan',
+    sector: { en: 'Cities', es: 'Ciudades' },
+    name: { en: 'Net-zero opportunity scan', es: 'Escaneo de oportunidades net-zero' },
+    location: { en: 'Córdoba, Argentina', es: 'Córdoba, Argentina' },
+    question: {
+      en: 'Where are a city’s biggest opportunities to cut emissions?',
+      es: '¿Dónde están las mayores oportunidades de una ciudad para reducir emisiones?',
+    },
+    summary: {
+      en: 'Scans a city’s emissions, infrastructure and land use to locate the interventions with the most potential, and ranks them so climate plans start where they will count most.',
+      es: 'Analiza las emisiones, la infraestructura y el uso de suelo de una ciudad para ubicar las intervenciones con más potencial, y las ordena para que los planes climáticos empiecen donde más cuentan.',
+    },
+    steps: [
+      {
+        en: 'Maps emissions against infrastructure and land use across the city.',
+        es: 'Mapea las emisiones frente a la infraestructura y el uso de suelo de la ciudad.',
+      },
+      {
+        en: 'Identifies candidate interventions by area.',
+        es: 'Identifica intervenciones candidatas por zona.',
+      },
+      {
+        en: 'Ranks opportunities and shows the evidence behind each one.',
+        es: 'Ordena las oportunidades y muestra la evidencia de cada una.',
+      },
+    ],
+    data: [
+      { en: 'Emissions data', es: 'Datos de emisiones' },
+      { en: 'Infrastructure networks', es: 'Redes de infraestructura' },
+      { en: 'Land use', es: 'Uso de suelo' },
+      { en: 'Satellite imagery, including night-time lights', es: 'Imágenes satelitales, incluidas luces nocturnas' },
+    ],
+    outputs: [
+      { en: 'Opportunity map', es: 'Mapa de oportunidades' },
+      { en: 'Ranked intervention list', es: 'Lista de intervenciones ordenada' },
+    ],
+    proof: [],
+    image: {
+      src: '/products/net-zero-opportunity-scan-cover.jpg',
+      alt: {
+        en: 'Map of Córdoba, Argentina, showing night-time light radiance for 2025, brightest in the centre and along the main corridors.',
+        es: 'Mapa de Córdoba, Argentina, con la radiancia de luces nocturnas de 2025, más intensa en el centro y a lo largo de los corredores principales.',
+      },
+    },
+    galleryKind: 'data',
+    gallery: [
+      {
+        src: '/products/net-zero-opportunity-scan-night-lights.jpg',
+        alt: {
+          en: 'Map of Córdoba coloured by night-time radiance for 2025, with the mean, the 5th and 95th percentiles and a histogram of values inside the city boundary.',
+          es: 'Mapa de Córdoba coloreado por radiancia nocturna de 2025, con el promedio, los percentiles 5 y 95 y un histograma de los valores dentro del límite de la ciudad.',
+        },
+        caption: {
+          en: 'Night-time lights, 2025 mean. VIIRS Day/Night Band monthly composites. Input data, not an analysis result.',
+          es: 'Luces nocturnas, promedio de 2025. Compuestos mensuales VIIRS Day/Night Band. Datos de entrada, no un resultado del análisis.',
+        },
+      },
+    ],
+    featured: false,
   },
 ]
 

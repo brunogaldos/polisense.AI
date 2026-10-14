@@ -10,21 +10,27 @@ import { useLanguage } from '@/lib/i18n/context'
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? ''
 
-const teamMemberMeta = [
+// Same order as t.team.members.
+const teamMemberMeta: { photo: string; linkedin?: string; email?: string }[] = [
   {
     photo: `${basePath}/bruno_linkedin.jpeg`,
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
-    email: null as string | null,
   },
   {
-    photo: `${basePath}/abhirup_profile.png`,
-    linkedin: 'https://www.linkedin.com/in/abhirup-das-82a955a9/',
-    email: null as string | null,
+    photo: `${basePath}/amol.jpg`,
+    linkedin: 'https://www.linkedin.com/in/amol-kodange',
+  },
+  {
+    photo: `${basePath}/khuzaima.jpg`,
+    linkedin: 'https://www.linkedin.com/in/khuzaima-aziz-7833ba1b4/',
+  },
+  {
+    photo: `${basePath}/mauricio.jpg`,
+    linkedin: 'https://www.linkedin.com/in/mauricio-peraltilla/',
   },
   {
     photo: `${basePath}/jose.jpeg`,
     linkedin: 'https://www.linkedin.com/in/josepastorp/',
-    email: null as string | null,
   },
 ]
 
@@ -56,14 +62,14 @@ export default function Team() {
           </motion.div>
 
           {/* Team Grid */}
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="flex flex-wrap justify-center gap-6">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.12 }}
-                className="flex flex-col items-center text-center p-8 bg-surface rounded-2xl border border-line hover:shadow-md hover:border-accent/40 transition-all duration-200"
+                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col items-center text-center p-7 bg-surface rounded-2xl border border-line hover:shadow-md hover:border-accent/40 transition-all duration-200"
               >
                 {/* Circular portrait */}
                 <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-line mb-6 flex-shrink-0">
@@ -87,15 +93,17 @@ export default function Team() {
 
                 {/* Action buttons */}
                 <div className="flex items-center gap-3 mt-auto flex-wrap justify-center">
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-accent text-canvas rounded-full text-sm font-medium hover:bg-accent-strong transition-all duration-200 hover:scale-105"
-                  >
-                    <Linkedin size={14} />
-                    {t.footer.linkedin}
-                  </a>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-accent text-canvas rounded-full text-sm font-medium hover:bg-accent-strong transition-all duration-200 hover:scale-105"
+                    >
+                      <Linkedin size={14} />
+                      {t.footer.linkedin}
+                    </a>
+                  )}
                   {member.email && (
                     <a
                       href={`mailto:${member.email}`}

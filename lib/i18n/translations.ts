@@ -5,6 +5,7 @@ const en = {
     products: 'Products',
     platform: 'Platform',
     blogs: 'Blog',
+    team: 'Team',
     getStarted: 'Book a demo',
     toggleMenu: 'Toggle menu',
     languageLabel: 'Language',
@@ -26,7 +27,7 @@ const en = {
     stats: [
       { value: '~30 min', label: 'per analysis, down from 3.5-4 hours' },
       { value: '196 → 41', label: 'water sites screened, then shortlisted' },
-      { value: '8', label: 'capabilities on one engine' },
+      { value: '7', label: 'capabilities on one engine' },
     ],
   },
   problem: {
@@ -112,28 +113,41 @@ const en = {
     contact: 'Contact',
     copyright: '© 2026 Polisense AI. All rights reserved.',
     partners: 'Partners',
+    supportedBy: 'Supported by',
     products: 'Products',
     platform: 'Platform',
     blog: 'Blog',
+    team: 'Team',
     whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Our Team',
     heroDescription:
-      'AI engineers, product strategists, and energy experts united by a mission to democratize clean energy infrastructure planning worldwide.',
+      'AI engineers, product strategists, and geospatial experts united by a mission to make climate and infrastructure planning faster and more accessible worldwide.',
     email: 'Email',
     members: [
       {
         name: 'Bruno Galdos',
         role: 'CEO & Co-founder',
         description:
-          "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, energy, and sustainability meet to transform communities.",
+          "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, geospatial analysis, and sustainability meet to transform communities.",
       },
       {
-        name: 'Abhirup Das',
-        role: 'CTO & Co-founder',
+        name: 'Amol Kodange',
+        role: 'CTO',
         description:
-          "Turns cutting-edge research into production systems. Robotics and vision researcher at RWTH Aachen, now engineering Polisense's core tech.",
+          "Robotics engineer from RWTH Aachen working across computer vision, machine learning and multi-sensor data. Leads Polisense's engineering.",
+      },
+      {
+        name: 'Khuzaima Aziz',
+        role: 'CPO',
+        description:
+          'Data scientist trained in Earth systems and remote sensing (Leipzig University), with experience bringing spatial analysis and AI together. Formerly at E.ON Group Innovations. Leads product.',
+      },
+      {
+        name: 'Mauricio Peraltilla',
+        role: 'LATAM Operations Director',
+        description: "Leads Polisense's operations and partnerships across Latin America.",
       },
       {
         name: 'Jose Pastor',
@@ -146,7 +160,7 @@ const en = {
   blog: {
     heroTitle: 'Blog',
     heroDescription:
-      'Insights on AI, geospatial analysis, and accelerating resource and energy access worldwide.',
+      'Insights on AI and geospatial analysis for climate and infrastructure decisions.',
     emptyTitle: 'New posts are on the way',
     emptyDescription:
       "We're working on our first articles. Check back soon for updates on our research, product, and mission.",
@@ -174,6 +188,7 @@ const es: typeof en = {
     products: 'Productos',
     platform: 'Plataforma',
     blogs: 'Blog',
+    team: 'Equipo',
     getStarted: 'Agendar una demo',
     toggleMenu: 'Alternar menú',
     languageLabel: 'Idioma',
@@ -195,7 +210,7 @@ const es: typeof en = {
     stats: [
       { value: '~30 min', label: 'por análisis, antes 3,5-4 horas' },
       { value: '196 → 41', label: 'sitios de agua evaluados y preseleccionados' },
-      { value: '8', label: 'capacidades en un solo motor' },
+      { value: '7', label: 'capacidades en un solo motor' },
     ],
   },
   problem: {
@@ -281,28 +296,41 @@ const es: typeof en = {
     contact: 'Contacto',
     copyright: '© 2026 Polisense AI. Todos los derechos reservados.',
     partners: 'Socios',
+    supportedBy: 'Con el apoyo de',
     products: 'Productos',
     platform: 'Plataforma',
     blog: 'Blog',
+    team: 'Equipo',
     whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Nuestro Equipo',
     heroDescription:
-      'Ingenieros de IA, estrategas de producto y expertos en energía unidos por la misión de democratizar la planificación de infraestructura de energía limpia en todo el mundo.',
+      'Ingenieros de IA, estrategas de producto y expertos geoespaciales unidos por la misión de hacer más rápida y accesible la planificación climática y de infraestructura en todo el mundo.',
     email: 'Correo',
     members: [
       {
         name: 'Bruno Galdos',
         role: 'CEO y Cofundador',
         description:
-          'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, la energía y la sostenibilidad se unen para transformar comunidades.',
+          'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, el análisis geoespacial y la sostenibilidad se unen para transformar comunidades.',
       },
       {
-        name: 'Abhirup Das',
-        role: 'CTO y Cofundador',
+        name: 'Amol Kodange',
+        role: 'CTO',
         description:
-          'Convierte investigación de vanguardia en sistemas de producción. Investigador en robótica y visión en RWTH Aachen, ahora desarrollando la tecnología central de Polisense.',
+          'Ingeniería robótica en la RWTH Aachen, con experiencia en visión por computadora, aprendizaje automático y datos multisensor. Dirige la ingeniería de Polisense.',
+      },
+      {
+        name: 'Khuzaima Aziz',
+        role: 'CPO',
+        description:
+          'Ciencia de datos, sistemas terrestres y teledetección (Universidad de Leipzig), con experiencia en combinar análisis espacial e IA. Antes en E.ON Group Innovations. Dirige el producto.',
+      },
+      {
+        name: 'Mauricio Peraltilla',
+        role: 'Director de Operaciones LATAM',
+        description: 'Dirige las operaciones y alianzas de Polisense en América Latina.',
       },
       {
         name: 'Jose Pastor',
@@ -315,7 +343,7 @@ const es: typeof en = {
   blog: {
     heroTitle: 'Blog',
     heroDescription:
-      'Perspectivas sobre IA, análisis geoespacial y cómo acelerar el acceso a recursos y energía en el mundo.',
+      'Perspectivas sobre IA y análisis geoespacial para decisiones de clima e infraestructura.',
     emptyTitle: 'Nuevos artículos en camino',
     emptyDescription:
       'Estamos preparando nuestros primeros artículos. Vuelve pronto para conocer novedades sobre nuestra investigación, producto y misión.',

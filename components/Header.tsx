@@ -25,6 +25,7 @@ export default function Header({ onGetStarted }: HeaderProps) {
   const isBlog = pathname?.startsWith('/blog') ?? false
   const isProducts = pathname?.startsWith('/products') ?? false
   const isPlatform = pathname?.startsWith('/platform') ?? false
+  const isTeam = pathname?.startsWith('/team') ?? false
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false)
 
@@ -56,6 +57,14 @@ export default function Header({ onGetStarted }: HeaderProps) {
         className={`${linkBase} ${extra} ${isBlog ? linkActive : linkIdle}`}
       >
         {t.nav.blogs}
+      </Link>
+      <Link
+        href="/team/"
+        onClick={onClick}
+        aria-current={isTeam ? 'page' : undefined}
+        className={`${linkBase} ${extra} ${isTeam ? linkActive : linkIdle}`}
+      >
+        {t.nav.team}
       </Link>
     </>
   )

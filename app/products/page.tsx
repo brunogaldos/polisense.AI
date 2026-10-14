@@ -11,12 +11,12 @@ import ProductVisual from '@/components/products/ProductVisual'
 import { products } from '@/lib/products'
 import { useLanguage } from '@/lib/i18n/context'
 
-// Three-column grid with no empty cells: widen the first card (and the last,
-// if needed) so the card count fills whole rows. 8 cards read 2+1, 1+1+1, 1+1+1;
-// 7 cards read 2+1, 1+1+1, 1+2.
+// Three-column grid with no empty cells. The first row stays three equal cards
+// so the lead products sit side by side; the cards after it widen as needed to
+// fill whole rows. 7 cards read 1+1+1, 2+1, 1+2; 8 cards read 1+1+1, 2+1, 1+1+1.
 const extraCells = (3 - (products.length % 3)) % 3
 const wide = (index: number) =>
-  (extraCells >= 1 && index === 0) || (extraCells === 2 && index === products.length - 1)
+  (extraCells >= 1 && index === 3) || (extraCells === 2 && index === products.length - 1)
 
 export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false)

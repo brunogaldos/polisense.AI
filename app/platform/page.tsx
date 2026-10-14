@@ -8,6 +8,7 @@ import BookDemoModal from '@/components/BookDemoModal'
 import Header from '@/components/Header'
 import SiteFooter from '@/components/SiteFooter'
 import EngineIcon from '@/components/platform/EngineIcon'
+import EngineVisual from '@/components/platform/EngineVisual'
 import { getProduct } from '@/lib/products'
 import { toolkits } from '@/lib/toolkits'
 import { useLanguage } from '@/lib/i18n/context'
@@ -58,41 +59,44 @@ export default function Platform() {
                 key={toolkit.id}
                 id={toolkit.id}
                 {...reveal((index % 3) * 0.05)}
-                className={`scroll-mt-28 rounded-2xl border border-line p-7 md:p-8 flex flex-col ${
+                className={`scroll-mt-28 rounded-2xl border border-line overflow-hidden flex flex-col ${
                   wide(index) ? 'lg:col-span-2' : ''
                 } ${surface(index)}`}
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <EngineIcon name={toolkit.icon} />
-                  <h2 className="text-2xl text-ink leading-tight">{toolkit.name[language]}</h2>
-                </div>
-                <p className="text-ink/70 leading-relaxed max-w-[52ch]">{toolkit.summary[language]}</p>
-                <ul className="mt-5 space-y-1.5">
-                  {toolkit.outputs.map((output) => (
-                    <li key={output.en} className="flex items-center gap-2.5 text-sm text-ink/85">
-                      <span className="h-px w-3 bg-accent" aria-hidden />
-                      {output[language]}
-                    </li>
-                  ))}
-                </ul>
-                {toolkit.usedBy.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-2 mt-auto pt-6">
-                    <span className="text-sm text-ink/55 mr-1">{t.platform.usedBy}</span>
-                    {toolkit.usedBy.map((slug) => {
-                      const product = getProduct(slug)
-                      if (!product) return null
-                      return (
-                        <Link
-                          key={slug}
-                          href={`/products/${slug}/`}
-                          className="text-sm px-3 py-1 rounded-full border border-line bg-canvas/40 text-ink/85 hover:border-accent hover:text-accent transition-colors duration-200"
-                        >
-                          {product.name[language]}
-                        </Link>
-                      )
-                    })}
+                <EngineVisual toolkit={toolkit} className="h-44 md:h-52 w-full border-b border-line" />
+                <div className="p-7 md:p-8 flex flex-col flex-1">
+                  <div className="flex items-center gap-4 mb-4">
+                    <EngineIcon name={toolkit.icon} />
+                    <h2 className="text-2xl text-ink leading-tight">{toolkit.name[language]}</h2>
                   </div>
-                )}
+                  <p className="text-ink/70 leading-relaxed max-w-[52ch]">{toolkit.summary[language]}</p>
+                  <ul className="mt-5 space-y-1.5">
+                    {toolkit.outputs.map((output) => (
+                      <li key={output.en} className="flex items-center gap-2.5 text-sm text-ink/85">
+                        <span className="h-px w-3 bg-accent" aria-hidden />
+                        {output[language]}
+                      </li>
+                    ))}
+                  </ul>
+                  {toolkit.usedBy.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 mt-auto pt-6">
+                      <span className="text-sm text-ink/55 mr-1">{t.platform.usedBy}</span>
+                      {toolkit.usedBy.map((slug) => {
+                        const product = getProduct(slug)
+                        if (!product) return null
+                        return (
+                          <Link
+                            key={slug}
+                            href={`/products/${slug}/`}
+                            className="text-sm px-3 py-1 rounded-full border border-line bg-canvas/40 text-ink/85 hover:border-accent hover:text-accent transition-colors duration-200"
+                          >
+                            {product.name[language]}
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
               </motion.li>
             ))}
           </ul>

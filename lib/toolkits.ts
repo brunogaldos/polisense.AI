@@ -40,21 +40,6 @@ export const toolkits: Toolkit[] = [
     usedBy: ['water-storage-mapping'],
   },
   {
-    id: 'renewable-siting',
-    icon: 'sun',
-    name: { en: 'Renewable Siting Engine', es: 'Motor de Ubicación Renovable' },
-    summary: {
-      en: 'A guided assessment: choose an area, check the data, preview, then rank every unit for renewable potential.',
-      es: 'Una evaluación guiada: elija un área, revise los datos, previsualice y ordene cada unidad por potencial renovable.',
-    },
-    outputs: [
-      { en: 'Ranked map of the area', es: 'Mapa ordenado del área' },
-      { en: 'Top-units table', es: 'Tabla de mejores unidades' },
-      { en: 'Weights and confidence', es: 'Pesos y nivel de confianza' },
-    ],
-    usedBy: ['solar-site-screening'],
-  },
-  {
     id: 'vegetation-change',
     icon: 'leaf',
     name: { en: 'Vegetation Change Engine', es: 'Motor de Cambio de Vegetación' },
@@ -82,6 +67,21 @@ export const toolkits: Toolkit[] = [
       { en: 'Satellite map layers', es: 'Capas satelitales en el mapa' },
     ],
     usedBy: [],
+  },
+  {
+    id: 'renewable-siting',
+    icon: 'sun',
+    name: { en: 'Renewable Siting Engine', es: 'Motor de Ubicación Renovable' },
+    summary: {
+      en: 'A guided assessment: choose an area, check the data, preview, then rank every unit for renewable potential.',
+      es: 'Una evaluación guiada: elija un área, revise los datos, previsualice y ordene cada unidad por potencial renovable.',
+    },
+    outputs: [
+      { en: 'Ranked map of the area', es: 'Mapa ordenado del área' },
+      { en: 'Top-units table', es: 'Tabla de mejores unidades' },
+      { en: 'Weights and confidence', es: 'Pesos y nivel de confianza' },
+    ],
+    usedBy: ['solar-site-screening'],
   },
   {
     id: 'layer-intelligence',

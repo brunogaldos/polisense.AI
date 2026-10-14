@@ -154,7 +154,7 @@ export default function HomePage({ screening }: { screening: ScreeningMapData })
           </div>
         </section>
 
-        {/* Products: two featured cards with results, then an index of the rest */}
+        {/* Products: three featured cards with results, then an index of the rest */}
         <section id="products" className="scroll-mt-20 pt-24 pb-12 px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -170,7 +170,7 @@ export default function HomePage({ screening }: { screening: ScreeningMapData })
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
               {featured.map((product, index) => (
                 <motion.div key={product.slug} {...reveal(index * 0.08)}>
                   <Link
@@ -184,19 +184,21 @@ export default function HomePage({ screening }: { screening: ScreeningMapData })
                       </p>
                       <h3 className="font-display text-3xl text-ink mb-3">{product.name[language]}</h3>
                       <p className="text-ink/70 leading-relaxed mb-8">{product.question[language]}</p>
-                      {product.proof[0] && (
-                        <div className="mt-auto pt-6 border-t border-ink/10 flex items-end justify-between gap-6">
+                      <div className="mt-auto pt-6 border-t border-ink/10 flex items-end justify-between gap-6">
+                        {product.proof[0] ? (
                           <div>
                             <p className="font-mono tabular text-3xl text-accent mb-1">{product.proof[0].value}</p>
                             <p className="text-sm text-ink/65 max-w-xs leading-snug">
                               {product.proof[0].label[language]}
                             </p>
                           </div>
-                          <span className="shrink-0 h-10 w-10 rounded-full border border-ink/15 flex items-center justify-center text-ink group-hover:bg-accent group-hover:border-accent group-hover:text-canvas transition-all duration-300">
-                            <ArrowUpRight size={18} />
-                          </span>
-                        </div>
-                      )}
+                        ) : (
+                          <p className="text-sm text-ink/65 max-w-xs leading-snug">{product.outputs[0][language]}</p>
+                        )}
+                        <span className="shrink-0 h-10 w-10 rounded-full border border-ink/15 flex items-center justify-center text-ink group-hover:bg-accent group-hover:border-accent group-hover:text-canvas transition-all duration-300">
+                          <ArrowUpRight size={18} />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>
