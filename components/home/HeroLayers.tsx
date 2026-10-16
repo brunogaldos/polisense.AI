@@ -5,9 +5,8 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform, type Moti
 import type { ScreeningMapData } from '@/lib/geo/screeningMap'
 import { useLanguage } from '@/lib/i18n/context'
 
-// The hero's isometric stack of map layers, rebuilt from the original
-// master-visualization.html (rotateX/rotateZ scene, layers lifted with
-// translateZ) but driven by page scroll and drawn from real Arequipa data:
+// The hero's isometric stack of map layers (a rotateX/rotateZ scene, layers
+// lifted with translateZ), driven by page scroll and drawn from real Arequipa data:
 // the layers spread apart as the page scrolls down and settle back as it
 // scrolls up. Streets and river are OpenStreetMap; scores are illustrative.
 
@@ -55,7 +54,7 @@ function Layer({
           {children}
         </svg>
       </div>
-      {/* Label beside the layer, with a leader line, as in the original */}
+      {/* Label beside the layer, with a leader line */}
       <motion.div
         className="absolute flex items-center gap-4 whitespace-nowrap pointer-events-none flex-row-reverse"
         style={{ right: 'calc(100% + 24px)', top: `${12 + index * 18}%` }}
@@ -158,7 +157,7 @@ export default function HeroLayers({ data }: { data: ScreeningMapData }) {
             ))}
           </Layer>
 
-          {/* Priority markers rising from the top-ranked cells, as in the original */}
+          {/* Priority markers rising from the top-ranked cells */}
           <PriorityMarkers cells={top.slice(0, 3)} spread={spread} label={t.hero.priority} />
         </div>
       </div>
