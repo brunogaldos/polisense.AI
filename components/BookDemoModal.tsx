@@ -112,7 +112,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-canvas/70 backdrop-blur-sm"
           />
 
           {/* Modal */}
@@ -121,13 +121,14 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-md bg-[#FDFCFA] rounded-2xl shadow-2xl border border-[#E3DED6] overflow-hidden"
+            className="relative w-full max-w-md bg-surface rounded-2xl shadow-2xl border border-line overflow-hidden"
           >
             {/* Close button */}
             <button
               onClick={handleClose}
               disabled={isSubmitting}
-              className="absolute top-4 right-4 p-2 text-[#141517]/50 hover:text-[#141517] hover:bg-[#F5F2EC] rounded-full transition-all duration-200 disabled:opacity-50"
+              aria-label="Close"
+              className="absolute top-4 right-4 p-2 text-ink/50 hover:text-ink hover:bg-canvas rounded-full transition-all duration-200 disabled:opacity-50"
             >
               <X size={20} />
             </button>
@@ -139,25 +140,25 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', duration: 0.5 }}
-                  className="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center"
+                  className="w-16 h-16 mx-auto mb-4 bg-accent rounded-full flex items-center justify-center"
                 >
-                  <CheckCircle className="text-white" size={32} />
+                  <CheckCircle className="text-canvas" size={32} />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-[#141517] mb-2">
+                <h3 className="text-2xl font-bold text-ink mb-2">
                   {t.demoModal.successTitle}
                 </h3>
-                <p className="text-[#141517]/70">
+                <p className="text-ink/70">
                   {t.demoModal.successDescription}
                 </p>
               </div>
             ) : (
               <>
                 {/* Header */}
-                <div className="p-6 pb-4 border-b border-[#E3DED6]">
-                  <h2 className="text-2xl font-bold text-[#141517] mb-2">
+                <div className="p-6 pb-4 border-b border-line">
+                  <h2 className="text-2xl font-bold text-ink mb-2">
                     {t.demoModal.title}
                   </h2>
-                  <p className="text-[#141517]/70">
+                  <p className="text-ink/70">
                     {t.demoModal.description}
                   </p>
                 </div>
@@ -166,11 +167,11 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
                   {/* Email Input */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-[#141517] mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-ink mb-2">
                       {t.demoModal.emailLabel}
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-[#141517]/40" size={18} />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/40" size={18} />
                       <input
                         type="email"
                         id="email"
@@ -178,18 +179,18 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         placeholder={t.demoModal.emailPlaceholder}
-                        className="w-full pl-10 pr-4 py-3 bg-[#F5F2EC] border border-[#E3DED6] rounded-xl text-[#141517] placeholder:text-[#141517]/40 focus:outline-none focus:ring-2 focus:ring-[#5E8EA6] focus:border-transparent transition-all duration-200"
+                        className="w-full pl-10 pr-4 py-3 bg-canvas border border-line rounded-xl text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                       />
                     </div>
                   </div>
 
                   {/* Company Input */}
                   <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-[#141517] mb-2">
+                    <label htmlFor="company" className="block text-sm font-medium text-ink mb-2">
                       {t.demoModal.organizationLabel}
                     </label>
                     <div className="relative">
-                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-[#141517]/40" size={18} />
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/40" size={18} />
                       <input
                         type="text"
                         id="company"
@@ -197,7 +198,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                         onChange={(e) => setCompany(e.target.value)}
                         required
                         placeholder={t.demoModal.organizationPlaceholder}
-                        className="w-full pl-10 pr-4 py-3 bg-[#F5F2EC] border border-[#E3DED6] rounded-xl text-[#141517] placeholder:text-[#141517]/40 focus:outline-none focus:ring-2 focus:ring-[#5E8EA6] focus:border-transparent transition-all duration-200"
+                        className="w-full pl-10 pr-4 py-3 bg-canvas border border-line rounded-xl text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
                       />
                     </div>
                   </div>
@@ -207,7 +208,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm"
+                      className="p-3 bg-red-500/10 border border-red-400/30 rounded-lg text-red-300 text-sm"
                     >
                       {error}
                     </motion.div>
@@ -219,7 +220,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                     whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 bg-[#5E8EA6] text-white rounded-xl font-medium shadow-md hover:shadow-lg hover:bg-[#4A7185] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-3.5 bg-accent text-canvas rounded-xl font-medium shadow-md hover:shadow-lg hover:bg-accent-strong transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center gap-2">
@@ -246,7 +247,7 @@ export default function BookDemoModal({ isOpen, onClose }: BookDemoModalProps) {
                     )}
                   </motion.button>
 
-                  <p className="text-xs text-[#141517]/50 text-center">
+                  <p className="text-xs text-ink/60 text-center">
                     {t.demoModal.disclaimer}
                   </p>
                 </form>

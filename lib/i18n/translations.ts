@@ -2,163 +2,156 @@ export type Language = 'en' | 'es'
 
 const en = {
   nav: {
-    features: 'Features',
-    testimonials: 'Testimonials',
-    blogs: 'Blogs',
-    getStarted: 'Get Started',
+    products: 'Products',
+    platform: 'Platform',
+    blogs: 'Blog',
+    team: 'Team',
+    getStarted: 'Book a demo',
     toggleMenu: 'Toggle menu',
     languageLabel: 'Language',
+    skipToContent: 'Skip to content',
   },
   hero: {
     badge: 'Backed by the Global Covenant of Mayors',
-    titleLine1: 'AI-Powered',
-    titleLine2: 'Resource & Energy Access',
-    titleLine3: 'Intelligence',
+    title: 'Know where to invest, protect',
+    titleHighlight: 'and intervene first.',
     description:
-      'Democratizing resource and energy infrastructure planning with AI. Analyze geospatial data layers, automate compliance reporting, and accelerate access in underserved communities.',
-    bookDemo: 'Book a Demo',
-    learnMore: 'Learn More',
-    visualizationTitle: 'Texas Energy Infrastructure Visualization',
-    stats: {
-      withoutPower: 'Without Power',
-      projectsFail: 'Projects Fail',
-      fasterPlanning: 'Faster Planning',
-    },
+      'Polisense turns satellite, climate, infrastructure and regulatory data into ranked, explainable answers, in hours instead of months.',
+    bookDemo: 'Book a demo',
+    secondary: 'How it works',
+    layers: ['Terrain', 'Water', 'Infrastructure', 'Constraints', 'Ranked result'],
+    priority: 'Priority {n}',
+    layersAlt:
+      'Isometric stack of map layers for Arequipa, Peru: terrain, the Chili river, the road network, constraints and a ranked result, which spread apart as the page scrolls.',
+    layersCaption: 'Arequipa, Peru. Streets and river from OpenStreetMap; scores are illustrative.',
+    stats: [
+      { value: '~30 min', label: 'per analysis, down from 3.5-4 hours' },
+      { value: '196 → 41', label: 'water sites screened, then shortlisted' },
+      { value: '7', label: 'capabilities on one engine' },
+    ],
   },
   problem: {
-    title: "Resource & Energy Planning Shouldn't Take Months",
+    title: 'The money exists. The analysis is the bottleneck.',
     description:
-      'Government planners waste weeks gathering fragmented data from multiple sources, analyzing outdated spreadsheets, and making infrastructure decisions with incomplete information.',
-    withoutTitle: 'Without Polisense AI',
-    withoutItems: [
-      'Months of manual data collection',
-      'Siloed information across departments',
-      '50% of projects fail within 5 years',
-      'Limited spatial analysis capabilities',
-    ],
-    withTitle: 'With Polisense AI',
-    withItems: [
-      'Minutes to generate comprehensive plans',
-      'Unified geospatial intelligence platform',
-      'AI-powered risk assessment',
-      'Real-time infrastructure modeling',
+      '49% of climate projects never get built. Funding is rarely why.',
+    withoutTitle: 'Today',
+    withTitle: 'With Polisense',
+    compare: [
+      { before: '3.5-4 h', after: '~30 min', label: 'per GIS analysis' },
+      { before: '10 tools', after: '1 workspace', label: 'from question to answer' },
+      { before: 'Black-box scores', after: 'Cited evidence', label: 'behind every ranking' },
     ],
   },
-  features: {
-    title: 'Built for Impact',
-    description: 'Powerful tools to accelerate resource and energy access in emerging markets',
-    items: [
-      {
-        title: 'AI Site Recommendations',
-        description:
-          'Get intelligent site recommendations for resource deployment, renewable energy, and grid infrastructure based on comprehensive geospatial analysis.',
-      },
-      {
-        title: 'Geospatial Analysis',
-        description:
-          'Analyze terrain, population density, and infrastructure constraints with natural language queries.',
-      },
-      {
-        title: 'Impact Modeling',
-        description:
-          'Simulate and optimize infrastructure investments to maximize reach and sustainability.',
-      },
-      {
-        title: 'Automated Compliance Reports',
-        description:
-          'Generate regulatory-compliant reports instantly, eliminating weeks of manual documentation and accelerating project approvals.',
-      },
-    ],
-  },
-  transformation: {
-    title: 'From Months to Minutes',
-    description:
-      'Join government agencies transforming how they plan and deploy resource and energy infrastructure. Make data-driven decisions with confidence and expand access for millions.',
+  how: {
+    title: 'One loop, from question to decision',
     steps: [
-      {
-        title: 'Upload Your Data',
-        description:
-          'Import existing geospatial datasets, census data, and infrastructure maps into our unified platform.',
-      },
-      {
-        title: 'AI Analysis',
-        description:
-          'Our AI analyzes terrain, population density, resource availability, and grid constraints in real-time.',
-      },
-      {
-        title: 'Deploy Confidently',
-        description:
-          'Generate optimized infrastructure plans, risk assessments, and ROI projections ready for stakeholder approval.',
-      },
+      { label: 'Ask', title: 'Describe the area and the question', description: 'In plain language, right in the chat.' },
+      { label: 'Analyze', title: 'The engine does the GIS work', description: 'Constraints drop out. Every area is scored.' },
+      { label: 'Act', title: 'Get a ranked, defensible answer', description: 'With the evidence and a ready report.' },
     ],
+    readout: {
+      cells: '{n} cells in the study area',
+      excluded: '{n} cells excluded: river corridor and historic centre',
+      ranked: 'Top {n} candidates ranked',
+    },
+    caption: 'Real Arequipa streets and river (OpenStreetMap). Scores are illustrative.',
+    mapAlt:
+      'Map of central Arequipa, Peru, with a grid of candidate cells over the city. Cells along the Chili river and around the historic centre are excluded, the rest are scored, and the top five are ranked.',
+    mapLabels: {
+      place: 'Arequipa, Peru',
+      river: 'Chili river',
+      centre: 'Historic centre',
+      excluded: 'Excluded',
+      score: 'Score',
+    },
   },
-  mission: {
-    stats: [
-      { value: '760M+', label: 'People without electricity access globally' },
-      { value: '50%', label: 'Infrastructure projects fail within first 5 years' },
-      { value: '10x', label: 'Faster infrastructure planning with AI' },
-    ],
-  },
-  testimonials: {
-    title: 'Trusted by Resource & Energy Leaders',
-    description: 'Government agencies and international organizations rely on Polisense AI',
-    items: [
-      {
-        quote:
-          'Polisense AI reduced our planning cycle from 6 months to 3 weeks. The geospatial analysis is remarkably accurate.',
-        author: 'Maria Santos',
-        role: 'Director of Infrastructure Planning',
-        organization: 'Ministry of Energy, Peru',
-      },
-      {
-        quote:
-          'The automated compliance reports saved us months of documentation work. We can now move from analysis to implementation in days, not months.',
-        author: 'Dr. Ahmed Hassan',
-        role: 'Chief Energy Strategist',
-        organization: 'National Power Authority',
-      },
-      {
-        quote:
-          "Finally, a tool that speaks our language. Polisense AI understands the real challenges of emerging market electrification.",
-        author: 'Jane Ochieng',
-        role: 'Program Director',
-        organization: 'East Africa Energy Access',
-      },
-    ],
+  productsSection: {
+    title: 'Seven capabilities, one engine',
+    viewAll: 'All products',
   },
   cta: {
-    title: 'Ready to Transform Resource & Energy Access?',
+    title: 'Bring us a territory and a question',
     description:
-      'Join leading organizations using Polisense AI to accelerate resource and energy access, optimize infrastructure investments, and improve lives in underserved communities.',
-    button: 'Schedule a Demo',
+      'We will answer it with you, live.',
+    button: 'Book a demo',
+  },
+  productPage: {
+    indexTitle: 'Products',
+    indexDescription:
+      'Seven capabilities on one territorial climate engine, each answering where to invest, protect or intervene first.',
+    backToProducts: 'All products',
+    validatedIn: 'Validated in',
+    whatItDoes: 'What it does',
+    dataLabel: 'Data it combines',
+    outputsLabel: 'What you get',
+    proofLabel: 'Results',
+    galleryTitle: 'Maps from a finished run',
+    dataGalleryTitle: 'Data the analysis reads',
+    otherProducts: 'Other products',
+    ctaTitle: 'Try it on your own territory',
+    ctaDescription: 'Live, on a real question from your region.',
+    ctaButton: 'Book a demo',
+    toolsTitle: 'Runs on',
+  },
+  platform: {
+    eyebrow: 'Built in-house by Polisense',
+    title: 'Our analysis engines',
+    description:
+      'Seven engines designed and built by the Polisense team, running on one platform. Every product combines them.',
+    usedBy: 'Powers',
+    principles: [
+      'Runs only after you approve the plan',
+      'Every answer cites its sources',
+      'Results open in the GIS tools you already use',
+    ],
+    ctaTitle: 'See the tools on your own territory',
+    ctaDescription: 'We will run a live demo on a real question from your region.',
+    ctaButton: 'Book a demo',
   },
   footer: {
     linkedin: 'LinkedIn',
     contact: 'Contact',
     copyright: '© 2026 Polisense AI. All rights reserved.',
     partners: 'Partners',
+    supportedBy: 'Supported by',
+    products: 'Products',
+    platform: 'Platform',
+    blog: 'Blog',
+    team: 'Team',
+    whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Our Team',
     heroDescription:
-      'AI engineers, product strategists, and energy experts united by a mission to democratize clean energy infrastructure planning worldwide.',
+      'AI engineers, product strategists, and geospatial experts united by a mission to make climate and infrastructure planning faster and more accessible worldwide.',
     email: 'Email',
     members: [
       {
         name: 'Bruno Galdos',
         role: 'CEO & Co-founder',
         description:
-          "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, energy, and sustainability meet to transform communities.",
+          "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, geospatial analysis, and sustainability meet to transform communities.",
       },
       {
-        name: 'Abhirup Das',
-        role: 'CTO & Co-founder',
+        name: 'Amol Kodange',
+        role: 'CTO',
         description:
-          "Turns cutting-edge research into production systems. Robotics and vision researcher at RWTH Aachen, now engineering Polisense's core tech.",
+          "Robotics engineer from RWTH Aachen working across computer vision, machine learning and multi-sensor data. Leads Polisense's engineering.",
+      },
+      {
+        name: 'Khuzaima Aziz',
+        role: 'CPO',
+        description:
+          'Data scientist trained in Earth systems and remote sensing (Leipzig University), with experience bringing spatial analysis and AI together. Formerly at E.ON Group Innovations. Leads product.',
+      },
+      {
+        name: 'Mauricio Peraltilla',
+        role: 'LATAM Operations Director',
+        description: "Leads Polisense's operations and partnerships across Latin America.",
       },
       {
         name: 'Jose Pastor',
-        role: 'Advisory Board — Product',
+        role: 'Advisory Board, Product',
         description:
           'Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships',
       },
@@ -167,189 +160,181 @@ const en = {
   blog: {
     heroTitle: 'Blog',
     heroDescription:
-      'Insights on AI, geospatial analysis, and accelerating resource and energy access worldwide.',
+      'Insights on AI and geospatial analysis for climate and infrastructure decisions.',
     emptyTitle: 'New posts are on the way',
     emptyDescription:
       "We're working on our first articles. Check back soon for updates on our research, product, and mission.",
   },
   demoModal: {
-    successTitle: 'Request Submitted!',
+    successTitle: 'Request received',
     successDescription: "We'll be in touch shortly to schedule your demo.",
-    title: 'Book a Demo',
-    description: 'See how Polisense AI can transform your energy planning',
-    emailLabel: 'Email Address',
+    title: 'Book a demo',
+    description: 'We will run a live demo on a real question from your territory.',
+    emailLabel: 'Work email',
     emailPlaceholder: 'you@organization.com',
     organizationLabel: 'Organization',
     organizationPlaceholder: 'Your organization name',
-    errorMessage: 'Failed to submit. Please try again.',
+    errorMessage: 'We couldn’t send your request. Please try again.',
     errorBlocked:
       "Couldn't reach our servers. Check your internet connection, or disable any ad blocker or privacy extension for this site, then try again.",
-    submitting: 'Submitting...',
-    submit: 'Submit Request',
-    disclaimer: 'By submitting, you agree to our Terms of Service and Privacy Policy',
+    submitting: 'Sending…',
+    submit: 'Request a demo',
+    disclaimer: 'We only use your details to arrange the demo.',
   },
 }
 
 const es: typeof en = {
   nav: {
-    features: 'Funcionalidades',
-    testimonials: 'Testimonios',
+    products: 'Productos',
+    platform: 'Plataforma',
     blogs: 'Blog',
-    getStarted: 'Comenzar',
+    team: 'Equipo',
+    getStarted: 'Agendar una demo',
     toggleMenu: 'Alternar menú',
     languageLabel: 'Idioma',
+    skipToContent: 'Saltar al contenido',
   },
   hero: {
     badge: 'Respaldado por el Pacto Global de Alcaldes',
-    titleLine1: 'Inteligencia de Acceso a',
-    titleLine2: 'Recursos y Energía',
-    titleLine3: 'Impulsada por IA',
+    title: 'Sepa dónde invertir, proteger',
+    titleHighlight: 'e intervenir primero.',
     description:
-      'Democratizando la planificación de infraestructura de recursos y energía con IA. Analiza capas de datos geoespaciales, automatiza reportes de cumplimiento y acelera el acceso en comunidades desatendidas.',
-    bookDemo: 'Agendar una Demo',
-    learnMore: 'Saber Más',
-    visualizationTitle: 'Visualización de Infraestructura Energética de Texas',
-    stats: {
-      withoutPower: 'Sin Electricidad',
-      projectsFail: 'Proyectos Fallidos',
-      fasterPlanning: 'Planificación Más Rápida',
-    },
+      'Polisense convierte datos satelitales, climáticos, de infraestructura y regulatorios en respuestas ordenadas y explicables, en horas y no meses.',
+    bookDemo: 'Agendar una demo',
+    secondary: 'Cómo funciona',
+    layers: ['Terreno', 'Agua', 'Infraestructura', 'Restricciones', 'Resultado ordenado'],
+    priority: 'Prioridad {n}',
+    layersAlt:
+      'Pila isométrica de capas de mapa de Arequipa, Perú: terreno, el río Chili, la red vial, restricciones y un resultado ordenado, que se separan al desplazar la página.',
+    layersCaption: 'Arequipa, Perú. Calles y río de OpenStreetMap; los puntajes son ilustrativos.',
+    stats: [
+      { value: '~30 min', label: 'por análisis, antes 3,5-4 horas' },
+      { value: '196 → 41', label: 'sitios de agua evaluados y preseleccionados' },
+      { value: '7', label: 'capacidades en un solo motor' },
+    ],
   },
   problem: {
-    title: 'La Planificación de Recursos y Energía No Debería Tomar Meses',
+    title: 'El dinero existe. El cuello de botella es el análisis.',
     description:
-      'Los planificadores gubernamentales pierden semanas recopilando datos fragmentados de múltiples fuentes, analizando hojas de cálculo desactualizadas y tomando decisiones de infraestructura con información incompleta.',
-    withoutTitle: 'Sin Polisense AI',
-    withoutItems: [
-      'Meses de recopilación manual de datos',
-      'Información aislada entre departamentos',
-      'El 50% de los proyectos fallan en 5 años',
-      'Capacidades limitadas de análisis espacial',
-    ],
-    withTitle: 'Con Polisense AI',
-    withItems: [
-      'Minutos para generar planes integrales',
-      'Plataforma unificada de inteligencia geoespacial',
-      'Evaluación de riesgos impulsada por IA',
-      'Modelado de infraestructura en tiempo real',
+      'El 49% de los proyectos climáticos nunca se construye. Rara vez por falta de fondos.',
+    withoutTitle: 'Hoy',
+    withTitle: 'Con Polisense',
+    compare: [
+      { before: '3,5-4 h', after: '~30 min', label: 'por análisis SIG' },
+      { before: '10 herramientas', after: '1 espacio de trabajo', label: 'de la pregunta a la respuesta' },
+      { before: 'Puntajes opacos', after: 'Evidencia citada', label: 'detrás de cada clasificación' },
     ],
   },
-  features: {
-    title: 'Diseñado para Generar Impacto',
-    description:
-      'Herramientas poderosas para acelerar el acceso a recursos y energía en mercados emergentes',
-    items: [
-      {
-        title: 'Recomendaciones de Sitios con IA',
-        description:
-          'Obtén recomendaciones inteligentes de sitios para el despliegue de recursos, energía renovable e infraestructura de red, basadas en un análisis geoespacial integral.',
-      },
-      {
-        title: 'Análisis Geoespacial',
-        description:
-          'Analiza el terreno, la densidad de población y las restricciones de infraestructura con consultas en lenguaje natural.',
-      },
-      {
-        title: 'Modelado de Impacto',
-        description:
-          'Simula y optimiza inversiones en infraestructura para maximizar el alcance y la sostenibilidad.',
-      },
-      {
-        title: 'Reportes de Cumplimiento Automatizados',
-        description:
-          'Genera reportes conformes con la normativa al instante, eliminando semanas de documentación manual y acelerando las aprobaciones de proyectos.',
-      },
-    ],
-  },
-  transformation: {
-    title: 'De Meses a Minutos',
-    description:
-      'Únete a agencias gubernamentales que transforman la forma en que planifican y despliegan infraestructura de recursos y energía. Toma decisiones basadas en datos con confianza y amplía el acceso para millones.',
+  how: {
+    title: 'Un solo ciclo, de la pregunta a la decisión',
     steps: [
-      {
-        title: 'Sube Tus Datos',
-        description:
-          'Importa conjuntos de datos geoespaciales existentes, datos censales y mapas de infraestructura a nuestra plataforma unificada.',
-      },
-      {
-        title: 'Análisis con IA',
-        description:
-          'Nuestra IA analiza el terreno, la densidad de población, la disponibilidad de recursos y las restricciones de red en tiempo real.',
-      },
-      {
-        title: 'Despliega con Confianza',
-        description:
-          'Genera planes de infraestructura optimizados, evaluaciones de riesgo y proyecciones de retorno listas para la aprobación de las partes interesadas.',
-      },
+      { label: 'Preguntar', title: 'Describa el área y la pregunta', description: 'En lenguaje natural, directo en el chat.' },
+      { label: 'Analizar', title: 'El motor hace el trabajo SIG', description: 'Las restricciones quedan fuera. Cada área recibe un puntaje.' },
+      { label: 'Actuar', title: 'Obtenga una respuesta ordenada y defendible', description: 'Con la evidencia y un informe listo.' },
     ],
+    readout: {
+      cells: '{n} celdas en el área de estudio',
+      excluded: '{n} celdas excluidas: cauce del río y centro histórico',
+      ranked: 'Los {n} mejores candidatos ordenados',
+    },
+    caption: 'Calles y río reales de Arequipa (OpenStreetMap). Los puntajes son ilustrativos.',
+    mapAlt:
+      'Mapa del centro de Arequipa, Perú, con una grilla de celdas candidatas sobre la ciudad. Las celdas junto al río Chili y alrededor del centro histórico quedan excluidas, el resto recibe un puntaje y las cinco mejores se ordenan.',
+    mapLabels: {
+      place: 'Arequipa, Perú',
+      river: 'Río Chili',
+      centre: 'Centro histórico',
+      excluded: 'Excluido',
+      score: 'Puntaje',
+    },
   },
-  mission: {
-    stats: [
-      { value: '760M+', label: 'Personas sin acceso a electricidad en el mundo' },
-      { value: '50%', label: 'Proyectos de infraestructura fallan en los primeros 5 años' },
-      { value: '10x', label: 'Planificación de infraestructura más rápida con IA' },
-    ],
-  },
-  testimonials: {
-    title: 'Confiado por Líderes de Recursos y Energía',
-    description: 'Agencias gubernamentales y organizaciones internacionales confían en Polisense AI',
-    items: [
-      {
-        quote:
-          'Polisense AI redujo nuestro ciclo de planificación de 6 meses a 3 semanas. El análisis geoespacial es sorprendentemente preciso.',
-        author: 'Maria Santos',
-        role: 'Directora de Planificación de Infraestructura',
-        organization: 'Ministerio de Energía, Perú',
-      },
-      {
-        quote:
-          'Los reportes de cumplimiento automatizados nos ahorraron meses de trabajo de documentación. Ahora podemos pasar del análisis a la implementación en días, no en meses.',
-        author: 'Dr. Ahmed Hassan',
-        role: 'Estratega Jefe de Energía',
-        organization: 'Autoridad Nacional de Energía',
-      },
-      {
-        quote:
-          'Finalmente, una herramienta que habla nuestro idioma. Polisense AI entiende los verdaderos desafíos de la electrificación en mercados emergentes.',
-        author: 'Jane Ochieng',
-        role: 'Directora de Programa',
-        organization: 'East Africa Energy Access',
-      },
-    ],
+  productsSection: {
+    title: 'Siete capacidades, un solo motor',
+    viewAll: 'Todos los productos',
   },
   cta: {
-    title: '¿Listo para Transformar el Acceso a Recursos y Energía?',
+    title: 'Tráiganos un territorio y una pregunta',
     description:
-      'Únete a organizaciones líderes que usan Polisense AI para acelerar el acceso a recursos y energía, optimizar inversiones en infraestructura y mejorar la vida de comunidades desatendidas.',
-    button: 'Agendar una Demo',
+      'La responderemos con usted, en vivo.',
+    button: 'Agendar una demo',
+  },
+  productPage: {
+    indexTitle: 'Productos',
+    indexDescription:
+      'Siete capacidades sobre un mismo motor climático territorial, cada una responde dónde invertir, proteger o intervenir primero.',
+    backToProducts: 'Todos los productos',
+    validatedIn: 'Validado en',
+    whatItDoes: 'Qué hace',
+    dataLabel: 'Datos que combina',
+    outputsLabel: 'Qué obtiene',
+    proofLabel: 'Resultados',
+    galleryTitle: 'Mapas de una ejecución terminada',
+    dataGalleryTitle: 'Datos que lee el análisis',
+    otherProducts: 'Otros productos',
+    ctaTitle: 'Pruébelo en su propio territorio',
+    ctaDescription: 'En vivo, con una pregunta real de su región.',
+    ctaButton: 'Agendar una demo',
+    toolsTitle: 'Funciona con',
+  },
+  platform: {
+    eyebrow: 'Desarrollado internamente por Polisense',
+    title: 'Nuestros motores de análisis',
+    description:
+      'Siete motores diseñados y construidos por el equipo de Polisense, sobre una misma plataforma. Cada producto los combina.',
+    usedBy: 'Impulsa',
+    principles: [
+      'Solo se ejecuta después de que usted aprueba el plan',
+      'Cada respuesta cita sus fuentes',
+      'Los resultados se abren en las herramientas SIG que ya usa',
+    ],
+    ctaTitle: 'Vea las herramientas en su propio territorio',
+    ctaDescription: 'Haremos una demo en vivo con una pregunta real de su región.',
+    ctaButton: 'Agendar una demo',
   },
   footer: {
     linkedin: 'LinkedIn',
     contact: 'Contacto',
     copyright: '© 2026 Polisense AI. Todos los derechos reservados.',
     partners: 'Socios',
+    supportedBy: 'Con el apoyo de',
+    products: 'Productos',
+    platform: 'Plataforma',
+    blog: 'Blog',
+    team: 'Equipo',
+    whitepaper: 'Whitepaper',
   },
   team: {
     heroTitle: 'Nuestro Equipo',
     heroDescription:
-      'Ingenieros de IA, estrategas de producto y expertos en energía unidos por la misión de democratizar la planificación de infraestructura de energía limpia en todo el mundo.',
+      'Ingenieros de IA, estrategas de producto y expertos geoespaciales unidos por la misión de hacer más rápida y accesible la planificación climática y de infraestructura en todo el mundo.',
     email: 'Correo',
     members: [
       {
         name: 'Bruno Galdos',
         role: 'CEO y Cofundador',
         description:
-          'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, la energía y la sostenibilidad se unen para transformar comunidades.',
+          'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, el análisis geoespacial y la sostenibilidad se unen para transformar comunidades.',
       },
       {
-        name: 'Abhirup Das',
-        role: 'CTO y Cofundador',
+        name: 'Amol Kodange',
+        role: 'CTO',
         description:
-          'Convierte investigación de vanguardia en sistemas de producción. Investigador en robótica y visión en RWTH Aachen, ahora desarrollando la tecnología central de Polisense.',
+          'Ingeniería robótica en la RWTH Aachen, con experiencia en visión por computadora, aprendizaje automático y datos multisensor. Dirige la ingeniería de Polisense.',
+      },
+      {
+        name: 'Khuzaima Aziz',
+        role: 'CPO',
+        description:
+          'Ciencia de datos, sistemas terrestres y teledetección (Universidad de Leipzig), con experiencia en combinar análisis espacial e IA. Antes en E.ON Group Innovations. Dirige el producto.',
+      },
+      {
+        name: 'Mauricio Peraltilla',
+        role: 'Director de Operaciones LATAM',
+        description: 'Dirige las operaciones y alianzas de Polisense en América Latina.',
       },
       {
         name: 'Jose Pastor',
-        role: 'Junta Asesora — Producto',
+        role: 'Junta Asesora, Producto',
         description:
           'Gerente Senior de Producto de IA en Siemens con más de 6 años en energía e infraestructura de red. Impulsa la estrategia de producto y las alianzas',
       },
@@ -358,26 +343,26 @@ const es: typeof en = {
   blog: {
     heroTitle: 'Blog',
     heroDescription:
-      'Perspectivas sobre IA, análisis geoespacial y cómo acelerar el acceso a recursos y energía en el mundo.',
+      'Perspectivas sobre IA y análisis geoespacial para decisiones de clima e infraestructura.',
     emptyTitle: 'Nuevos artículos en camino',
     emptyDescription:
       'Estamos preparando nuestros primeros artículos. Vuelve pronto para conocer novedades sobre nuestra investigación, producto y misión.',
   },
   demoModal: {
-    successTitle: '¡Solicitud Enviada!',
+    successTitle: 'Solicitud recibida',
     successDescription: 'Nos pondremos en contacto pronto para agendar tu demo.',
-    title: 'Agendar una Demo',
-    description: 'Descubre cómo Polisense AI puede transformar tu planificación energética',
-    emailLabel: 'Correo Electrónico',
+    title: 'Agendar una demo',
+    description: 'Haremos una demo en vivo con una pregunta real de su territorio.',
+    emailLabel: 'Correo de trabajo',
     emailPlaceholder: 'tu@organizacion.com',
     organizationLabel: 'Organización',
     organizationPlaceholder: 'Nombre de tu organización',
-    errorMessage: 'No se pudo enviar. Por favor, inténtalo de nuevo.',
+    errorMessage: 'No pudimos enviar su solicitud. Inténtelo de nuevo.',
     errorBlocked:
       'No pudimos conectar con nuestros servidores. Revisa tu conexión a internet, o desactiva cualquier bloqueador de anuncios o extensión de privacidad para este sitio, e inténtalo de nuevo.',
-    submitting: 'Enviando...',
-    submit: 'Enviar Solicitud',
-    disclaimer: 'Al enviar, aceptas nuestros Términos de Servicio y Política de Privacidad',
+    submitting: 'Enviando…',
+    submit: 'Solicitar una demo',
+    disclaimer: 'Solo usamos sus datos para organizar la demo.',
   },
 }
 

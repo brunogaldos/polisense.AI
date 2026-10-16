@@ -53,3 +53,9 @@ extensions/*.secret.local
 # functions/.env holds only the non-secret notify address, and the deploy
 # needs it, so exempt it from the blanket .env* rule above.
 !functions/.env
+
+# Internal company docs (CVs, finances, grant paperwork) - never publish
+/Polisense_ground_truth/
+
+# App team's internal tool guide (file paths, pipeline order) - keep out of this repo
+/ANALYSIS_TOOLS.md
