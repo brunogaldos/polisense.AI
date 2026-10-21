@@ -149,12 +149,6 @@ const en = {
         role: 'LATAM Operations Director',
         description: "Leads Polisense's operations and partnerships across Latin America.",
       },
-      {
-        name: 'Jose Pastor',
-        role: 'Advisory Board, Product',
-        description:
-          'Senior Product Manager of AI at Siemens with 6+ years in energy and grid infrastructure. Drives product strategy and partnerships',
-      },
     ],
   },
   blog: {
@@ -331,12 +325,6 @@ const es: typeof en = {
         name: 'Mauricio Peraltilla',
         role: 'Director de Operaciones LATAM',
         description: 'Dirige las operaciones y alianzas de Polisense en América Latina.',
-      },
-      {
-        name: 'Jose Pastor',
-        role: 'Junta Asesora, Producto',
-        description:
-          'Gerente Senior de Producto de IA en Siemens con más de 6 años en energía e infraestructura de red. Impulsa la estrategia de producto y las alianzas',
       },
     ],
   },
