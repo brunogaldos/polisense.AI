@@ -17,6 +17,10 @@ const teamMemberMeta: { photo: string; linkedin?: string; email?: string }[] = [
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
   },
   {
+    photo: `${basePath}/jose.jpeg`,
+    linkedin: 'https://www.linkedin.com/in/josepastorp/',
+  },
+  {
     photo: `${basePath}/amol.jpg`,
     linkedin: 'https://www.linkedin.com/in/amol-kodange',
   },
@@ -65,7 +69,7 @@ export default function Team() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.12 }}
-                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] flex flex-col items-center text-center p-7 bg-surface rounded-2xl border border-line hover:shadow-md hover:border-accent/40 transition-all duration-200"
+                className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col items-center text-center p-7 bg-surface rounded-2xl border border-line hover:shadow-md hover:border-accent/40 transition-all duration-200"
               >
                 {/* Circular portrait */}
                 <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-line mb-6 flex-shrink-0">

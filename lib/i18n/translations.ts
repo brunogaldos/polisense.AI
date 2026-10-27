@@ -133,6 +133,12 @@ const en = {
           "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, geospatial analysis, and sustainability meet to transform communities.",
       },
       {
+        name: 'Jose Pastor',
+        role: 'Founder & Chair',
+        description:
+          'Experienced leader in energy and AI products, and in strategy that amplifies the positive impact of technology on society.',
+      },
+      {
         name: 'Amol Kodange',
         role: 'CTO',
         description:
@@ -308,6 +314,12 @@ const es: typeof en = {
         role: 'CEO y Cofundador',
         description:
           'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, el análisis geoespacial y la sostenibilidad se unen para transformar comunidades.',
+      },
+      {
+        name: 'Jose Pastor',
+        role: 'Fundador y Presidente',
+        description:
+          'Líder con experiencia en productos de energía e IA, y en estrategias que amplifican el impacto positivo de la tecnología en la sociedad.',
       },
       {
         name: 'Amol Kodange',

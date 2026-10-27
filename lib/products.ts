@@ -43,6 +43,8 @@ export interface Product {
   sourceNote?: Localized
   /** Optional deeper read, e.g. a blog case study. */
   caseStudy?: { href: string; label: Localized }
+  /** Optional PDF in public/, linked from the top of the product page. */
+  whitepaper?: { href: string; label: Localized }
   /** Featured capabilities get the large homepage cards. */
   featured: boolean
   /**
@@ -115,7 +117,29 @@ export const products: Product[] = [
       { en: 'Exposure map by area', es: 'Mapa de exposición por zona' },
       { en: 'Priority list for warnings and interventions', es: 'Lista de prioridades para alertas e intervenciones' },
     ],
-    proof: [],
+    proof: [
+      {
+        value: '100',
+        label: {
+          en: 'Farmers and extension officers in the Sapahar pilot, run with BRAC and the Department of Agricultural Extension',
+          es: 'Agricultores y extensionistas en el piloto de Sapahar, con BRAC y el Departamento de Extensión Agrícola',
+        },
+      },
+      {
+        value: '11 wk',
+        label: {
+          en: 'From setup to evaluation, across rice, mango, turmeric and eggplant',
+          es: 'De la puesta en marcha a la evaluación, en arroz, mango, cúrcuma y berenjena',
+        },
+      },
+    ],
+    whitepaper: {
+      href: '/products/farmer-early-warning-whitepaper.pdf',
+      label: {
+        en: 'Pilot whitepaper (PDF)',
+        es: 'Whitepaper del piloto (PDF)',
+      },
+    },
     image: {
       src: '/products/farmer-early-warning-cover.jpg',
       alt: {
