@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, FileText } from 'lucide-react'
 import BookDemoModal from '@/components/BookDemoModal'
 import Header from '@/components/Header'
 import SiteFooter from '@/components/SiteFooter'
@@ -63,13 +63,26 @@ export default function ProductDetail({ slug }: { slug: string }) {
               <div className="lg:pb-2">
                 <p className="text-sm text-ink/55 mb-1">{t.productPage.validatedIn}</p>
                 <p className="text-lg font-medium text-ink mb-6">{product.location[language]}</p>
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="group px-6 py-3 bg-accent text-canvas rounded-full font-medium inline-flex items-center gap-2 hover:bg-accent-strong active:scale-[0.98] transition-all duration-200"
-                >
-                  {t.productPage.ctaButton}
-                  <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                </button>
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="group px-6 py-3 bg-accent text-canvas rounded-full font-medium inline-flex items-center gap-2 hover:bg-accent-strong active:scale-[0.98] transition-all duration-200"
+                  >
+                    {t.productPage.ctaButton}
+                    <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </button>
+                  {product.whitepaper && (
+                    <a
+                      href={`${basePath}${product.whitepaper.href}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-6 py-3 rounded-full font-medium inline-flex items-center gap-2 border border-accent/60 text-ink hover:bg-accent/10 hover:border-accent transition-all duration-200"
+                    >
+                      <FileText size={16} className="text-accent" />
+                      {product.whitepaper.label[language]}
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
 
