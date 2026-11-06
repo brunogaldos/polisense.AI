@@ -17,16 +17,20 @@ const teamMemberMeta: { photo: string; linkedin?: string; email?: string }[] = [
     linkedin: 'https://www.linkedin.com/in/bruno-galdos-a25353a9/',
   },
   {
-    photo: `${basePath}/jose.jpeg`,
-    linkedin: 'https://www.linkedin.com/in/josepastorp/',
+    photo: `${basePath}/khuzaima.jpg`,
+    linkedin: 'https://www.linkedin.com/in/khuzaima-aziz-7833ba1b4/',
   },
   {
     photo: `${basePath}/amol.jpg`,
     linkedin: 'https://www.linkedin.com/in/amol-kodange',
   },
   {
-    photo: `${basePath}/khuzaima.jpg`,
-    linkedin: 'https://www.linkedin.com/in/khuzaima-aziz-7833ba1b4/',
+    photo: `${basePath}/jhader.jpg`,
+    linkedin: 'https://www.linkedin.com/in/jhader-aguad/',
+  },
+  {
+    photo: `${basePath}/jose.jpeg`,
+    linkedin: 'https://www.linkedin.com/in/josepastorp/',
   },
   {
     photo: `${basePath}/mauricio.jpg`,
