@@ -128,31 +128,37 @@ const en = {
     members: [
       {
         name: 'Bruno Galdos',
-        role: 'CEO & Co-founder',
+        role: 'Founder & CEO - AI and Engineering',
         description:
           "Engineering technology that uplifts humanity. Built Polisense's full MVP from scratch, where AI, geospatial analysis, and sustainability meet to transform communities.",
       },
       {
-        name: 'Jose Pastor',
-        role: 'Founder & Chair',
-        description:
-          'Experienced leader in energy and AI products, and in strategy that amplifies the positive impact of technology on society.',
-      },
-      {
-        name: 'Amol Kodange',
-        role: 'CTO',
-        description:
-          "Robotics engineer from RWTH Aachen working across computer vision, machine learning and multi-sensor data. Leads Polisense's engineering.",
-      },
-      {
         name: 'Khuzaima Aziz',
-        role: 'CPO',
+        role: 'Chief Scientist - Geospatial Data Science',
         description:
           'Data scientist trained in Earth systems and remote sensing (Leipzig University), with experience bringing spatial analysis and AI together. Formerly at E.ON Group Innovations. Leads product.',
       },
       {
+        name: 'Amol Kodange',
+        role: 'CTO - AI and Robotics',
+        description:
+          "Robotics engineer from RWTH Aachen working across computer vision, machine learning and multi-sensor data. Leads Polisense's engineering.",
+      },
+      {
+        name: 'Jhader Aguad',
+        role: 'CFO & Head of MENA - Policy & Strategy',
+        description:
+          'Driving MENA sales, strategic partnerships, and regional growth. Based in Dubai, he brings experience in renewable energy and utilities across the GCC, with a background in consulting at Strategy& and investments at the IFC and IDB.',
+      },
+      {
+        name: 'José Pastor',
+        role: 'Founder & Chair - Product & Energy',
+        description:
+          'Experienced leader in energy and AI products, and in strategy that amplifies the positive impact of technology on society.',
+      },
+      {
         name: 'Mauricio Peraltilla',
-        role: 'LATAM Operations Director',
+        role: 'COO & Head of LATAM - Security and Operations',
         description: "Leads Polisense's operations and partnerships across Latin America.",
       },
     ],
@@ -311,31 +317,37 @@ const es: typeof en = {
     members: [
       {
         name: 'Bruno Galdos',
-        role: 'CEO y Cofundador',
+        role: 'Fundador y CEO - IA e Ingeniería',
         description:
           'Ingeniería tecnológica que impulsa a la humanidad. Construyó el MVP completo de Polisense desde cero, donde la IA, el análisis geoespacial y la sostenibilidad se unen para transformar comunidades.',
       },
       {
-        name: 'Jose Pastor',
-        role: 'Fundador y Presidente',
-        description:
-          'Líder con experiencia en productos de energía e IA, y en estrategias que amplifican el impacto positivo de la tecnología en la sociedad.',
-      },
-      {
-        name: 'Amol Kodange',
-        role: 'CTO',
-        description:
-          'Ingeniería robótica en la RWTH Aachen, con experiencia en visión por computadora, aprendizaje automático y datos multisensor. Dirige la ingeniería de Polisense.',
-      },
-      {
         name: 'Khuzaima Aziz',
-        role: 'CPO',
+        role: 'Científico Jefe - Ciencia de Datos Geoespaciales',
         description:
           'Ciencia de datos, sistemas terrestres y teledetección (Universidad de Leipzig), con experiencia en combinar análisis espacial e IA. Antes en E.ON Group Innovations. Dirige el producto.',
       },
       {
+        name: 'Amol Kodange',
+        role: 'CTO - IA y Robótica',
+        description:
+          'Ingeniería robótica en la RWTH Aachen, con experiencia en visión por computadora, aprendizaje automático y datos multisensor. Dirige la ingeniería de Polisense.',
+      },
+      {
+        name: 'Jhader Aguad',
+        role: 'CFO y Responsable de MENA - Políticas y Estrategia',
+        description:
+          'Impulsa las ventas, las alianzas estratégicas y el crecimiento regional en MENA. Con sede en Dubái, aporta experiencia en energías renovables y servicios públicos en los países del CCG, con trayectoria en consultoría en Strategy& y en inversiones en la CFI y el BID.',
+      },
+      {
+        name: 'José Pastor',
+        role: 'Fundador y Presidente - Producto y Energía',
+        description:
+          'Líder con experiencia en productos de energía e IA, y en estrategias que amplifican el impacto positivo de la tecnología en la sociedad.',
+      },
+      {
         name: 'Mauricio Peraltilla',
-        role: 'Director de Operaciones LATAM',
+        role: 'COO y Responsable de LATAM - Seguridad y Operaciones',
         description: 'Dirige las operaciones y alianzas de Polisense en América Latina.',
       },
     ],
